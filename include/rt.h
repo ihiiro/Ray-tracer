@@ -17,5 +17,6 @@ tuple_t	point(double x, double y, double z);
 tuple_t	vector(double x, double y, double z);
 
 bool	equal(double a, double b);
+bool 	equaltup(tuple_t a, tuple_t b);
 
 #endif
