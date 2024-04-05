@@ -10,22 +10,24 @@ bool	equaltup(tuple_t a, tuple_t b)
 
 tuple_t	addtup(tuple_t tuple_a, tuple_t tuple_b)
 {
-	tuple_t	sum_tuple;
-
-	sum_tuple.x = tuple_a.x + tuple_b.x;
-	sum_tuple.y = tuple_a.y + tuple_b.y;
-	sum_tuple.z = tuple_a.z + tuple_b.z;
-	sum_tuple.w = tuple_a.w + tuple_b.w;
-	return (sum_tuple);
+	return (tuple(tuple_a.x + tuple_b.x,
+				  tuple_a.y + tuple_b.y,
+				  tuple_a.z + tuple_b.z,
+				  tuple_a.w + tuple_b.w));
 }
 
 tuple_t	subtup(tuple_t tuple_a, tuple_t tuple_b)
 {
-	tuple_t	sum_tuple;
+	return (tuple(tuple_a.x - tuple_b.x,
+				  tuple_a.y - tuple_b.y,
+				  tuple_a.z - tuple_b.z,
+				  tuple_a.w - tuple_b.w));
+}
 
-	sum_tuple.x = tuple_a.x - tuple_b.x;
-	sum_tuple.y = tuple_a.y - tuple_b.y;
-	sum_tuple.z = tuple_a.z - tuple_b.z;
-	sum_tuple.w = tuple_a.w - tuple_b.w;
-	return (sum_tuple);
+tuple_t	negtup(tuple_t t)
+{
+	return (tuple(-t.x,
+				  -t.y,
+				  -t.z,
+				  -t.w));
 }
