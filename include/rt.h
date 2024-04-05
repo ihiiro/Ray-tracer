@@ -1,5 +1,9 @@
 #ifndef RT_H
 # define RT_H
+# include <stdbool.h>
+
+/* MATH MACROS */
+# define EPSILON 0.00001
 
 typedef struct tuple_s
 {
@@ -11,5 +15,7 @@ typedef struct tuple_s
 
 tuple_t	point(double x, double y, double z);
 tuple_t	vector(double x, double y, double z);
+
+bool	equal(double a, double b);
 
 #endif

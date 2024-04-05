@@ -1,6 +1,7 @@
 GLOBAL_HEADER = include/rt.h
 TARGET_CHECKER_SOURCES = tests/tuple.c
-TARGET_RT_SOURCES = src/make_tuple.c
+TARGET_RT_SOURCES = src/make_tuple.c \
+					src/math0.c
 ALL_SOURCES = $(TARGET_CHECKER_SOURCES) $(TARGET_RT_SOURCES)
 TARGET_CHECKER = checker
 CFLAGS = -Wall -Wextra -Werror
