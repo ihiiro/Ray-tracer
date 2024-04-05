@@ -7,6 +7,7 @@ int	main(void)
 	tuple_t	tuple;
 	tuple_t	tuple1;
 	tuple_t	tuple2;
+	tuple_t	tuple3;
 
 	tuple.x = 4.3;
 	tuple.y = -4.2;
@@ -49,4 +50,10 @@ int	main(void)
 	tuple2.w = 1;
 	assert(equaltup(addtup(tuple, tuple1), tuple2));
 	printf("addtup() returns the sum tuple of two tuples tests passed.\n");
+	tuple = point(3, 2 ,1);
+	tuple1 = point(5, 6, 7);
+	tuple3 = vector(-2, -4, -6);
+	tuple2 = subtup(tuple, tuple1);
+	assert(equaltup(tuple2, tuple3));
+	printf("subtup() returns the difference tuple of two tuples tests passed.\n");
 }

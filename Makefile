@@ -3,7 +3,7 @@ GLOBAL_HEADER = include/rt.h
 TARGET_CHECKER_SOURCES = tests/tuple.c
 
 TARGET_RT_SOURCES = src/make_tuple.c \
-					src/math0.c \
+					src/general_math.c \
 					src/tuple_math.c
 
 ALL_SOURCES = $(TARGET_CHECKER_SOURCES) $(TARGET_RT_SOURCES)
