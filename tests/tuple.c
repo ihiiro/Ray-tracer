@@ -55,5 +55,18 @@ int	main(void)
 	tuple3 = vector(-2, -4, -6);
 	tuple2 = subtup(tuple, tuple1);
 	assert(equaltup(tuple2, tuple3));
-	printf("subtup() returns the difference tuple of two tuples tests passed.\n");
+	printf("\n");
+	printf("subtup() {point - point = vector} tests passed.\n");
+	tuple = point(3, 2, 1);
+	tuple1 = vector(5, 6, 7);
+	tuple2 = subtup(tuple, tuple1);
+	tuple3 = point(-2, -4, -6);
+	assert(equaltup(tuple2, tuple3));
+	printf("subtup() {point - vector = point} tests passed.\n");
+	tuple = vector(3, 2, 1);
+	tuple1 = vector(5, 6, 7);
+	tuple2 = subtup(tuple, tuple1);
+	tuple3 = vector(-2, -4, -6);
+	assert(equaltup(tuple2, tuple3));
+	printf("subtup() {vector - vector = vector} tests passed.\n\n");
 }
