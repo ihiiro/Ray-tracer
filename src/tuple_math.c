@@ -31,3 +31,11 @@ tuple_t	negtup(tuple_t t)
 				  -t.z,
 				  -t.w));
 }
+
+tuple_t	mult_by_scalar(tuple_t t, double scalar)
+{
+	return (tuple(t.x * scalar,
+				  t.y * scalar,
+				  t.z * scalar,
+				  t.w * scalar));
+}
