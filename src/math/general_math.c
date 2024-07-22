@@ -1,5 +1,5 @@
 #include <stdbool.h>
-#include "../include/rt.h"
+#include "../../include/rt.h"
 
 double	absd(double a)
 {
@@ -14,3 +14,4 @@ bool	equal(double a, double b)
 		return (true);
 	return (false);
 }
+

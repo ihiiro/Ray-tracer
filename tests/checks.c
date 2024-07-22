@@ -1,5 +1,6 @@
 #include <assert.h>
 #include <stdio.h>
+#include <math.h>
 #include "../include/rt.h"
 
 int	main(void)
@@ -8,6 +9,7 @@ int	main(void)
 	tuple_t	tuple1;
 	tuple_t	tuple2;
 	tuple_t	tuple3;
+	double	m;
 
 	t.x = 4.3;
 	t.y = -4.2;
@@ -98,4 +100,24 @@ int	main(void)
 	tuple3 = tuple(.5, -1, 1.5, -2);
 	assert(equaltup(tuple3, tuple2));
 	printf("mult_by_scalar() returns the result of a scalar multiplication\n");
+
+	tuple1 = div_by_scalar(t, 2);
+	assert(equaltup(tuple1, tuple3));
+	printf("div_by_scalar() returns the result of division by scalar\n");
+
+	m = vec_magnitude(vector(0, 1, 0));
+	assert(equal(m, 1.0));
+	m = vec_magnitude(vector(0, 0, 1));
+	assert(equal(m, 1.0));
+	m = vec_magnitude(vector(1, 2, 3));
+	assert(equal(m, sqrt(14)));
+	m = vec_magnitude(vector(-1, -2, -3));
+	assert(equal(m, sqrt(14)));
+	printf("vec_magnitude() returns the magnitude of a vector\n");
+
+	assert(equaltup(vec_normalize(vector(4, 0, 0)), vector(1, 0, 0)));
+	assert(equaltup(vec_normalize(vector(1, 2, 3)), vector(1/sqrt(14),
+		2/sqrt(14), 3/sqrt(14))));
+	assert(equal(vec_magnitude(vec_normalize(vector(1, 2, 3))), 1));
+	printf("vec_normalize() divides vector components by its magnitude\n");
 }

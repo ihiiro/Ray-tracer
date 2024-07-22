@@ -1,10 +1,11 @@
 GLOBAL_HEADER = include/rt.h
 
-TARGET_CHECKER_SOURCES = tests/tuple.c
+TARGET_CHECKER_SOURCES = tests/checks.c
 
 TARGET_RT_SOURCES = src/make_tuple.c \
-					src/general_math.c \
-					src/tuple_math.c
+					src/math/general_math.c \
+					src/math/tuple_math.c \
+					src/math/vector_math.c
 
 ALL_SOURCES = $(TARGET_CHECKER_SOURCES) $(TARGET_RT_SOURCES)
 
