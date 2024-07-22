@@ -20,3 +20,18 @@ tuple_t	vec_normalize(tuple_t v)
 				   v.y / vec_magnitude(v),
 				   v.z / vec_magnitude(v)));
 }
+
+double	vec_dot(tuple_t va, tuple_t vb)
+{
+	return (va.x * vb.x
+		  + va.y * vb.y
+		  + va.z * vb.z
+		  + va.w * vb.w);
+}
+
+tuple_t	vec_cross(tuple_t va, tuple_t vb)
+{
+	return (vector(va.y * vb.z - va.z * vb.y,
+				   va.z * vb.x - va.x * vb.z,
+				   va.x * vb.y - va.y * vb.x));
+}

@@ -120,4 +120,15 @@ int	main(void)
 		2/sqrt(14), 3/sqrt(14))));
 	assert(equal(vec_magnitude(vec_normalize(vector(1, 2, 3))), 1));
 	printf("vec_normalize() divides vector components by its magnitude\n");
+
+	tuple1 = vector(1, 2, 3);
+	tuple2 = vector(2, 3, 4);
+	assert(equal(vec_dot(tuple1, tuple2), 20));
+	printf("vec_dot() computes dot product of two vectors\n");
+
+	tuple3 = vec_cross(tuple1, tuple2);
+	assert(equaltup(tuple3, vector(-1, 2, -1)));
+	tuple3 = vec_cross(tuple2, tuple1);
+	assert(equaltup(tuple3, vector(1, -2, 1)));
+	printf("vec_cross() returns a perpendicular vector to the two input vectors\n");
 }
