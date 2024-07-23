@@ -1,6 +1,7 @@
 #ifndef RT_H
 # define RT_H
 # include <stdbool.h>
+# include <libc.h>
 
 /* MATH MACROS */
 # define EPSILON 0.00001

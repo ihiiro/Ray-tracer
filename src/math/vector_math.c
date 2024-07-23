@@ -16,9 +16,9 @@ tuple_t	vec_normalize(tuple_t v)
 	magnitude = vec_magnitude(v);
 	if (!magnitude)
 		magnitude = 1;
-	return (vector(v.x / vec_magnitude(v),
-				   v.y / vec_magnitude(v),
-				   v.z / vec_magnitude(v)));
+	return (vector(v.x / magnitude,
+				   v.y / magnitude,
+				   v.z / magnitude));
 }
 
 double	vec_dot(tuple_t va, tuple_t vb)
