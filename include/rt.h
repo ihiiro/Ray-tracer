@@ -21,6 +21,7 @@ tuple_t	mult_by_scalar(tuple_t t, double scalar);
 tuple_t	div_by_scalar(tuple_t t, double scalar);
 tuple_t	vector(double x, double y, double z);
 tuple_t	point(double x, double y, double z);
+tuple_t	color(double r, double g, double b);
 tuple_t	vec_cross(tuple_t va, tuple_t vb);
 tuple_t	vec_normalize(tuple_t v);
 tuple_t	negtup(tuple_t t);

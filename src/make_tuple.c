@@ -20,3 +20,8 @@ tuple_t	vector(double x, double y, double z)
 {
 	return (tuple(x, y, z, 0.0));
 }
+
+tuple_t	color(double r, double g, double b)
+{
+	return (tuple(r, g, b, 1));
+}

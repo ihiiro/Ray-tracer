@@ -25,11 +25,11 @@ int	main(void)
 
 	proj.pos = point(0, 0, 0);
 	proj.velo = vec_normalize(vector(0, 0, 0));
+
 	// printf("%f", proj.velo); exit(0);
 
 	env.gravity = vector(0, -1, 0);
 	env.wind = vector(1, 0, 0);
-
 	// proj = tick(env, proj);
 	i = 0;
 	// for (; proj.pos.y > 0; proj = tick(env, proj))

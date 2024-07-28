@@ -28,6 +28,7 @@ $(TARGET_TICK): $(TARGET_RT_SOURCES) $(TARGET_TICK_SOURCES) Makefile include/rt.
 
 clean:
 	rm -f $(TARGET_CHECKER)
+	rm -f $(TARGET_TICK)
 
 check: $(TARGET_CHECKER)
 

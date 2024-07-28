@@ -130,4 +130,18 @@ int	main(void)
 	tuple3 = vec_cross(tuple2, tuple1);
 	assert(equaltup(tuple3, vector(1, -2, 1)));
 	printf("vec_cross() returns a perpendicular vector to the two input vectors\n");
+
+	tuple_t	c = color(-.5, .4, 1.7);
+	assert(equal(-.5, c.x));
+	assert(equal(.4, c.y));
+	assert(equal(1.7, c.z));
+	tuple_t	c0 = color(.9, .6, .75);
+	tuple_t	c1 = color(.7, .1, .25);
+	tuple_t	c2 = addtup(c0, c1);
+	assert(equaltup(tuple(1.6, .7, 1, 2), c2));
+	c2 = subtup(c0, c1);
+	assert(equaltup(tuple(.2, .5, .5, 0), c2));
+	c2 = mult_by_scalar(color(.2, .3, .4), 2);
+	assert(equaltup(tuple(.4, .6, .8, 2), c2));
+	printf("color +/-/* is supported\n");
 }
