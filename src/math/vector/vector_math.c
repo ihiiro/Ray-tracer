@@ -1,5 +1,5 @@
 #include <math.h>
-#include "../../include/rt.h"
+#include "../../../include/rt.h"
 
 double	vec_magnitude(tuple_t v)
 {

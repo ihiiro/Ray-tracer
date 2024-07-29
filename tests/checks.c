@@ -131,17 +131,33 @@ int	main(void)
 	assert(equaltup(tuple3, vector(1, -2, 1)));
 	printf("vec_cross() returns a perpendicular vector to the two input vectors\n");
 
-	tuple_t	c = color(-.5, .4, 1.7);
-	assert(equal(-.5, c.x));
-	assert(equal(.4, c.y));
-	assert(equal(1.7, c.z));
-	tuple_t	c0 = color(.9, .6, .75);
-	tuple_t	c1 = color(.7, .1, .25);
-	tuple_t	c2 = addtup(c0, c1);
-	assert(equaltup(tuple(1.6, .7, 1, 2), c2));
-	c2 = subtup(c0, c1);
-	assert(equaltup(tuple(.2, .5, .5, 0), c2));
-	c2 = mult_by_scalar(color(.2, .3, .4), 2);
-	assert(equaltup(tuple(.4, .6, .8, 2), c2));
-	printf("color +/-/* is supported\n");
+	color_t	c = color(-.5, .4, 1.7);
+	assert(equal(-.5, c.r));
+	assert(equal(.4, c.g));
+	assert(equal(1.7, c.b));
+	color_t	c0 = color(.9, .6, .75);
+	color_t	c1 = color(.7, .1, .25);
+	color_t	c2 = (c0, c1);
+	color_t	checker = color(1.6, .7, 1);
+	c2 = hadamard_product(c0, c1);
+	// assert(equaltup(tuple(1.6, .7, 1, 2), c2));
+	assert(equal(checker.r, c2.r));
+	assert(equal(checker.g, c2.b));
+	assert(equal(checker.b, c2.b));
+	c2 = diff_color(c0, c1);
+	checker = color(.2, .5, .5);
+	// assert(equaltup(tuple(.2, .5, .5, 0), c2));
+	assert(equal(checker.r, c2.r));
+	assert(equal(checker.g, c2.b));
+	assert(equal(checker.b, c2.b));
+	c2 = scale_color(color(.2, .3, .4), 2);
+	checker = color(.4, .6, .8);
+	assert(equal(checker.r, c2.r));
+	assert(equal(checker.g, c2.b));
+	assert(equal(checker.b, c2.b));
+	// assert(equaltup(tuple(.4, .6, .8, 2), c2));
+	printf("color +/-/*/*byscalar is supported\n");
+
+	// tuple_t	canvas = canvas(10, 20);
+	// assert(canvas.x)
 }

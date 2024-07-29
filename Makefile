@@ -3,9 +3,11 @@ GLOBAL_HEADER = include/rt.h
 TARGET_CHECKER_SOURCES = tests/checks.c
 
 TARGET_RT_SOURCES = src/make_tuple.c \
-					src/math/general_math.c \
-					src/math/tuple_math.c \
-					src/math/vector_math.c
+					src/math/general/general_math.c \
+					src/math/tuple/tuple_math.c \
+					src/math/vector/vector_math.c \
+					src/math/color/color_math.c \
+					src/color/color.c
 
 TARGET_TICK_SOURCES = practice/tick.c
 

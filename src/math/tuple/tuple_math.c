@@ -1,8 +1,9 @@
 #include <stdbool.h>
-#include "../../include/rt.h"
+#include "../../../include/rt.h"
 
 bool	equaltup(tuple_t a, tuple_t b)
 {
+
 	if (equal(a.x, b.x) && equal(a.y, b.y) && equal(a.z, b.z) && equal(a.w, b.w))
 		return (true);
 	return (false);
@@ -48,3 +49,10 @@ tuple_t	div_by_scalar(tuple_t t, double scalar)
 				  t.w / scalar));
 }
 
+tuple_t	multup(tuple_t a, tuple_t b)
+{
+	return (tuple(a.x * b.x,
+				  a.y * b.y,
+				  a.z * b.z,
+				  a.w * b.w));
+}
