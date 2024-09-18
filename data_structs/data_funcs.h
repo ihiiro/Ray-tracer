@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 11:25:19 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/09/18 18:51:23 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/09/18 20:22:48 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ double	point_or_vector(t_tuple t);
 t_tuple	point(double x, double y, double z);
 t_tuple	vector(double x, double y, double z);
 bool	equal_tuple(t_tuple a, t_tuple b);
+bool	equal(double a, double b);
 
 
 /* TUPLE ARITHMETIC */
@@ -31,3 +32,7 @@ double	angle_between_2vectors(t_tuple a, t_tuple b);
 
 /* COLORS */
 t_tuple color(double red, double green, double blue);
+t_tuple	add_colors(t_tuple a, t_tuple b);
+t_tuple	sub_colors(t_tuple a, t_tuple b);
+t_tuple	multiply_colors(t_tuple a, t_tuple b);
+t_tuple	multiply_color_by_scalar(t_tuple t, double scalar);

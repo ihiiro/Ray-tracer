@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 10:47:12 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/09/18 18:52:11 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/09/18 20:21:16 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,5 +87,16 @@ int main()
 	assert(equal_tuple(vec_cross(b, a), vector(1, -2, 1)));
 	/* COLOR TESTS */
 	a = color(-0.5, 0.4, 1.7);
-	assert(equal_tuple(a, point(-0.5, 0.4, 1.7)));
+	assert(equal_tuple(a, vector(-0.5, 0.4, 1.7)));
+	/* COLOR ARITHMETIC */ 
+	a = color(0.9, 0.6, 0.75);
+	b = color(0.7, 0.1, 0.25);
+	assert(equal_tuple(add_colors(a, b), color(1.6, 0.7, 1.0)));
+	assert(equal_tuple(sub_colors(a, b), color(0.2, 0.5, 0.5)));
+	a = color(0.2, 0.3, 0.4);
+	assert(equal_tuple(multiply_color_by_scalar(a, 2), color(0.4, 0.6, 0.8)));
+	a = color(1, 0.2, 0.4);
+	b = color(0.9, 1, 0.1);
+	assert(equal_tuple(multiply_colors(a, b), color(0.9, 0.2, 0.04)));
+	
 }
