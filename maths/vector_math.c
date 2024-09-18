@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 15:00:02 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/09/18 17:21:08 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/09/18 18:12:27 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,12 @@ t_tuple	vec_cross(t_tuple a, t_tuple b)
 	return (vector(a.y * b.z - a.z * b.y,
 			a.z * b.x - a.x * b.z,
 			a.x * b.y - a.y * b.x));
+}
+
+double	angle_between_2vectors(t_tuple a, t_tuple b)
+{
+	double	angle;
+
+	angle = acos(vec_dot(a, b)/(vector_magnitude(a) * vector_magnitude(b)));
+	return (angle * 180 / M_PI);
 }

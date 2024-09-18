@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 10:47:12 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/09/18 17:21:56 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/09/18 18:52:11 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,4 +85,7 @@ int main()
 	/* CROSS PRODUCT */
 	assert(equal_tuple(vec_cross(a, b), vector(-1, 2, -1)));
 	assert(equal_tuple(vec_cross(b, a), vector(1, -2, 1)));
+	/* COLOR TESTS */
+	a = color(-0.5, 0.4, 1.7);
+	assert(equal_tuple(a, point(-0.5, 0.4, 1.7)));
 }

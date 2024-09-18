@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 11:25:19 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/09/18 15:27:18 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/09/18 18:51:23 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,3 +27,7 @@ t_tuple add_tuples(t_tuple a, t_tuple b);
 t_tuple sub_tuples(t_tuple a, t_tuple b);
 t_tuple	negate_tuple(t_tuple t);
 t_tuple scale_tuple(t_tuple t, double scalar);
+double	angle_between_2vectors(t_tuple a, t_tuple b);
+
+/* COLORS */
+t_tuple color(double red, double green, double blue);
