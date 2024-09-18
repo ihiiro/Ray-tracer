@@ -6,7 +6,7 @@
 #    By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/18 10:41:01 by yel-yaqi          #+#    #+#              #
-#    Updated: 2024/09/18 13:03:42 by yel-yaqi         ###   ########.fr        #
+#    Updated: 2024/09/18 15:07:08 by yel-yaqi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,8 @@ TEST_OFILES = $(TEST_CFILES:.c=.o)
 
 CFILES = data_structs/points_vectors.c \
 		 maths/double_equality.c \
-		 maths/tuple_ops.c
+		 maths/tuple_ops.c \
+		 maths/vector_math.c
 
 OFILES = $(CFILES:.c=.o)
 
