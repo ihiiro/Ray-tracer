@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 10:47:12 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/09/18 15:47:20 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/09/18 17:21:56 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,5 +79,10 @@ int main()
 	assert(equal_tuple(normalize_vec(a), vector(1/sqrt(14), 2/sqrt(14), 3/sqrt(14))));
 	assert(vector_magnitude(normalize_vec(a)) == 1);
 	/* DOT PRODUCT */
-	
+	a = vector(1, 2, 3);
+	b = vector(2, 3, 4);
+	assert(vec_dot(a, b) == 20);
+	/* CROSS PRODUCT */
+	assert(equal_tuple(vec_cross(a, b), vector(-1, 2, -1)));
+	assert(equal_tuple(vec_cross(b, a), vector(1, -2, 1)));
 }
