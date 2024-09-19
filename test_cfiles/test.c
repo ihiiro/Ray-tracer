@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aboulakr <aboulakr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 10:47:12 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/09/18 20:21:16 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/09/19 13:15:40 by aboulakr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,13 @@
 #include "../data_structs/data_funcs.h"
 #include "../maths/maths.h"
 #include <math.h>
+#include "../MLX/MLX42.h"
 
+
+int32_t ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a)
+{
+    return (r << 24 | g << 16 | b << 8 | a);
+}
 int main()
 {
 	/* TUPLES TESTS */
@@ -98,5 +104,4 @@ int main()
 	a = color(1, 0.2, 0.4);
 	b = color(0.9, 1, 0.1);
 	assert(equal_tuple(multiply_colors(a, b), color(0.9, 0.2, 0.04)));
-	
 }

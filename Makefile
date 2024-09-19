@@ -3,16 +3,20 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+         #
+#    By: aboulakr <aboulakr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/18 10:41:01 by yel-yaqi          #+#    #+#              #
-#    Updated: 2024/09/18 18:51:50 by yel-yaqi         ###   ########.fr        #
+#    Updated: 2024/09/19 13:13:48 by aboulakr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # NAME = miniRT
 
-# MLX = 
+DEPS = -framework Cocoa -framework OpenGL -framework IOKit -Iinclude -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/"
+
+MLX_HEADER = MLX/MLX42.h
+
+MLX_LIB = MLX/libmlx42.a
 
 TESTS = rt_tests
 
@@ -34,8 +38,8 @@ data_structs/%.o: data_structs/%.c
 test_fcfiles/%.o: test_fcfiles/%.c
 	cc -c $<
 
-$(TESTS): $(TEST_OFILES) $(OFILES)
-	cc $^ -o $@
+$(TESTS): $(TEST_OFILES) $(MLX_LIB) $(OFILES)
+	cc $(DEPS) $(MLX_LIB) $^ -o $@
 
 all: $(TESTS)
 
