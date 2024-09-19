@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   data_funcs.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aboulakr <aboulakr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 11:25:19 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/09/18 20:22:48 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/09/19 16:06:13 by aboulakr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,3 +36,7 @@ t_tuple	add_colors(t_tuple a, t_tuple b);
 t_tuple	sub_colors(t_tuple a, t_tuple b);
 t_tuple	multiply_colors(t_tuple a, t_tuple b);
 t_tuple	multiply_color_by_scalar(t_tuple t, double scalar);
+
+/* CANVAS */
+void        create_canvas(t_canvas *c);
+t_canvas	*canvas(int width, int height);

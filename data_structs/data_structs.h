@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   data_structs.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aboulakr <aboulakr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 11:20:46 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/09/18 13:50:36 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/09/19 15:49:23 by aboulakr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,19 @@ typedef struct s_tuple
 	double w;
 }			t_tuple;
 
+typedef struct s_pixel
+{
+	int x;
+	int y;
+	t_tuple color;
+}			t_pixel;
+
+typedef struct s_canvas
+{
+	int 	width;
+	int 	height;
+	t_pixel **pixels;
+}			t_canvas;
 
 /* CONSTANTS */
 # define POINT 1.0

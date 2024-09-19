@@ -6,11 +6,13 @@
 #    By: aboulakr <aboulakr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/18 10:41:01 by yel-yaqi          #+#    #+#              #
-#    Updated: 2024/09/19 13:13:48 by aboulakr         ###   ########.fr        #
+#    Updated: 2024/09/19 15:53:31 by aboulakr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # NAME = miniRT
+
+# CFLAGS = DONT FORGET
 
 DEPS = -framework Cocoa -framework OpenGL -framework IOKit -Iinclude -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/"
 
@@ -28,7 +30,8 @@ CFILES = data_structs/points_vectors.c \
 		 maths/double_equality.c \
 		 maths/tuple_ops.c \
 		 maths/vector_math.c \
-		 data_structs/colors.c
+		 data_structs/colors.c \
+		 data_structs/canvas.c
 
 OFILES = $(CFILES:.c=.o)
 
@@ -39,7 +42,7 @@ test_fcfiles/%.o: test_fcfiles/%.c
 	cc -c $<
 
 $(TESTS): $(TEST_OFILES) $(MLX_LIB) $(OFILES)
-	cc $(DEPS) $(MLX_LIB) $^ -o $@
+	cc -fsanitize=address $(DEPS) $(MLX_LIB) $^ -o $@
 
 all: $(TESTS)
 

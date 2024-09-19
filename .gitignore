@@ -3,3 +3,5 @@ rt_tests
 .vscode
 .DS_Store
 a.out
+square
+square.c
