@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aboulakr <aboulakr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 10:47:12 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/09/19 16:26:10 by aboulakr         ###   ########.fr       */
+/*   Updated: 2024/09/19 17:09:44 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int main()
 	assert(equal_tuple(scale_tuple(a, 3.5), return_tuple(3.5, -7, 10.5, -14)));
 	assert(equal_tuple(scale_tuple(a, 0.5), return_tuple(0.5, -1, 1.5, -2)));
 	/* VECTOR MATH TESTS */
-	/*Magnitude*/
+	/*Magnitude TESTS*/
 	a = vector(1, 0, 0);
 	assert(vector_magnitude(a) == 1);
 	a = vector(0, 1, 0);
@@ -73,23 +73,23 @@ int main()
 	assert(vector_magnitude(a) == sqrt(14));
 	a = vector(-1, -2, -3);
 	assert(vector_magnitude(a) == sqrt(14));
-	/* NORM */
+	/* NORM TESTS */
 	a = vector(4, 0, 0);
 	assert(equal_tuple(normalize_vec(a), vector(1, 0, 0)));
 	a = vector(1, 2, 3);
 	assert(equal_tuple(normalize_vec(a), vector(1/sqrt(14), 2/sqrt(14), 3/sqrt(14))));
 	assert(vector_magnitude(normalize_vec(a)) == 1);
-	/* DOT PRODUCT */
+	/* DOT PRODUCT TESTS */
 	a = vector(1, 2, 3);
 	b = vector(2, 3, 4);
 	assert(vec_dot(a, b) == 20);
-	/* CROSS PRODUCT */
+	/* CROSS PRODUCT TESTS */
 	assert(equal_tuple(vec_cross(a, b), vector(-1, 2, -1)));
 	assert(equal_tuple(vec_cross(b, a), vector(1, -2, 1)));
 	/* COLOR TESTS */
 	a = color(-0.5, 0.4, 1.7);
 	assert(equal_tuple(a, vector(-0.5, 0.4, 1.7)));
-	/* COLOR ARITHMETIC */ 
+	/* COLOR ARITHMETIC TESTS */ 
 	a = color(0.9, 0.6, 0.75);
 	b = color(0.7, 0.1, 0.25);
 	assert(equal_tuple(add_colors(a, b), color(1.6, 0.7, 1.0)));
@@ -99,6 +99,12 @@ int main()
 	a = color(1, 0.2, 0.4);
 	b = color(0.9, 1, 0.1);
 	assert(equal_tuple(multiply_colors(a, b), color(0.9, 0.2, 0.04)));
-	t_canvas	*c = canvas(200, 200);
-	create_canvas(c);
+	/* CANVAS TESTS */
+	t_canvas	c = canvas(200, 200);
+	assert(c.width == 200 && c.height == 200);
+	for (int x = 0; x < 200; x++)
+		for (int y = 0; y < 200; y++)
+			assert(equal_tuple(c.pixels[x][y].color, color(255, 255, 255)));
+	write_pixel(&c, 2, 3, color(255, 0, 0));
+	assert(equal_tuple(*pixel_at(&c, 2, 3), color(255, 0, 0)));
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   canvas.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aboulakr <aboulakr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 14:29:47 by aboulakr          #+#    #+#             */
-/*   Updated: 2024/09/19 16:25:06 by aboulakr         ###   ########.fr       */
+/*   Updated: 2024/09/19 17:10:09 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,36 +22,36 @@ int32_t ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a)
     return (r << 24 | g << 16 | b << 8 | a);
 }
 
-t_canvas	*canvas(int width, int height)
+t_canvas	canvas(int width, int height)
 {
-    t_canvas	*c;
+    t_canvas	c;
     int			x;
 	int			y;
 	int			surface_area;
 
-	c = malloc(sizeof(t_canvas));
-    c->width = width;
-    c->height = height;
-    c->pixels = malloc(sizeof(t_pixel *) * height);
-    if (!c->pixels)
+    c.width = width;
+    c.height = height;
+    c.pixels = malloc(sizeof(t_pixel *) * height);
+    if (!c.pixels)
         exit(EXIT_FAILURE);
 	y = 0;
-	while (y < height)
+	while (y < height)clear
+	
 	{
-		c->pixels[y] = malloc(sizeof(t_pixel) * width);
-        if (!c->pixels[y])
+		c.pixels[y] = malloc(sizeof(t_pixel) * width);
+        if (!c.pixels[y])
             exit(EXIT_FAILURE);
 		y++;
 	}
 	y = 0;
-    while (y < c->height)
+    while (y < c.height)
 	{
 		x = 0;
-		while (x < c->width)
+		while (x < c.width)
 		{
-			c->pixels[x][y].color = color(255, 0, 0);	
-			c->pixels[x][y].x = x;
-			c->pixels[x][y].y = y;
+			c.pixels[x][y].color = color(255, 255, 255);	
+			c.pixels[x][y].x = x;
+			c.pixels[x][y].y = y;
 			x++;
 		}
 		y++;
@@ -59,15 +59,11 @@ t_canvas	*canvas(int width, int height)
     return (c);
 }
 
-void    create_canvas(t_canvas *c)
+void    create_canvas(t_canvas *c, mlx_image_t *img, mlx_t *mlx)
 {
-    mlx_t       *mlx;
-    mlx_image_t *img;
 	int			x;
 	int			y;
 
-    mlx = mlx_init(c->width, c->height, "Canvas", false);
-    img = mlx_new_image(mlx, c->width, c->height);
 	y = 0;
     while (y < c->height)
 	{
@@ -82,5 +78,14 @@ void    create_canvas(t_canvas *c)
 		y++;
 	}
     mlx_image_to_window(mlx, img, 0, 0);
-    mlx_loop(mlx);
+}
+
+void	write_pixel(t_canvas *canvas, int x, int y, t_tuple rgb)
+{
+	canvas->pixels[x][y].color = color(rgb.x, rgb.y, rgb.z);
+}
+
+t_tuple *pixel_at(t_canvas *canvas, int x, int y)
+{
+	return (&canvas->pixels[x][y].color);
 }

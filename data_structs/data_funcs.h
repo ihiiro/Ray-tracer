@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   data_funcs.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aboulakr <aboulakr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 11:25:19 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/09/19 16:06:13 by aboulakr         ###   ########.fr       */
+/*   Updated: 2024/09/19 17:05:57 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 #include "data_structs.h"
 #include <stdbool.h>
+#include "../MLX/MLX42.h"
 
 t_tuple	return_tuple(double x, double y, double z, double w);
 double	point_or_vector(t_tuple t);
@@ -38,5 +39,7 @@ t_tuple	multiply_colors(t_tuple a, t_tuple b);
 t_tuple	multiply_color_by_scalar(t_tuple t, double scalar);
 
 /* CANVAS */
-void        create_canvas(t_canvas *c);
-t_canvas	*canvas(int width, int height);
+void		create_canvas(t_canvas *c, mlx_image_t *img, mlx_t *mlx);
+t_canvas	canvas(int width, int height);
+void		write_pixel(t_canvas *canvas, int x, int y, t_tuple rgb);
+t_tuple 	*pixel_at(t_canvas *canvas, int x, int y);
