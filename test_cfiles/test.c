@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 10:47:12 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/09/20 12:15:42 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/09/20 15:47:12 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ int main()
 	write_pixel(&c, 2, 3, color(255, 0, 0));
 	assert(equal_tuple(*pixel_at(&c, 2, 3), color(255, 0, 0)));
 	/* MATRICES TESTS */
+	/* 4 by 4 */
 	t_matrix *matrix = return_4_by_4_matrix(
 		return_tuple(1, 2, 3, 4),
 		return_tuple(5.5, 6.5, 7.5, 8.5),
@@ -132,11 +133,43 @@ int main()
 	assert(matrix[1].y == -2);
 	/* 3 by 3 */
 	matrix = return_3_by_3_matrix(
-		return_tuple(-3, 5, 0, 0),	
+		return_tuple(-3, 5, 0, 0),
 		return_tuple(1, -2, -7, 0),	
 		return_tuple(0, 1, 1, 0)
 	);
 	assert(matrix[0].x == -3);
 	assert(matrix[1].y == -2);
 	assert(matrix[2].z == 1);
+	/* matrix comparison */
+	t_matrix *m0 = return_4_by_4_matrix(
+		return_tuple(1, 2, 3, 4),
+		return_tuple(5.5, 6.5, 7.5, 8.5),
+		return_tuple(9, 10, 12, 12),
+		return_tuple(13.5, 14.5, 15.5, 16.5)
+	);
+	t_matrix *m1 = return_4_by_4_matrix(
+		return_tuple(1, 2, 3, 4),
+		return_tuple(5.5, 6.5, 7.53, 8.5),
+		return_tuple(9, 10, 12, 12),
+		return_tuple(13.5, 14.5, 15.5, 16.5)
+	);
+	assert(equal_matrices(m0, m1, 4) == 0);
+	assert(equal_matrices(m1, m1, 4) == 1);
+	matrix = return_2_by_2_matrix(
+		return_tuple(-3, 5, 0, 0),
+		return_tuple(1, -2, 0, 0)
+	);
+	/* MATRIX MULTIPLICATION */
+	matrix = matrix_multiply(m0, m0, 4);
+	assert(matrix[0].x == 93 && matrix[0].y == 103 && matrix[0].z == 116 && matrix[0].w == 123);
+	assert(matrix[1].x == 223.5 && matrix[1].y == 251.5 && matrix[1].z == 287 && matrix[1].w == 307.5);
+	assert(matrix[2].x == 334 && matrix[2].y == 377 && matrix[2].z == 432 && matrix[2].w == 463);
+	assert(matrix[3].x == 455.5 && matrix[3].y == 515.5 && matrix[3].z == 591 && matrix[3].w == 635.5);
 }
+
+/*
+93.000000 | 103.000000 | 116.000000 | 123.000000
+223.500000 | 251.500000 | 287.000000 | 307.500000
+334.000000 | 377.000000 | 432.000000 | 463.000000
+455.500000 | 515.500000 | 591.000000 | 635.500000
+*/
