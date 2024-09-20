@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 10:47:12 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/09/20 17:14:39 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/09/20 18:47:07 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,5 +191,27 @@ int main()
 	t = return_tuple(1, 2, 3, 4);
 	t = multiply_matrix_by_tuple(m0, t);
 	assert(t.x == 1 && t.y == 2 && t.z == 3 && t.w == 4);
-	
+	/* TRANSPOSING MATRICES */
+	m1 = matrix_transpose(m1, 4);
+	assert(m1[0].x == 1 && m1[0].y == 2 && m1[0].z == 8 && m1[0].w == 0);
+	assert(m1[1].x == 2 && m1[1].y == 4 && m1[1].z == 6 && m1[1].w == 0);
+	assert(m1[2].x == 3 && m1[2].y == 4 && m1[2].z == 4 && m1[2].w == 0);
+	assert(m1[3].x == 4 && m1[3].y == 2 && m1[3].z == 1 && m1[3].w == 1);
+	/* transpose id matrix */
+	m0 = matrix_transpose(m0, 4);
+	assert(m0[0].x == 1 && m0[0].y == 0 && m0[0].z == 0 && m0[0].w == 0);
+	assert(m0[1].x == 0 && m0[1].y == 1 && m0[1].z == 0 && m0[1].w == 0);
+	assert(m0[2].x == 0 && m0[2].y == 0 && m0[2].z == 1 && m0[2].w == 0);
+	assert(m0[3].x == 0 && m0[3].y == 0 && m0[3].z == 0 && m0[3].w == 1);
+	/* INVERTING MATRICES */
+	matrix = return_2_by_2_matrix(return_tuple(1, 5, 0, 0), return_tuple(-3, 2, 0, 0));
+	assert(determinant_2x2_matrix(matrix) == 17);
 }
+/*
+
+1 2 8 0
+2 4 6 0
+3 4 4 0
+4 2 1 1
+
+*/
