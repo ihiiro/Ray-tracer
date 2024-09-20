@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 14:29:47 by aboulakr          #+#    #+#             */
-/*   Updated: 2024/09/19 17:10:09 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/09/20 11:13:27 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ t_canvas	canvas(int width, int height)
     if (!c.pixels)
         exit(EXIT_FAILURE);
 	y = 0;
-	while (y < height)clear
+	while (y < height)
 	
 	{
 		c.pixels[y] = malloc(sizeof(t_pixel) * width);
@@ -49,9 +49,9 @@ t_canvas	canvas(int width, int height)
 		x = 0;
 		while (x < c.width)
 		{
-			c.pixels[x][y].color = color(255, 255, 255);	
-			c.pixels[x][y].x = x;
-			c.pixels[x][y].y = y;
+			c.pixels[y][x].color = color(255, 255, 255);	
+			c.pixels[y][x].x = x;
+			c.pixels[y][x].y = y;
 			x++;
 		}
 		y++;
@@ -70,8 +70,8 @@ void    create_canvas(t_canvas *c, mlx_image_t *img, mlx_t *mlx)
 		x = 0;
 		while (x < c->width)
 		{
-			mlx_put_pixel(img, c->pixels[x][y].x, c->pixels[x][y].y,
-				ft_pixel(c->pixels[x][y].color.x, c->pixels[x][y].color.y, c->pixels[x][y].color.z,
+			mlx_put_pixel(img, c->pixels[y][x].x, c->pixels[y][x].y,
+				ft_pixel(c->pixels[y][x].color.x, c->pixels[y][x].color.y, c->pixels[y][x].color.z,
 				255));
 			x++;
 		}
@@ -82,10 +82,10 @@ void    create_canvas(t_canvas *c, mlx_image_t *img, mlx_t *mlx)
 
 void	write_pixel(t_canvas *canvas, int x, int y, t_tuple rgb)
 {
-	canvas->pixels[x][y].color = color(rgb.x, rgb.y, rgb.z);
+	canvas->pixels[canvas->height - y - 1][x].color = color(rgb.x, rgb.y, rgb.z);
 }
 
 t_tuple *pixel_at(t_canvas *canvas, int x, int y)
 {
-	return (&canvas->pixels[x][y].color);
+	return (&canvas->pixels[canvas->height - y - 1][x].color);
 }
