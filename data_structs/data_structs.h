@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   data_structs.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aboulakr <aboulakr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 11:20:46 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/09/19 15:49:23 by aboulakr         ###   ########.fr       */
+/*   Updated: 2024/09/20 11:56:09 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,3 +37,6 @@ typedef struct s_canvas
 /* CONSTANTS */
 # define POINT 1.0
 # define VECTOR 0.0
+
+/* CONVENIENT ALIASES */
+typedef t_tuple t_matrix;

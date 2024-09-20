@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 10:47:12 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/09/20 11:12:13 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/09/20 12:15:42 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,4 +107,36 @@ int main()
 			assert(equal_tuple(c.pixels[x][y].color, color(255, 255, 255)));
 	write_pixel(&c, 2, 3, color(255, 0, 0));
 	assert(equal_tuple(*pixel_at(&c, 2, 3), color(255, 0, 0)));
+	/* MATRICES TESTS */
+	t_matrix *matrix = return_4_by_4_matrix(
+		return_tuple(1, 2, 3, 4),
+		return_tuple(5.5, 6.5, 7.5, 8.5),
+		return_tuple(9, 10, 11, 12),
+		return_tuple(13.5, 14.5, 15.5, 16.5)
+	);
+	assert(matrix[0].x == 1);
+	assert(matrix[0].w == 4);
+	assert(matrix[1].x == 5.5);
+	assert(matrix[1].z == 7.5);
+	assert(matrix[2].z == 11);
+	assert(matrix[3].x == 13.5);
+	assert(matrix[3].z == 15.5);
+	/* 2 by 2 */
+	matrix = return_2_by_2_matrix(
+		return_tuple(-3, 5, 0, 0),
+		return_tuple(1, -2, 0, 0)
+	);
+	assert(matrix[0].x == -3);
+	assert(matrix[0].y == 5);
+	assert(matrix[1].x == 1);
+	assert(matrix[1].y == -2);
+	/* 3 by 3 */
+	matrix = return_3_by_3_matrix(
+		return_tuple(-3, 5, 0, 0),	
+		return_tuple(1, -2, -7, 0),	
+		return_tuple(0, 1, 1, 0)
+	);
+	assert(matrix[0].x == -3);
+	assert(matrix[1].y == -2);
+	assert(matrix[2].z == 1);
 }

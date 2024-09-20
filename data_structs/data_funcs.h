@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 11:25:19 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/09/19 17:05:57 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/09/20 12:14:17 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,3 +43,8 @@ void		create_canvas(t_canvas *c, mlx_image_t *img, mlx_t *mlx);
 t_canvas	canvas(int width, int height);
 void		write_pixel(t_canvas *canvas, int x, int y, t_tuple rgb);
 t_tuple 	*pixel_at(t_canvas *canvas, int x, int y);
+
+/* MATRICES */
+t_matrix *return_4_by_4_matrix(t_tuple a, t_tuple b, t_tuple c, t_tuple d);
+t_matrix *return_2_by_2_matrix(t_tuple a, t_tuple b);
+t_matrix *return_3_by_3_matrix(t_tuple a, t_tuple b, t_tuple c);
