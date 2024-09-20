@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 10:47:12 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/09/20 18:47:07 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/09/20 19:48:40 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,12 +206,23 @@ int main()
 	/* INVERTING MATRICES */
 	matrix = return_2_by_2_matrix(return_tuple(1, 5, 0, 0), return_tuple(-3, 2, 0, 0));
 	assert(determinant_2x2_matrix(matrix) == 17);
+	/* SUBMATRIX TESTS */
+	matrix = return_3_by_3_matrix(
+		return_tuple(1, 5, 0, 0),
+		return_tuple(-3, 2, 7, 0),	
+		return_tuple(0, 6, -3, 0)
+	);
+	matrix = submatrix(matrix, 0, 2, 3);
+	assert(matrix[0].x == -3 && matrix[0].y == 2 && matrix[0].z == 0 && matrix[0].w == 0);
+	assert(matrix[1].x == 0 && matrix[1].y == 6  && matrix[1].z == 0 && matrix[1].w == 0);
+	m0 = return_4_by_4_matrix(
+		return_tuple(-6, 1, 1, 6),
+		return_tuple(-8, 5, 8, 6),
+		return_tuple(-1, 0, 8, 2),
+		return_tuple(-7, 1, -1, 1)
+	);
+	m0 = submatrix(m0, 2, 1, 4);
+	assert(m0[0].x == -6 && m0[0].y == 1 && m0[0].z == 6 && m0[0].w == 0);
+	assert(m0[1].x == -8 && m0[1].y == 8 && m0[1].z == 6 && m0[1].w == 0);
+	assert(m0[2].x == -7 && m0[2].y == -1 && m0[2].z == 1 && m0[2].w == 0);
 }
-/*
-
-1 2 8 0
-2 4 6 0
-3 4 4 0
-4 2 1 1
-
-*/
