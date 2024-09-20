@@ -6,12 +6,12 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 11:54:52 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/09/20 15:39:05 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/09/20 16:55:16 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../data_structs/data_structs.h"
-#include "../data_structs/data_funcs.h"
+#include "data_structs.h"
+#include "data_funcs.h"
 #include "../maths/maths.h"
 #include <stdlib.h>
 #include <stdbool.h>

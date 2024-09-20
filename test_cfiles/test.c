@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 10:47:12 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/09/20 15:47:12 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/09/20 17:14:39 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,11 +165,31 @@ int main()
 	assert(matrix[1].x == 223.5 && matrix[1].y == 251.5 && matrix[1].z == 287 && matrix[1].w == 307.5);
 	assert(matrix[2].x == 334 && matrix[2].y == 377 && matrix[2].z == 432 && matrix[2].w == 463);
 	assert(matrix[3].x == 455.5 && matrix[3].y == 515.5 && matrix[3].z == 591 && matrix[3].w == 635.5);
+	/* MATRIX * TUPLE */
+	m1 = return_4_by_4_matrix(
+		return_tuple(1, 2, 3, 4),
+		return_tuple(2, 4, 4, 2),
+		return_tuple(8, 6, 4, 1),
+		return_tuple(0, 0, 0, 1)
+	);
+	t_tuple t = multiply_matrix_by_tuple(m1, return_tuple(1, 2, 3, 1));
+	assert(t.x == 18 && t.y == 24 && t.z == 33 && t.w == 1);
+	/* IDENTITY MATRIX */
+	/* matrix * id matrix */
+	m0 = return_4_by_4_matrix(
+		return_tuple(1, 0, 0, 0),
+		return_tuple(0, 1, 0, 0),
+		return_tuple(0, 0, 1, 0),
+		return_tuple(0, 0, 0, 1)
+	);
+	matrix = matrix_multiply(m1, m0, 4);
+	assert(matrix[0].x == 1 && matrix[0].y == 2 && matrix[0].z == 3 && matrix[0].w == 4);
+	assert(matrix[1].x == 2 && matrix[1].y == 4 && matrix[1].z == 4 && matrix[1].w == 2);
+	assert(matrix[2].x == 8 && matrix[2].y == 6 && matrix[2].z == 4 && matrix[2].w == 1);
+	assert(matrix[3].x == 0 && matrix[3].y == 0 && matrix[3].z == 0 && matrix[3].w == 1);
+	/* matrix * tuple */
+	t = return_tuple(1, 2, 3, 4);
+	t = multiply_matrix_by_tuple(m0, t);
+	assert(t.x == 1 && t.y == 2 && t.z == 3 && t.w == 4);
+	
 }
-
-/*
-93.000000 | 103.000000 | 116.000000 | 123.000000
-223.500000 | 251.500000 | 287.000000 | 307.500000
-334.000000 | 377.000000 | 432.000000 | 463.000000
-455.500000 | 515.500000 | 591.000000 | 635.500000
-*/
