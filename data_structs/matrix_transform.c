@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 17:18:50 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/09/21 13:03:37 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/09/21 13:34:04 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,12 +84,10 @@ double	matrix_3_by_3_minor(t_matrix *matrix, int row, int column)
 	return (determinant_2x2_matrix(submatrix_2_by_2));
 }
 
-double	matrix_cofactor(t_matrix *matrix, int row, int column)
+double	matrix_4_by_4_minor(t_matrix *matrix, int row, int column)
 {
-	double minor;
+	t_matrix *submatrix_3_by_3;
 
-	minor = matrix_3_by_3_minor(matrix, row, column);
-	if (row + column % 2 != 0)
-		return (-minor);
-	return (minor);
+	submatrix_3_by_3 = submatrix(matrix, row, column, 4);
+	return (matrix_determinant(submatrix_3_by_3, 3));
 }

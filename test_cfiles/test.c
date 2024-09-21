@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 10:47:12 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/09/21 13:13:27 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/09/21 13:36:26 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -233,9 +233,9 @@ int main()
 	);
 	double MINOR = matrix_3_by_3_minor(matrix, 1, 0);
 	assert(MINOR == 25);
-	double COFACTOR = matrix_cofactor(matrix, 0, 0);
+	double COFACTOR = matrix_3_by_3_minor(matrix, 0, 0);
 	assert(COFACTOR == -12);
-	COFACTOR = matrix_cofactor(matrix, 1, 0);
+	COFACTOR = matrix_3x3_cofactor(matrix, 1, 0);
 	assert(COFACTOR == -25);
 	/* 3 by 3 determinant */
 	matrix = return_3_by_3_matrix(
@@ -243,7 +243,7 @@ int main()
 		return_tuple(-5, 8, -4, 0),
 		return_tuple(2, 6, 4, 0)
 	);
-	double DETERMINANT_3_BY_3 = matrix_determinant(matrix);
+	double DETERMINANT_3_BY_3 = matrix_determinant(matrix, 3);
 	assert(DETERMINANT_3_BY_3 == -196);
 	/* 4 by 4 determinant */
 	matrix = return_4_by_4_matrix(
@@ -252,8 +252,6 @@ int main()
 		return_tuple(1, 2, -9, 6),
 		return_tuple(-6, 7, 7, -9)
 	);
-	printf("%f\n", matrix_determinant(matrix));
-	// double DETERMINANT_4X4 = matrix_determinant(matrix);
-	
-	// assert(DETERMINANT_4X4 == -4071);
+	double DETERMINANT_4X4 = matrix_determinant(matrix, 4);
+	assert(DETERMINANT_4X4 == -4071);
 }
