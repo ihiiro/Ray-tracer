@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 10:47:12 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/09/21 19:04:25 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/09/21 19:24:10 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -298,4 +298,29 @@ int main()
 	A = translation(5, -3, 2);
 	b = multiply_matrix_by_tuple(A, a);
 	assert(equal_tuple(a, b));
+	/*scaling */
+	/* points */
+	a = return_tuple(-4, 6, 8, POINT);
+	A = scaling(2, 3, 4);
+	b = multiply_matrix_by_tuple(A, a);
+	result = return_tuple(-8, 18, 32, POINT);
+	assert(equal_tuple(b, result));
+	/* vectors */
+	a = return_tuple(-4, 6, 8, VECTOR);
+	A = scaling(2, 3, 4);
+	b = multiply_matrix_by_tuple(A, a);
+	result = return_tuple(-8, 18, 32, VECTOR);
+	assert(equal_tuple(b, result));
+	/*inverse*/
+	a = return_tuple(-4, 6, 8, VECTOR);
+	A = scaling(2, 3, 4);
+	b = multiply_matrix_by_tuple(invert_matrix(A, 4), a);
+	result = return_tuple(-2, 2, 2, VECTOR);
+	assert(equal_tuple(b, result));
+	/*negative scalingL: Reflection */
+	a = return_tuple(2, 3, 4, POINT);
+	A = scaling(-1, 1, 1);
+	b = multiply_matrix_by_tuple(A, a);
+	result = return_tuple(-2, 3, 4, POINT);
+	assert(equal_tuple(b, result));
 }
