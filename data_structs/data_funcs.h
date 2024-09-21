@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 11:25:19 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/09/21 19:44:30 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/09/21 20:58:23 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,5 +59,15 @@ double		matrix_4_by_4_minor(t_matrix *matrix, int row, int column);
 double		matrix_cofactor(t_matrix *matrix, int row, int column, size_t size);
 double		matrix_determinant(t_matrix *m, size_t size);
 t_matrix	*invert_matrix(t_matrix *m, size_t size);
+
+/* TRANSFORMATIONS */
 t_matrix	*translation(double x, double y, double z);
 t_matrix	*scaling(double x, double y, double z);
+t_matrix	*rotation_x(double r);
+t_matrix	*rotation_y(double r);
+t_matrix	*rotation_z(double r);
+t_matrix	*shearing(t_shear shear);
+t_shear		fill_shear(t_tuple t1, t_tuple t2);
+
+
+

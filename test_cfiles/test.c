@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 10:47:12 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/09/21 19:24:10 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/09/21 21:02:29 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -323,4 +323,40 @@ int main()
 	b = multiply_matrix_by_tuple(A, a);
 	result = return_tuple(-2, 3, 4, POINT);
 	assert(equal_tuple(b, result));
+	/*Rotaion On X axis*/
+	t_tuple point = return_tuple(0, 1, 0, POINT);
+	t_matrix *half_quarter = rotation_x(M_PI/4);
+	t_matrix *full_quarter = rotation_x(M_PI/2);
+	t_tuple point2 = multiply_matrix_by_tuple(half_quarter, point);
+	assert(equal_tuple(point2, return_tuple(0, sqrt(2)/2, sqrt(2)/2, POINT)));
+	point2 = multiply_matrix_by_tuple(full_quarter, point);
+	assert(equal_tuple(point2, return_tuple(0, 0, 1, POINT)));
+	/*Inverse Rotaion On X axis*/
+	point = return_tuple(0, 1, 0, POINT);
+	half_quarter = rotation_x(M_PI/4);
+	t_matrix *inv = invert_matrix(half_quarter, 4);
+	point2 = multiply_matrix_by_tuple(inv, point);
+	assert(equal_tuple(point2, return_tuple(0, sqrt(2)/2, -sqrt(2)/2, POINT)));
+	/*Rotaion On Y axis*/
+	point = return_tuple(0, 0, 1, POINT);
+	half_quarter = rotation_y(M_PI/4);
+	full_quarter = rotation_y(M_PI/2);
+	point2 = multiply_matrix_by_tuple(half_quarter, point);
+	assert(equal_tuple(point2, return_tuple(sqrt(2)/2, 0, sqrt(2)/2, POINT)));
+	point2 = multiply_matrix_by_tuple(full_quarter, point);
+	assert(equal_tuple(point2, return_tuple(1, 0, 0, POINT)));
+	/*Rotaion On Z axis*/
+	point = return_tuple(0, 1, 0, POINT);
+	half_quarter = rotation_z(M_PI/4);
+	full_quarter = rotation_z(M_PI/2);
+	point2 = multiply_matrix_by_tuple(half_quarter, point);
+	assert(equal_tuple(point2, return_tuple(-sqrt(2)/2, sqrt(2)/2, 0, POINT)));
+	point2 = multiply_matrix_by_tuple(full_quarter, point);
+	assert(equal_tuple(point2, return_tuple(-1, 0, 0, POINT)));
+	/*Shearing*/
+	t_shear shear = fill_shear(return_tuple(1, 0, 0, 0), return_tuple(0, 0, 0, 0));
+	t_matrix	*transform = shearing(shear);
+	point = return_tuple(2, 3, 4, POINT);
+	point2 = multiply_matrix_by_tuple(transform, point);
+	assert(equal_tuple(point2, return_tuple(5, 3, 4, POINT)));
 }
