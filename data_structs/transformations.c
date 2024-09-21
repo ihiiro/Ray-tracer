@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 18:45:46 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/09/21 19:56:50 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/09/21 21:36:15 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,11 @@
 #include <stdlib.h>
 #include <math.h>
 
+
+t_matrix	*identity()
+{
+	return (translation(0, 0, 0));
+}
 t_matrix	*translation(double x, double y, double z)
 {
 	return (return_4_by_4_matrix(

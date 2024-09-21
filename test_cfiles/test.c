@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 10:47:12 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/09/21 21:06:39 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/09/21 21:31:41 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -359,4 +359,21 @@ int main()
 	point = return_tuple(2, 3, 4, POINT);
 	point2 = multiply_matrix_by_tuple(transform, point);
 	assert(equal_tuple(point2, return_tuple(2, 3, 7, POINT)));
+	/*Chaining Transformations*/
+	/* individually */
+	point = return_tuple(1, 0, 1, POINT);
+	A = rotation_x(M_PI/2);
+	B = scaling(5, 5, 5);
+	C = translation(10, 5, 7);
+	point = multiply_matrix_by_tuple(A, point);
+	assert(equal_tuple(point, return_tuple(1, -1, 0, POINT)));
+	point = multiply_matrix_by_tuple(B, point);
+	assert(equal_tuple(point, return_tuple(5, -5, 0, POINT)));
+	point = multiply_matrix_by_tuple(C, point);
+	assert(equal_tuple(point, return_tuple(15, 0, 7, POINT)));
+	/* chained */
+	point = return_tuple(1, 0, 1, POINT);
+	matrix = matrix_multiply(matrix_multiply(C, B, 4), A, 4);
+	point = multiply_matrix_by_tuple(matrix, point);
+	assert(equal_tuple(point, return_tuple(15, 0, 7, POINT)));
 }

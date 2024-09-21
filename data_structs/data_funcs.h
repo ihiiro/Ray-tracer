@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 11:25:19 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/09/21 20:58:23 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/09/21 21:35:16 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ t_matrix	*rotation_y(double r);
 t_matrix	*rotation_z(double r);
 t_matrix	*shearing(t_shear shear);
 t_shear		fill_shear(t_tuple t1, t_tuple t2);
+t_matrix	*identity();
+
 
 
 
