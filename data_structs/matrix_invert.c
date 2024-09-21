@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 11:47:16 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/09/21 13:32:27 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/09/21 17:26:44 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,17 @@
 #include "data_funcs.h"
 #include "../maths/maths.h"
 #include <stdlib.h>
+#include <math.h>
 
-double	matrix_3x3_cofactor(t_matrix *matrix, int row, int column)
+double	matrix_cofactor(t_matrix *matrix, int row, int column, size_t size)
 {
 	double minor;
 
-	minor = matrix_3_by_3_minor(matrix, row, column);
-	if (row + column % 2 != 0)
-		return (-minor);
-	return (minor);
-}
-
-double	matrix_4x4_cofactor(t_matrix *matrix, int row, int column)
-{
-	double minor;
-
-	minor = matrix_4_by_4_minor(matrix, row, column);
-	if (row + column % 2 != 0)
-		return (-minor);
-	return (minor);
+	if (size == 3)
+		minor = matrix_3_by_3_minor(matrix, row, column);
+	else
+		minor = matrix_4_by_4_minor(matrix, row, column);
+	return (minor * pow(-1, row + column));
 }
 
 double	matrix_determinant(t_matrix *m, size_t size)
@@ -42,10 +34,41 @@ double	matrix_determinant(t_matrix *m, size_t size)
 	if (size == 2)
 		return (determinant_2x2_matrix(m));
 	else if (size == 3)
-		determinant = m[0].x * matrix_3x3_cofactor(m, 0, 0) + m[0].y * matrix_3x3_cofactor(m, 0, 1)
-		+ m[0].z * matrix_3x3_cofactor(m, 0, 2) + m[0].w * matrix_3x3_cofactor(m, 0, 3);
+		determinant = m[0].x * matrix_cofactor(m, 0, 0, size) + m[0].y * matrix_cofactor(m, 0, 1, size)
+		+ m[0].z * matrix_cofactor(m, 0, 2, size) + m[0].w * matrix_cofactor(m, 0, 3, size);
 	else
-		determinant = m[0].x * matrix_4x4_cofactor(m, 0, 0) + m[0].y * matrix_4x4_cofactor(m, 0, 1)
-		+ m[0].z * matrix_4x4_cofactor(m, 0, 2) + m[0].w * matrix_4x4_cofactor(m, 0, 3);
+		determinant = m[0].x * matrix_cofactor(m, 0, 0, size) + m[0].y * matrix_cofactor(m, 0, 1, size)
+		+ m[0].z * matrix_cofactor(m, 0, 2, size) + m[0].w * matrix_cofactor(m, 0, 3, size);
 	return (determinant);
+}
+
+#include <libc.h>
+
+t_matrix	*invert_matrix(t_matrix *m0, size_t size)
+{
+	size_t		i;
+	double		determinant;
+	t_matrix	*mt;
+
+	(i = -1, determinant = matrix_determinant(m0, size));
+	if (equal(determinant, 0))
+		return (NULL);
+	mt = malloc(sizeof(t_tuple) * size);
+	(!mt) && (exit(EXIT_FAILURE), 0);
+	while(++i < size)
+	{
+		mt[i].x = matrix_cofactor(m0, i, 0, size);
+		mt[i].y = matrix_cofactor(m0, i, 1, size);
+		mt[i].z = matrix_cofactor(m0, i, 2, size);
+		mt[i].w = matrix_cofactor(m0, i, 3, size);
+	}
+	(i = -1 ,mt = matrix_transpose(mt, size));
+	while(++i < size)
+	{
+		mt[i].x = mt[i].x / determinant;
+		mt[i].y = mt[i].y / determinant;
+		mt[i].z = mt[i].z / determinant;
+		mt[i].w = mt[i].w / determinant;
+	}
+	return (mt);
 }

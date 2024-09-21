@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 10:47:12 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/09/21 13:36:26 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/09/21 17:36:59 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -235,7 +235,7 @@ int main()
 	assert(MINOR == 25);
 	double COFACTOR = matrix_3_by_3_minor(matrix, 0, 0);
 	assert(COFACTOR == -12);
-	COFACTOR = matrix_3x3_cofactor(matrix, 1, 0);
+	COFACTOR = matrix_cofactor(matrix, 1, 0, 3);
 	assert(COFACTOR == -25);
 	/* 3 by 3 determinant */
 	matrix = return_3_by_3_matrix(
@@ -254,4 +254,31 @@ int main()
 	);
 	double DETERMINANT_4X4 = matrix_determinant(matrix, 4);
 	assert(DETERMINANT_4X4 == -4071);
+
+	/**/
+	matrix = return_4_by_4_matrix(
+		return_tuple(-5, 2, 6, -8),
+		return_tuple(1, -5, 1, 8),
+		return_tuple(7, 7, -6, -7),
+		return_tuple(1, -3, 7, 4)
+	);
+	// matrix = invert_matrix(matrix, 4); tested before OK (omitted because of precision errors)
+	t_matrix *A = return_4_by_4_matrix(
+		return_tuple(3, -9, 7, 3),
+		return_tuple(3, -8, 2, -9),
+		return_tuple(-4, 4, 4, 1),
+		return_tuple(-6, 5, -1, 1)
+	);
+	t_matrix *B = return_4_by_4_matrix(
+		return_tuple(8, 2, 2, 2),
+		return_tuple(3, -1, 7, 0),
+		return_tuple(7, 0, 5, 4),
+		return_tuple(6, -2, 0, 5)
+	);
+	t_matrix *C = matrix_multiply(A, B, 4);
+	t_matrix *SHOULD_BE_A = matrix_multiply(C, invert_matrix(B, 4), 4);
+	assert(equal(SHOULD_BE_A[0].x , 3) && equal(SHOULD_BE_A[0].y , -9) && equal(SHOULD_BE_A[0].z , 7) && equal(SHOULD_BE_A[0].w , 3));
+	assert(equal(SHOULD_BE_A[1].x , 3) && equal(SHOULD_BE_A[1].y , -8) && equal(SHOULD_BE_A[1].z , 2) && equal(SHOULD_BE_A[1].w , -9));
+	assert(equal(SHOULD_BE_A[2].x , -4) && equal(SHOULD_BE_A[2].y , 4) && equal(SHOULD_BE_A[2].z , 4) && equal(SHOULD_BE_A[2].w , 1));
+	assert(equal(SHOULD_BE_A[3].x , -6) && equal(SHOULD_BE_A[3].y , 5) && equal(SHOULD_BE_A[3].z , -1) && equal(SHOULD_BE_A[3].w , 1));
 }
