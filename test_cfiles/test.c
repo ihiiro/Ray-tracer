@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 10:47:12 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/09/21 17:40:10 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/09/21 19:04:25 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -281,4 +281,21 @@ int main()
 	assert(equal(SHOULD_BE_A[1].x , 3) && equal(SHOULD_BE_A[1].y , -8) && equal(SHOULD_BE_A[1].z , 2) && equal(SHOULD_BE_A[1].w , -9));
 	assert(equal(SHOULD_BE_A[2].x , -4) && equal(SHOULD_BE_A[2].y , 4) && equal(SHOULD_BE_A[2].z , 4) && equal(SHOULD_BE_A[2].w , 1));
 	assert(equal(SHOULD_BE_A[3].x , -6) && equal(SHOULD_BE_A[3].y , 5) && equal(SHOULD_BE_A[3].z , -1) && equal(SHOULD_BE_A[3].w , 1));
+	/* MATRIX TRANSFORMATION (TRANSLATION) */
+	/* points */
+	a = return_tuple(-3, 4, 5, POINT);
+	A = translation(5, -3, 2);
+	b = multiply_matrix_by_tuple(A, a);
+	t_tuple result = return_tuple(2, 1, 7, POINT);
+	assert(equal_tuple(b, result));
+	a = return_tuple(-3, 4, 5, POINT);
+	A = translation(5, -3, 2);
+	b = multiply_matrix_by_tuple(invert_matrix(A, 4), a);
+	result = return_tuple(-8, 7, 3, POINT);
+	assert(equal_tuple(b, result));
+	/* vectors */
+	a = return_tuple(-3, 4, 5, VECTOR);
+	A = translation(5, -3, 2);
+	b = multiply_matrix_by_tuple(A, a);
+	assert(equal_tuple(a, b));
 }
