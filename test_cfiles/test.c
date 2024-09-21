@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 10:47:12 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/09/21 21:02:29 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/09/21 21:06:39 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -354,9 +354,9 @@ int main()
 	point2 = multiply_matrix_by_tuple(full_quarter, point);
 	assert(equal_tuple(point2, return_tuple(-1, 0, 0, POINT)));
 	/*Shearing*/
-	t_shear shear = fill_shear(return_tuple(1, 0, 0, 0), return_tuple(0, 0, 0, 0));
+	t_shear shear = fill_shear(return_tuple(0, 0, 0, 0), return_tuple(0, 0, 1, 0));
 	t_matrix	*transform = shearing(shear);
 	point = return_tuple(2, 3, 4, POINT);
 	point2 = multiply_matrix_by_tuple(transform, point);
-	assert(equal_tuple(point2, return_tuple(5, 3, 4, POINT)));
+	assert(equal_tuple(point2, return_tuple(2, 3, 7, POINT)));
 }
