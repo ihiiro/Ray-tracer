@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 10:47:12 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/09/21 17:36:59 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/09/21 17:40:10 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -255,7 +255,7 @@ int main()
 	double DETERMINANT_4X4 = matrix_determinant(matrix, 4);
 	assert(DETERMINANT_4X4 == -4071);
 
-	/**/
+	/* 5 * 2 = 10 => 10 * 1/5 = 2 but for matrices */
 	matrix = return_4_by_4_matrix(
 		return_tuple(-5, 2, 6, -8),
 		return_tuple(1, -5, 1, 8),
