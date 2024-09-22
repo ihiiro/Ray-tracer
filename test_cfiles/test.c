@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 10:47:12 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/09/21 21:31:41 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/09/22 19:50:47 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -324,56 +324,66 @@ int main()
 	result = return_tuple(-2, 3, 4, POINT);
 	assert(equal_tuple(b, result));
 	/*Rotaion On X axis*/
-	t_tuple point = return_tuple(0, 1, 0, POINT);
+	t_tuple p = return_tuple(0, 1, 0, POINT);
 	t_matrix *half_quarter = rotation_x(M_PI/4);
 	t_matrix *full_quarter = rotation_x(M_PI/2);
-	t_tuple point2 = multiply_matrix_by_tuple(half_quarter, point);
+	t_tuple point2 = multiply_matrix_by_tuple(half_quarter, p);
 	assert(equal_tuple(point2, return_tuple(0, sqrt(2)/2, sqrt(2)/2, POINT)));
-	point2 = multiply_matrix_by_tuple(full_quarter, point);
+	point2 = multiply_matrix_by_tuple(full_quarter, p);
 	assert(equal_tuple(point2, return_tuple(0, 0, 1, POINT)));
 	/*Inverse Rotaion On X axis*/
-	point = return_tuple(0, 1, 0, POINT);
+	p = return_tuple(0, 1, 0, POINT);
 	half_quarter = rotation_x(M_PI/4);
 	t_matrix *inv = invert_matrix(half_quarter, 4);
-	point2 = multiply_matrix_by_tuple(inv, point);
+	point2 = multiply_matrix_by_tuple(inv, p);
 	assert(equal_tuple(point2, return_tuple(0, sqrt(2)/2, -sqrt(2)/2, POINT)));
 	/*Rotaion On Y axis*/
-	point = return_tuple(0, 0, 1, POINT);
+	p = return_tuple(0, 0, 1, POINT);
 	half_quarter = rotation_y(M_PI/4);
 	full_quarter = rotation_y(M_PI/2);
-	point2 = multiply_matrix_by_tuple(half_quarter, point);
+	point2 = multiply_matrix_by_tuple(half_quarter, p);
 	assert(equal_tuple(point2, return_tuple(sqrt(2)/2, 0, sqrt(2)/2, POINT)));
-	point2 = multiply_matrix_by_tuple(full_quarter, point);
+	point2 = multiply_matrix_by_tuple(full_quarter, p);
 	assert(equal_tuple(point2, return_tuple(1, 0, 0, POINT)));
 	/*Rotaion On Z axis*/
-	point = return_tuple(0, 1, 0, POINT);
+	p = return_tuple(0, 1, 0, POINT);
 	half_quarter = rotation_z(M_PI/4);
 	full_quarter = rotation_z(M_PI/2);
-	point2 = multiply_matrix_by_tuple(half_quarter, point);
+	point2 = multiply_matrix_by_tuple(half_quarter, p);
 	assert(equal_tuple(point2, return_tuple(-sqrt(2)/2, sqrt(2)/2, 0, POINT)));
-	point2 = multiply_matrix_by_tuple(full_quarter, point);
+	point2 = multiply_matrix_by_tuple(full_quarter, p);
 	assert(equal_tuple(point2, return_tuple(-1, 0, 0, POINT)));
 	/*Shearing*/
 	t_shear shear = fill_shear(return_tuple(0, 0, 0, 0), return_tuple(0, 0, 1, 0));
 	t_matrix	*transform = shearing(shear);
-	point = return_tuple(2, 3, 4, POINT);
-	point2 = multiply_matrix_by_tuple(transform, point);
+	p = return_tuple(2, 3, 4, POINT);
+	point2 = multiply_matrix_by_tuple(transform, p);
 	assert(equal_tuple(point2, return_tuple(2, 3, 7, POINT)));
 	/*Chaining Transformations*/
 	/* individually */
-	point = return_tuple(1, 0, 1, POINT);
+	p = return_tuple(1, 0, 1, POINT);
 	A = rotation_x(M_PI/2);
 	B = scaling(5, 5, 5);
 	C = translation(10, 5, 7);
-	point = multiply_matrix_by_tuple(A, point);
-	assert(equal_tuple(point, return_tuple(1, -1, 0, POINT)));
-	point = multiply_matrix_by_tuple(B, point);
-	assert(equal_tuple(point, return_tuple(5, -5, 0, POINT)));
-	point = multiply_matrix_by_tuple(C, point);
-	assert(equal_tuple(point, return_tuple(15, 0, 7, POINT)));
+	p = multiply_matrix_by_tuple(A, p);
+	assert(equal_tuple(p, return_tuple(1, -1, 0, POINT)));
+	p = multiply_matrix_by_tuple(B, p);
+	assert(equal_tuple(p, return_tuple(5, -5, 0, POINT)));
+	p = multiply_matrix_by_tuple(C, p);
+	assert(equal_tuple(p, return_tuple(15, 0, 7, POINT)));
 	/* chained */
-	point = return_tuple(1, 0, 1, POINT);
+	p = return_tuple(1, 0, 1, POINT);
 	matrix = matrix_multiply(matrix_multiply(C, B, 4), A, 4);
-	point = multiply_matrix_by_tuple(matrix, point);
-	assert(equal_tuple(point, return_tuple(15, 0, 7, POINT)));
+	p = multiply_matrix_by_tuple(matrix, p);
+	assert(equal_tuple(p, return_tuple(15, 0, 7, POINT)));
+	/* RAY CASTING */
+	t_ray r;
+	r = return_ray(point(1, 2, 3), vector(4, 5, 6));
+	assert(equal_tuple(r.origin, point(1, 2, 3)) && equal_tuple(r.direction, vector(4, 5, 6)));
+	/*Position*/
+	r = return_ray(point(2, 3, 4), vector(1, 0, 0));
+	assert(equal_tuple(position(r, 0), point(2, 3, 4)));
+	assert(equal_tuple(position(r, 1), point(3, 3, 4)));
+	assert(equal_tuple(position(r, -1), point(1, 3, 4)));
+	assert(equal_tuple(position(r, 2.5), point(4.5, 3, 4)));
 }

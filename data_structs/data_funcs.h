@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 11:25:19 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/09/21 21:35:16 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/09/22 20:00:26 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ t_tuple	point(double x, double y, double z);
 t_tuple	vector(double x, double y, double z);
 bool	equal_tuple(t_tuple a, t_tuple b);
 bool	equal(double a, double b);
-
 
 /* TUPLE ARITHMETIC */
 t_tuple add_tuples(t_tuple a, t_tuple b);
@@ -70,6 +69,9 @@ t_matrix	*shearing(t_shear shear);
 t_shear		fill_shear(t_tuple t1, t_tuple t2);
 t_matrix	*identity();
 
+/*RAY - TRACER*/
+t_ray		return_ray(t_tuple org, t_tuple dir);
+t_tuple 	position(t_ray ray, double t);
 
-
-
+/* OBJECTS */
+t_sphere	sphere(int id);

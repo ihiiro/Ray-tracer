@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 11:47:16 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/09/21 18:58:45 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/09/22 18:59:30 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,3 +72,4 @@ t_matrix	*invert_matrix(t_matrix *m0, size_t size)
 	}
 	return (mt);
 }
+/**/
