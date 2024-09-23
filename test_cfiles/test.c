@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 10:47:12 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/09/23 23:02:39 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/09/23 23:55:25 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -464,4 +464,33 @@ int main()
 	intersections[3].t = 2;
 	closest_intersection = hit(intersections);
 	assert(equal(closest_intersection.t, 2) && closest_intersection.object == &s);
+	/*Transforming Sphere With Ray*/
+	r = return_ray(point(1, 2, 3), vector(0, 1, 0));
+	m0 = translation(3, 4, 5);
+	t_ray r2 = transform_ray(r, m0);
+	assert(equal_tuple(r2.origin, point(4, 6, 8)) && equal_tuple(r2.direction, vector(0, 1, 0)));
+	r = return_ray(point(1, 2, 3), vector(0, 1, 0));
+	m0 = scaling(2, 3, 4);
+	r2 = transform_ray(r, m0);
+	assert(equal_tuple(r2.origin, point(2, 6, 12)) && equal_tuple(r2.direction, vector(0, 3, 0)));
+	t_sphere sp = sphere(0);
+	m0 = translation(2, 3, 4);
+	set_transform(&sp, m0);
+	assert(equal_matrices(sp.transform, m0, 4));
+	/*Intersecting a scaled sphere with a ray*/
+	r = return_ray(point(0, 0, -5), vector(0, 0, 1));
+	sp = sphere(1);
+	m0 = scaling(2, 2, 2);
+	set_transform(&sp,  m0);
+	assert(equal_matrices(sp.transform, m0, 4));
+	xs = sphere_intersect(&sp, r);
+	assert(xs.count == 2 && equal(xs.t0, 3) && equal(xs.t1, 7));
+	/*Intersecting a translated sphere with a ray*/
+	r = return_ray(point(0, 0, -5), vector(0, 0, 1));
+	sp = sphere(1);
+	m0 = translation(5, 0, 0);
+	set_transform(&sp,  m0);
+	assert(equal_matrices(sp.transform, m0, 4));
+	xs = sphere_intersect(&sp, r);
+	assert(xs.count == 0);
 }

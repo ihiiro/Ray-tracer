@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 18:52:35 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/09/23 23:00:07 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/09/23 23:50:52 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ t_xs	sphere_intersect(t_sphere *s, t_ray r)
 	double	c;
 	double	discriminant;
 
+	r = transform_ray(r, invert_matrix(s->transform, 4));
 	sphere_to_ray = sub_tuples(r.origin, s->center);
 	a = vec_dot(r.direction, r.direction);
 	b = 2 * vec_dot(r.direction, sphere_to_ray);
@@ -71,4 +72,16 @@ t_intersection	hit(t_intersection *intersections)
 		i++;
 	}
 	return (hit_intersection);
+}
+t_ray		transform_ray(t_ray r, t_matrix *m)
+{
+	t_ray	ray;
+
+	ray.origin = multiply_matrix_by_tuple(m, r.origin);
+	ray.direction = multiply_matrix_by_tuple(m, r.direction);
+	return (ray);
+}
+void	set_transform(t_sphere *s, t_matrix *m)
+{
+	s->transform = m;
 }

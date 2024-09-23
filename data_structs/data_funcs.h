@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 11:25:19 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/09/23 22:29:13 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/09/23 23:22:22 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,4 +79,5 @@ t_intersection	hit(t_intersection *intersections);
 /* OBJECTS */
 t_sphere	sphere(int id);
 t_xs		sphere_intersect(t_sphere *s, t_ray r);
-
+t_ray		transform_ray(t_ray r, t_matrix *m);
+void		set_transform(t_sphere *s, t_matrix *m);
