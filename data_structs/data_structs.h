@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 11:20:46 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/09/22 23:00:58 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/09/23 20:25:29 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,17 @@ typedef struct s_ray
 /* CONVENIENT ALIASES */
 typedef t_tuple t_matrix;
 
-/*Not 100%*/
+/* intersections */
+typedef struct s_xs
+{
+	int		count;
+	void	*object0;
+	void	*object1;
+	double	t0;
+	double	t1;
+}	t_xs;
+
+/* OBJECTS */
 typedef struct s_sphere
 {
 	int		id;
@@ -67,9 +77,15 @@ typedef struct s_sphere
 	t_matrix *transform;
 }	t_sphere;
 
-typedef struct s_xs
+typedef struct s_object
 {
-	int		count;
-	double	t0;
-	double	t1;
-}	t_xs;
+	int form;
+	t_sphere	*sphere;
+	t_sphere	*cylinder;
+}		t_object;
+
+typedef struct s_intersection
+{
+	double		t;
+	void		*object;
+}		t_intersection;

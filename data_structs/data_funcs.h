@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 11:25:19 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/09/22 23:53:34 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/09/23 20:23:56 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,5 +75,5 @@ t_tuple 	position(t_ray ray, double t);
 
 /* OBJECTS */
 t_sphere	sphere(int id);
-t_xs	sphere_intersect(t_sphere s, t_ray r);
+t_xs		sphere_intersect(t_sphere *s, t_ray r);
 

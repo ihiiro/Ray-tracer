@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 10:47:12 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/09/23 15:40:12 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/09/23 20:46:31 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -390,26 +390,36 @@ int main()
 	/* t0 != t1 (two intersections) */
 	r = return_ray(point(0, 0, -5), vector(0, 0, 1));
 	t_sphere s = sphere(0);
-	t_xs xs = sphere_intersect(s, r);
-	assert(xs.count == 2 && equal(xs.t0, 4.0) && equal(xs.t1, 6.0));
+	t_xs xs = sphere_intersect(&s, r);
+	assert(xs.count == 2 && equal(xs.t0, 4.0) && equal(xs.t1, 6.0) && (t_sphere *)xs.object0 == &s && (t_sphere *)xs.object1 == &s);
 	/* t0 == t1 (intersection is tangent to sphere) */
 	r = return_ray(point(0, 1, -5), vector(0, 0, 1));
 	s = sphere(0);
-	xs = sphere_intersect(s, r);
-	assert(xs.count == 2 && equal(xs.t0, 5.0) && equal(xs.t1, 5.0));
+	xs = sphere_intersect(&s, r);
+	assert(xs.count == 2 && equal(xs.t0, 5.0) && equal(xs.t1, 5.0) && (t_sphere *)xs.object0 == &s && (t_sphere *)xs.object1 == &s);
 	/* a miss (no intersections at all) */
 	r = return_ray(point(0, 2, -5), vector(0, 0, 1));
 	s = sphere(0);
-	xs = sphere_intersect(s, r);
-	assert(xs.count == 0 && equal(xs.t0, 0.0) && equal(xs.t1, 0.0));
+	xs = sphere_intersect(&s, r);
+	assert(xs.count == 0 && equal(xs.t0, 0.0) && equal(xs.t1, 0.0) && (t_sphere *)xs.object0 == NULL && (t_sphere *)xs.object1 == NULL);
 	/* ray's origin == sphere's origin */
 	r = return_ray(point(0, 0, 0), vector(0, 0, 1));
 	s = sphere(0);
-	xs = sphere_intersect(s, r);
-	assert(xs.count == 2 && equal(xs.t0, -1.0) && equal(xs.t1, 1.0));
+	xs = sphere_intersect(&s, r);
+	assert(xs.count == 2 && equal(xs.t0, -1.0) && equal(xs.t1, 1.0) && (t_sphere *)xs.object0 == &s && (t_sphere *)xs.object1 == &s);
 	/* ray's origin > sphere's origin */
 	r = return_ray(point(0, 0, 5), vector(0, 0, 1));
 	s = sphere(0);
-	xs = sphere_intersect(s, r);
-	assert(xs.count == 2 && equal(xs.t0, -6.0) && equal(xs.t1, -4.0));
+	xs = sphere_intersect(&s, r);
+	assert(xs.count == 2 && equal(xs.t0, -6.0) && equal(xs.t1, -4.0) && (t_sphere *)xs.object0 == &s && (t_sphere *)xs.object1 == &s);
+	/* RAY-OBJECT INTERSECTION RECORD TESTS */
+	s = sphere(0);
+	t_intersection i = {3.5, &s};
+	assert(equal(i.t, 3.5) && (t_sphere *)i.object == &s);
+	/* sphere_intersect() sets the objects */
+	r = return_ray(point(0, 0, -5), vector(0, 0, 1));
+	s = sphere(0);
+	xs = sphere_intersect(&s, r);
+	assert(xs.count == 2 && (t_sphere *)xs.object0 == &s && (t_sphere *)xs.object1 == &s);
+	
 }
