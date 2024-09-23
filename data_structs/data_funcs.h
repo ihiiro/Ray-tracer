@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 11:25:19 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/09/23 20:23:56 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/09/23 22:29:13 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,11 @@ t_shear		fill_shear(t_tuple t1, t_tuple t2);
 t_matrix	*identity();
 
 /*RAY - TRACER*/
-t_ray		return_ray(t_tuple org, t_tuple dir);
-t_tuple 	position(t_ray ray, double t);
+t_ray			return_ray(t_tuple org, t_tuple dir);
+t_tuple 		position(t_ray ray, double t);
+
+/* INTERSECTION TESTING */
+t_intersection	hit(t_intersection *intersections);
 
 /* OBJECTS */
 t_sphere	sphere(int id);

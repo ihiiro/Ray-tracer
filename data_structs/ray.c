@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 18:52:35 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/09/23 20:40:36 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/09/23 23:00:07 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "../maths/maths.h"
 #include <stdlib.h>
 #include <math.h>
+#include <limits.h>
 
 t_ray	return_ray(t_tuple org, t_tuple dir)
 {
@@ -51,4 +52,23 @@ t_xs	sphere_intersect(t_sphere *s, t_ray r)
 	xs.t0 = (-b - sqrt(discriminant)) / (2 * a);
 	xs.t1 = (-b + sqrt(discriminant)) / (2 * a);
 	return (xs);
+}
+
+t_intersection	hit(t_intersection *intersections)
+{
+	int				n;
+	int				i;
+	t_intersection	hit_intersection;
+
+	n = intersections[0].atom_count;
+	hit_intersection.t = INT_MAX;
+	hit_intersection.object = intersections[0].object;
+	i = 0;
+	while (i < n)
+	{
+		if (intersections[i].t >= 0 && intersections[i].t < hit_intersection.t)
+			hit_intersection = intersections[i];
+		i++;
+	}
+	return (hit_intersection);
 }

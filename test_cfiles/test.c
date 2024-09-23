@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 10:47:12 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/09/23 20:46:31 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/09/23 23:02:39 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include "../maths/maths.h"
 #include <math.h>
 #include "../MLX/MLX42.h"
+#include <limits.h>
 
 int main()
 {
@@ -414,12 +415,53 @@ int main()
 	assert(xs.count == 2 && equal(xs.t0, -6.0) && equal(xs.t1, -4.0) && (t_sphere *)xs.object0 == &s && (t_sphere *)xs.object1 == &s);
 	/* RAY-OBJECT INTERSECTION RECORD TESTS */
 	s = sphere(0);
-	t_intersection i = {3.5, &s};
+	t_intersection i = {0, 3.5, &s};
 	assert(equal(i.t, 3.5) && (t_sphere *)i.object == &s);
 	/* sphere_intersect() sets the objects */
 	r = return_ray(point(0, 0, -5), vector(0, 0, 1));
 	s = sphere(0);
 	xs = sphere_intersect(&s, r);
 	assert(xs.count == 2 && (t_sphere *)xs.object0 == &s && (t_sphere *)xs.object1 == &s);
-	
+	/* HIT TESTS */
+	/* The hit, when all intersections have positive t */
+	s = sphere(0);
+	t_intersection intersections[4];
+	intersections[0].atom_count = 2;
+	intersections[0].object = &s;
+	intersections[0].t = 1;
+	intersections[1].object = &s;
+	intersections[1].t = 2;
+	t_intersection closest_intersection = hit(intersections);
+	assert(equal(closest_intersection.t, 1) && closest_intersection.object == &s);
+	/* The hit, when some intersections have negative t */
+	s = sphere(0);
+	intersections[0].atom_count = 2;
+	intersections[0].object = &s;
+	intersections[0].t = -1;
+	intersections[1].object = &s;
+	intersections[1].t = 1;
+	closest_intersection = hit(intersections);
+	assert(equal(closest_intersection.t, 1) && closest_intersection.object == &s);
+	/* The hit, when all intersections have negative t */
+	s = sphere(0);
+	intersections[0].atom_count = 2;
+	intersections[0].object = &s;
+	intersections[0].t = -2;
+	intersections[1].object = &s;
+	intersections[1].t = -1;
+	closest_intersection = hit(intersections);
+	assert(equal(closest_intersection.t, INT_MAX) && closest_intersection.object == &s); // NO HIT
+	/* The hit is always the lowest nonnegative intersection */
+	s = sphere(0);
+	intersections[0].atom_count = 4;
+	intersections[0].object = &s;
+	intersections[0].t = 5;
+	intersections[1].object = &s;
+	intersections[1].t = 7;
+	intersections[2].object = &s;
+	intersections[2].t = -3;
+	intersections[3].object = &s;
+	intersections[3].t = 2;
+	closest_intersection = hit(intersections);
+	assert(equal(closest_intersection.t, 2) && closest_intersection.object == &s);
 }

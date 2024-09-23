@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 11:20:46 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/09/23 20:25:29 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/09/23 22:19:18 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,15 +77,16 @@ typedef struct s_sphere
 	t_matrix *transform;
 }	t_sphere;
 
-typedef struct s_object
-{
-	int form;
-	t_sphere	*sphere;
-	t_sphere	*cylinder;
-}		t_object;
+// typedef struct s_object
+// {
+// 	int form;
+// 	t_sphere	*sphere;
+// 	t_sphere	*cylinder;
+// }		t_object;
 
 typedef struct s_intersection
 {
+	int			atom_count;
 	double		t;
 	void		*object;
 }		t_intersection;
