@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 10:47:12 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/09/22 19:50:47 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/09/23 15:40:12 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -386,4 +386,30 @@ int main()
 	assert(equal_tuple(position(r, 1), point(3, 3, 4)));
 	assert(equal_tuple(position(r, -1), point(1, 3, 4)));
 	assert(equal_tuple(position(r, 2.5), point(4.5, 3, 4)));
+	/* RAY SPHERE INTERSECTION TESTS */
+	/* t0 != t1 (two intersections) */
+	r = return_ray(point(0, 0, -5), vector(0, 0, 1));
+	t_sphere s = sphere(0);
+	t_xs xs = sphere_intersect(s, r);
+	assert(xs.count == 2 && equal(xs.t0, 4.0) && equal(xs.t1, 6.0));
+	/* t0 == t1 (intersection is tangent to sphere) */
+	r = return_ray(point(0, 1, -5), vector(0, 0, 1));
+	s = sphere(0);
+	xs = sphere_intersect(s, r);
+	assert(xs.count == 2 && equal(xs.t0, 5.0) && equal(xs.t1, 5.0));
+	/* a miss (no intersections at all) */
+	r = return_ray(point(0, 2, -5), vector(0, 0, 1));
+	s = sphere(0);
+	xs = sphere_intersect(s, r);
+	assert(xs.count == 0 && equal(xs.t0, 0.0) && equal(xs.t1, 0.0));
+	/* ray's origin == sphere's origin */
+	r = return_ray(point(0, 0, 0), vector(0, 0, 1));
+	s = sphere(0);
+	xs = sphere_intersect(s, r);
+	assert(xs.count == 2 && equal(xs.t0, -1.0) && equal(xs.t1, 1.0));
+	/* ray's origin > sphere's origin */
+	r = return_ray(point(0, 0, 5), vector(0, 0, 1));
+	s = sphere(0);
+	xs = sphere_intersect(s, r);
+	assert(xs.count == 2 && equal(xs.t0, -6.0) && equal(xs.t1, -4.0));
 }

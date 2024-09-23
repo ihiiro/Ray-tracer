@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 11:20:46 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/09/22 20:00:56 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/09/22 23:00:58 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,3 +66,10 @@ typedef struct s_sphere
 	double	radius;
 	t_matrix *transform;
 }	t_sphere;
+
+typedef struct s_xs
+{
+	int		count;
+	double	t0;
+	double	t1;
+}	t_xs;
