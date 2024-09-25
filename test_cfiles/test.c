@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 10:47:12 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/09/25 16:20:53 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/09/25 18:58:29 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -517,5 +517,14 @@ int main()
 	s = sphere(0);
 	n = normal_at(s, point(sqrt(3)/3, sqrt(3)/3, sqrt(3)/3));
 	assert(equal_tuple(n, normalize_vec(n)));
-	
+	/* Computing the normal on a translated sphere */
+	s = sphere(0);
+	s.transform = translation(0, 1, 0);
+	n = normal_at(s, point(0, 1.70711, -0.70711));
+	assert(equal_tuple(n, vector(0, 0.70711, -0.70711)));
+	/* normal of a rotated and scaled sphere */
+	s = sphere(0);
+	s.transform = matrix_multiply(scaling(1, .5, 1), rotation_z(M_PI / 5), 4);
+	n = normal_at(s, point(0, sqrt(2)/2, -sqrt(2)/2));
+	assert(equal_tuple(n, vector(0, 0.97014, -0.24254)));
 }

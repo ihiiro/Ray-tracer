@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 18:52:35 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/09/25 11:25:02 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/09/25 16:42:46 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 #include <stdlib.h>
 #include <math.h>
 #include <limits.h>
-#include <stdio.h>
 
 t_ray	return_ray(t_tuple org, t_tuple dir)
 {
@@ -85,7 +84,4 @@ t_ray		transform_ray(t_ray r, t_matrix *m)
 	ray.direction = multiply_matrix_by_tuple(m, r.direction);
 	return (ray);
 }
-void	set_transform(t_sphere *s, t_matrix *m)
-{
-	s->transform = m;
-}
+

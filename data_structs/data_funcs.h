@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 11:25:19 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/09/23 23:22:22 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/09/25 16:34:27 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,3 +81,8 @@ t_sphere	sphere(int id);
 t_xs		sphere_intersect(t_sphere *s, t_ray r);
 t_ray		transform_ray(t_ray r, t_matrix *m);
 void		set_transform(t_sphere *s, t_matrix *m);
+
+
+/*From World space to Object space*/
+t_tuple		normal_at(t_sphere s, t_tuple point);
+

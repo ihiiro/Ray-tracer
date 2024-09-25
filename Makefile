@@ -6,7 +6,7 @@
 #    By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/18 10:41:01 by yel-yaqi          #+#    #+#              #
-#    Updated: 2024/09/22 20:01:51 by yel-yaqi         ###   ########.fr        #
+#    Updated: 2024/09/25 16:30:42 by yel-yaqi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,8 @@ CFILES = data_structs/points_vectors.c \
 		 data_structs/transformations.c \
 		 data_structs/transformations_2.c \
 		 data_structs/ray.c \
-		 data_structs/objects.c
+		 data_structs/objects.c \
+		 data_structs/normals.c
 
 OFILES = $(CFILES:.c=.o)
 
