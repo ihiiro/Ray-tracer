@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 11:25:19 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/09/25 16:34:27 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/09/25 22:50:27 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,4 +85,10 @@ void		set_transform(t_sphere *s, t_matrix *m);
 
 /*From World space to Object space*/
 t_tuple		normal_at(t_sphere s, t_tuple point);
+/*Reflection*/
+t_tuple	reflect(t_tuple in, t_tuple normal);
+/*Phong Model*/
+/*Point Light*/
+t_light		point_light(t_tuple position, t_tuple intensity);
+
 

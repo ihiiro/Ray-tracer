@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 11:20:46 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/09/23 22:19:18 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/09/25 22:46:22 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,3 +90,10 @@ typedef struct s_intersection
 	double		t;
 	void		*object;
 }		t_intersection;
+
+/*Point Light*/
+typedef struct s_light
+{
+	t_tuple intensity;
+	t_tuple	position;
+}		t_light;

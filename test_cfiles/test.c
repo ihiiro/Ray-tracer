@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 10:47:12 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/09/25 18:58:29 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/09/25 22:47:51 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -527,4 +527,20 @@ int main()
 	s.transform = matrix_multiply(scaling(1, .5, 1), rotation_z(M_PI / 5), 4);
 	n = normal_at(s, point(0, sqrt(2)/2, -sqrt(2)/2));
 	assert(equal_tuple(n, vector(0, 0.97014, -0.24254)));
+	/*Reflection*/
+	t_tuple v = vector(1, -1, 0);
+	t_tuple normal = vector(0, 1, 0);
+	t_tuple reflection = reflect(v, normal);
+	printf("%f %f %f\n", reflection.x, reflection.y, reflection.z);
+	assert(equal_tuple(reflection, vector(1, 1, 0)));
+	v = vector(0, -1, 0);
+	normal = vector(sqrt(2)/2, sqrt(2)/2, 0);
+	reflection = reflect(v, normal);
+	assert(equal_tuple(reflection, vector(1, 0, 0)));
+	/*Phong Model */
+	/*Point Light*/
+	t_tuple intensity = color(1, 1, 1);
+	t_tuple	position = point(0, 0, 0);
+	t_light	light = point_light(position, intensity);
+	assert(equal_tuple(light.intensity, intensity) && equal_tuple(light.position, position));
 }
