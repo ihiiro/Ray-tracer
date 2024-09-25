@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 15:00:02 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/09/21 19:43:58 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/09/25 16:20:38 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ t_tuple	normalize_vec(t_tuple t)
 	double	magnitude;
 
 	magnitude = vector_magnitude(t);
+	if (magnitude == 0)
+		return (vector(0, 0, 0));
 	return (scale_tuple(t, 1 / magnitude));
 }
 

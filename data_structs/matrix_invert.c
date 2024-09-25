@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 11:47:16 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/09/22 18:59:30 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/09/25 11:24:38 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,12 @@ double	matrix_determinant(t_matrix *m, size_t size)
 	return (determinant);
 }
 
-#include <libc.h>
-
 t_matrix	*invert_matrix(t_matrix *m0, size_t size)
 {
 	size_t		i;
 	double		determinant;
 	t_matrix	*mt;
+	t_matrix	*mt_tmp;
 
 	(i = -1, determinant = matrix_determinant(m0, size));
 	if (equal(determinant, 0))
@@ -62,7 +61,9 @@ t_matrix	*invert_matrix(t_matrix *m0, size_t size)
 		mt[i].z = matrix_cofactor(m0, i, 2, size);
 		mt[i].w = matrix_cofactor(m0, i, 3, size);
 	}
+	mt_tmp = mt;
 	(i = -1 ,mt = matrix_transpose(mt, size));
+	free(mt_tmp);
 	while(++i < size)
 	{
 		mt[i].x = mt[i].x / determinant;

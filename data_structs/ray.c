@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 18:52:35 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/09/23 23:50:52 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/09/25 11:25:02 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include <limits.h>
+#include <stdio.h>
 
 t_ray	return_ray(t_tuple org, t_tuple dir)
 {
@@ -39,7 +40,9 @@ t_xs	sphere_intersect(t_sphere *s, t_ray r)
 	double	c;
 	double	discriminant;
 
-	r = transform_ray(r, invert_matrix(s->transform, 4));
+	t_matrix *tmp_matrix = invert_matrix(s->transform, 4);
+	r = transform_ray(r, tmp_matrix);
+	free(tmp_matrix);
 	sphere_to_ray = sub_tuples(r.origin, s->center);
 	a = vec_dot(r.direction, r.direction);
 	b = 2 * vec_dot(r.direction, sphere_to_ray);
@@ -52,6 +55,7 @@ t_xs	sphere_intersect(t_sphere *s, t_ray r)
 	xs.object1 = s;
 	xs.t0 = (-b - sqrt(discriminant)) / (2 * a);
 	xs.t1 = (-b + sqrt(discriminant)) / (2 * a);
+	
 	return (xs);
 }
 

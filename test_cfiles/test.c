@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 10:47:12 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/09/23 23:55:25 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/09/25 16:20:53 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,9 @@
 #include <math.h>
 #include "../MLX/MLX42.h"
 #include <limits.h>
+
+#define WIDTH 100
+#define HEIGHT 100
 
 int main()
 {
@@ -493,4 +496,26 @@ int main()
 	assert(equal_matrices(sp.transform, m0, 4));
 	xs = sphere_intersect(&sp, r);
 	assert(xs.count == 0);
+	/* SURFACE NORMALS */
+	/* normal at x axis */
+	s = sphere(0);
+	t_tuple n = normal_at(s, point(1, 0, 0));
+	assert(equal_tuple(n, vector(1, 0, 0)));
+	/* normal at y axis */
+	s = sphere(0);
+	n = normal_at(s, point(0, 1, 0));
+	assert(equal_tuple(n, vector(0, 1, 0)));
+	/* normal at z axis */
+	s = sphere(0);
+	n = normal_at(s, point(0, 0, 1));
+	assert(equal_tuple(n, vector(0, 0, 1)));
+	/* normal at nonaxial point */
+	s = sphere(0);
+	n = normal_at(s, point(sqrt(3)/3, sqrt(3)/3, sqrt(3)/3));
+	assert(equal_tuple(n, vector(sqrt(3)/3, sqrt(3)/3, sqrt(3)/3)));
+	/* The normal is a normalized vector */
+	s = sphere(0);
+	n = normal_at(s, point(sqrt(3)/3, sqrt(3)/3, sqrt(3)/3));
+	assert(equal_tuple(n, normalize_vec(n)));
+	
 }
