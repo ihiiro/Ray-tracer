@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 11:25:19 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/09/25 22:50:27 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/09/26 18:43:14 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,4 +91,6 @@ t_tuple	reflect(t_tuple in, t_tuple normal);
 /*Point Light*/
 t_light		point_light(t_tuple position, t_tuple intensity);
 
-
+/* lights */
+t_material	material();
+t_tuple 	lighting(t_lighting l);

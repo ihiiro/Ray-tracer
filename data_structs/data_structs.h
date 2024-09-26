@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 11:20:46 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/09/25 22:46:22 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/09/26 17:52:04 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,12 +69,22 @@ typedef struct s_xs
 }	t_xs;
 
 /* OBJECTS */
+typedef struct s_material
+{
+	t_tuple color;
+	double	ambient;
+	double	diffuse;
+	double	specular;
+	double	shininess;
+}		t_material;
+
 typedef struct s_sphere
 {
-	int		id;
-	t_tuple center;
-	double	radius;
-	t_matrix *transform;
+	int			id;
+	t_tuple 	center;
+	double		radius;
+	t_matrix 	*transform;
+	t_material	material;
 }	t_sphere;
 
 // typedef struct s_object
@@ -97,3 +107,26 @@ typedef struct s_light
 	t_tuple intensity;
 	t_tuple	position;
 }		t_light;
+
+typedef struct s_lighting
+{
+	t_material	m;
+	t_light		light;
+	t_tuple		point;
+	t_tuple		eyev;
+	t_tuple		normalv;
+}		t_lighting;
+
+typedef struct s_lighting_components
+{
+	t_tuple	effective_color;
+	t_tuple	lightv;
+	double	ambient;
+	double	diffuse;
+	double	specular;
+	double	light_dot_normalv;
+	t_tuple	reflectv;
+	double	reflect_dot_eye;
+	double	specular_factor;
+	
+}		t_lighting_components;

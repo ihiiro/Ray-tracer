@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 10:47:12 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/09/25 22:47:51 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/09/26 19:00:48 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -528,10 +528,10 @@ int main()
 	n = normal_at(s, point(0, sqrt(2)/2, -sqrt(2)/2));
 	assert(equal_tuple(n, vector(0, 0.97014, -0.24254)));
 	/*Reflection*/
+	/* 45 degree vector */
 	t_tuple v = vector(1, -1, 0);
 	t_tuple normal = vector(0, 1, 0);
 	t_tuple reflection = reflect(v, normal);
-	printf("%f %f %f\n", reflection.x, reflection.y, reflection.z);
 	assert(equal_tuple(reflection, vector(1, 1, 0)));
 	v = vector(0, -1, 0);
 	normal = vector(sqrt(2)/2, sqrt(2)/2, 0);
@@ -543,4 +543,75 @@ int main()
 	t_tuple	position = point(0, 0, 0);
 	t_light	light = point_light(position, intensity);
 	assert(equal_tuple(light.intensity, intensity) && equal_tuple(light.position, position));
+	/* MATERIALS */
+	t_material m = material();
+	assert(equal_tuple(m.color, color(1, 1, 1)));
+	assert(equal(m.ambient, 0.1));
+	assert(equal(m.diffuse, 0.9));
+	assert(equal(m.specular, 0.9));
+	assert(equal(m.shininess, 200.0));
+	/* a sphere has a default material */
+	s = sphere(0);
+	m = s.material;
+	assert(equal_tuple(m.color, color(1, 1, 1)));
+	assert(equal(m.ambient, 0.1));
+	assert(equal(m.diffuse, 0.9));
+	assert(equal(m.specular, 0.9));
+	assert(equal(m.shininess, 200.0));
+	/* A sphere may be assigned a material */
+	s = sphere(0);
+	m = material();
+	m.ambient = 1;
+	s.material = m;
+	assert(equal_tuple(m.color, color(1, 1, 1)));
+	assert(equal(m.ambient, 1));
+	assert(equal(m.diffuse, 0.9));
+	assert(equal(m.specular, 0.9));
+	assert(equal(m.shininess, 200.0));
+	/* Lighting with the eye between the light and the surface */
+	m = material();
+	t_tuple	pos = point(0, 0, 0);
+	t_tuple eyev = vector(0, 0, -1);
+	t_tuple normalv = vector(0, 0, -1);
+	light = point_light(point(0, 0, -10), color(1, 1, 1));
+	t_lighting l = {m, light, pos, eyev, normalv};
+	t_tuple final_color_intensity = lighting(l);
+	assert(equal_tuple(final_color_intensity, color(1.9, 1.9, 1.9)));
+	/* Lighting with the eye between light and surface, eye offset 45° */
+	m = material();
+	pos = point(0, 0, 0);
+	eyev = vector(0, sqrt(2)/2, -sqrt(2)/2);
+	normalv = vector(0, 0, -1);
+	light = point_light(point(0, 0, -10), color(1, 1, 1));
+	t_lighting l1 = {m, light, pos, eyev, normalv};
+	final_color_intensity = lighting(l1);
+	printf("%f %f %f\n", final_color_intensity.x, final_color_intensity.y, final_color_intensity.z);
+	assert(equal_tuple(final_color_intensity, color(1.0, 1.0, 1.0)));
+	/* Lighting with eye opposite surface, light offset 45° */
+	m = material();
+	pos = point(0, 0, 0);
+	eyev = vector(0, 0, -1);
+	normalv = vector(0, 0, -1);
+	light = point_light(point(0, 10, -10), color(1, 1, 1));
+	t_lighting l2 = {m, light, pos, eyev, normalv};
+	final_color_intensity = lighting(l2);
+	assert(equal_tuple(final_color_intensity, color(0.7364, 0.7364, 0.7364)));
+	/* Lighting with eye in the path of the reflection vector */
+	m = material();
+	pos = point(0, 0, 0);
+	eyev = vector(0, -sqrt(2)/2, -sqrt(2)/2);
+	normalv = vector(0, 0, -1);
+	light = point_light(point(0, 10, -10), color(1, 1, 1));
+	t_lighting l3 = {m, light, pos, eyev, normalv};
+	final_color_intensity = lighting(l3);
+	assert(equal_tuple(final_color_intensity, color(1.6364, 1.6364, 1.6364)));
+	/* Lighting with the light behind the surface */
+	m = material();
+	pos = point(0, 0, 0);
+	eyev = vector(0, 0, -1);
+	normalv = vector(0, 0, -1);
+	light = point_light(point(0, 0, 10), color(1, 1, 1));
+	t_lighting l4 = {m, light, pos, eyev, normalv};
+	final_color_intensity = lighting(l4);
+	assert(equal_tuple(final_color_intensity, color(0.1, 0.1, 0.1)));
 }
