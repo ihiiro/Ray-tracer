@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 10:47:12 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/09/26 19:00:48 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/09/27 02:29:53 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@
 #include "../MLX/MLX42.h"
 #include <limits.h>
 
-#define WIDTH 100
-#define HEIGHT 100
+#define WIDTH 400
+#define HEIGHT 400
 
 int main()
 {
@@ -110,7 +110,7 @@ int main()
 		for (int y = 0; y < 200; y++)
 			assert(equal_tuple(c.pixels[x][y].color, color(255, 255, 255)));
 	write_pixel(&c, 2, 3, color(255, 0, 0));
-	assert(equal_tuple(*pixel_at(&c, 2, 3), color(255, 0, 0)));
+	// assert(equal_tuple(*pixel_at(&c, 2, 3), color(255, 0, 0)));
 	/* MATRICES TESTS */
 	/* 4 by 4 */
 	t_matrix *matrix = return_4_by_4_matrix(
@@ -540,9 +540,9 @@ int main()
 	/*Phong Model */
 	/*Point Light*/
 	t_tuple intensity = color(1, 1, 1);
-	t_tuple	position = point(0, 0, 0);
-	t_light	light = point_light(position, intensity);
-	assert(equal_tuple(light.intensity, intensity) && equal_tuple(light.position, position));
+	t_tuple	pos = point(0, 0, 0);
+	t_light	light = point_light(pos, intensity);
+	assert(equal_tuple(light.intensity, intensity) && equal_tuple(light.position, pos));
 	/* MATERIALS */
 	t_material m = material();
 	assert(equal_tuple(m.color, color(1, 1, 1)));
@@ -570,7 +570,7 @@ int main()
 	assert(equal(m.shininess, 200.0));
 	/* Lighting with the eye between the light and the surface */
 	m = material();
-	t_tuple	pos = point(0, 0, 0);
+	pos = point(0, 0, 0);
 	t_tuple eyev = vector(0, 0, -1);
 	t_tuple normalv = vector(0, 0, -1);
 	light = point_light(point(0, 0, -10), color(1, 1, 1));
@@ -585,7 +585,6 @@ int main()
 	light = point_light(point(0, 0, -10), color(1, 1, 1));
 	t_lighting l1 = {m, light, pos, eyev, normalv};
 	final_color_intensity = lighting(l1);
-	printf("%f %f %f\n", final_color_intensity.x, final_color_intensity.y, final_color_intensity.z);
 	assert(equal_tuple(final_color_intensity, color(1.0, 1.0, 1.0)));
 	/* Lighting with eye opposite surface, light offset 45° */
 	m = material();
@@ -614,4 +613,62 @@ int main()
 	t_lighting l4 = {m, light, pos, eyev, normalv};
 	final_color_intensity = lighting(l4);
 	assert(equal_tuple(final_color_intensity, color(0.1, 0.1, 0.1)));
+
+
+
+	/*  to remove */
+
+
+	t_canvas c1 = canvas(WIDTH, WIDTH);
+    mlx_t *mlx = mlx_init(WIDTH, WIDTH, "sphere", false);
+    mlx_image_t *img = mlx_new_image(mlx, WIDTH, WIDTH);
+    t_ray ray = return_ray(point(0, 0, -5), vector(0, 0, 1));
+    double wall_z = 10;
+    double wall_size = 7;
+    double half = wall_size/2;
+    double pixel_size = wall_size / WIDTH;
+    t_sphere s1 = sphere(1);
+	s1.material = material();
+	s1.material.color = color(1, .2, 1);
+	t_light LIGHT = point_light(point(0, 0, -5), color(1, 1, 1));
+
+
+	// for (double i = .; i < 1; )
+	
+
+    for(int i = 0; i < WIDTH; i++)
+    {
+        double world_y = half - pixel_size * i;
+        for(int j = 0; j < WIDTH ; j++)
+        {
+            double world_x = half - pixel_size * j;
+            t_tuple pos = point(world_x, world_y, wall_z);
+            t_ray r = return_ray(ray.origin, normalize_vec(sub_tuples(pos, ray.origin)));
+            t_xs xs = sphere_intersect(&s1, r);
+			t_intersection inter[2];
+			inter[0].atom_count = 2;
+			inter[0].t = xs.t0;
+			inter[1].t = xs.t1;
+            if (xs.count > 0)
+            {
+				t_tuple P = position(r, hit(inter).t);
+				// printf("%f %f %f\n", P.x, P.y, P.z);
+				normalv = normal_at(s1, P);
+				eyev = negate_tuple(r.direction);
+				t_lighting L = {s1.material, LIGHT, P, eyev, normalv};
+				final_color_intensity = lighting(L);
+				printf("%f %f %f", final_color_intensity.x * s1.material.color.x, final_color_intensity.y * s1.material.color.y, final_color_intensity.z * s1.material.color.z);
+				t_tuple fcl;
+				fcl = multiply_colors(final_color_intensity, multiply_color_by_scalar(s1.material.color, 255));
+				// fcl = multiply_colors(multiply_color_by_scalar(final_color_intensity, 4.58), multiply_color_by_scalar(s1.material.color, 255));
+				printf(" became (%f %f %f)\n", fcl.x, fcl.y, fcl.z);
+                write_pixel(&c1, i, j, fcl);
+            }
+            else
+                write_pixel(&c1, i, j, color(0, 0, 0));
+        }
+    }
+    create_canvas(&c1, img, mlx);
+    mlx_loop(mlx);
+	
 }

@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 16:51:33 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/09/26 18:58:43 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/09/27 01:45:54 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ t_tuple lighting(t_lighting l)
 {
 	t_lighting_components	lc;
 
-	
 	lc.effective_color = multiply_colors(l.m.color, l.light.intensity);
 	lc.lightv = normalize_vec(sub_tuples(l.light.position, l.point));
 	lc.ambient = lc.effective_color.x * lc.effective_color.y * lc.effective_color.z * l.m.ambient;
