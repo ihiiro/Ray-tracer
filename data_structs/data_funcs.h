@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 11:25:19 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/09/26 18:43:14 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/09/29 19:49:15 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,3 +94,19 @@ t_light		point_light(t_tuple position, t_tuple intensity);
 /* lights */
 t_material	material();
 t_tuple 	lighting(t_lighting l);
+
+/* PARSER */
+void	reach_for(const char **line, char end, int skip);
+void	parse_ambient(const char *line, t_world **world, int is_fraction);
+void	parse_camera(const char *line, t_world **world, int is_fraction);
+void	parse_lights(const char *line, t_light_ **lights_list, int is_fraction);
+void	clean_w(t_world *world);
+void	parse_sphere(const char *line, t_world **world, t_object_ **objects_list, int is_fraction);
+void	alloc_and_parse_pos(t_sphere **sp, t_object_ **object, t_world **world, const char **line);
+int		ft_atoi(const char *str, int *is_fraction);
+bool	valid_color(t_tuple color);
+void	exitf(char *msg);
+void	append_objects(t_object_ **lst, t_object_ *new);
+void	parse_light_pos(const char **line, t_light_ **light, int is_fraction);
+void	append_lights(t_light_ **lst, t_light_ *new);
+bool	normalized_vector(t_tuple v);

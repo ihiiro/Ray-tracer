@@ -5,3 +5,5 @@ rt_tests
 a.out
 square
 square.c
+spec.rt
+parser_rt

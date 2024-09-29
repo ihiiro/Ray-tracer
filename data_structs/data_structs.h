@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 11:20:46 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/09/29 15:48:53 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/09/29 20:04:29 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,13 +84,6 @@ typedef struct s_sphere
 	t_material	material;
 }	t_sphere;
 
-// typedef struct s_object
-// {
-// 	int form;
-// 	t_sphere	*sphere;
-// 	t_sphere	*cylinder;
-// }		t_object;
-
 typedef struct s_intersection
 {
 	int			atom_count;
@@ -134,3 +127,45 @@ typedef struct s_lighting_components
 # define POINT 1.0
 # define VECTOR 0.0
 # define SPHERE 0
+
+
+/* PARSER */
+typedef struct s_light_
+{
+	t_tuple	pos;
+	t_tuple	color;
+	double	intensity;
+	struct s_light_	*next;
+}		t_light_;
+
+typedef struct s_object_
+{
+	int		form;
+	void	*object;
+	struct s_object_	*next;
+}		t_object_;
+
+typedef struct s_camera_
+{
+	t_tuple		pos;
+	t_tuple		vec;
+	double		fov;
+}		t_camera_;
+
+typedef struct s_world
+{
+	t_light_ 	*lights_list;
+	t_object_	*objects_list;
+	t_tuple		ambient_color;
+	double		ambient_intensity;
+	t_camera_	camera;
+}		t_world;
+
+typedef struct s_parser
+{
+	t_light_	*lights_list;
+	t_object_	*objects_list;
+	t_world		*world;
+	const char	*line;
+	int			fd;
+}		t_parser;

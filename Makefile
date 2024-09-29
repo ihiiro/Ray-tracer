@@ -6,7 +6,7 @@
 #    By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/18 10:41:01 by yel-yaqi          #+#    #+#              #
-#    Updated: 2024/09/29 16:58:13 by yel-yaqi         ###   ########.fr        #
+#    Updated: 2024/09/29 20:20:00 by yel-yaqi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,12 @@ CFILES = data_structs/points_vectors.c \
 		 data_structs/normals.c \
 		 data_structs/lights.c \
 		parser/get_next_line/get_next_line.c \
-		parser/parse_rt.c 
+		parser/parse_rt.c \
+		parser/parse.c \
+		parser/parser_linked_lists.c \
+		parser/parser_utils.c \
+		parser/exitf.c \
+		parser/atoi.c
 
 OFILES = $(CFILES:.c=.o)
 
@@ -58,8 +63,8 @@ test_fcfiles/%.o: test_fcfiles/%.c
 $(TESTS): $(TEST_OFILES) $(MLX_LIB) $(OFILES)
 	cc $(DEPS) $(MLX_LIB) $^ -o $@
 
-parser_rt: $(MLX_LIB) $(OFILES)
-	cc $(DEPS) $(MLX_LIB) $^ -o $@
+# parser_rt: $(MLX_LIB) $(OFILES)
+# 	cc $(DEPS) $(MLX_LIB) $^ -o $@
 
 all: $(TESTS)
 
