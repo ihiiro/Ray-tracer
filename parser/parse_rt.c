@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 10:26:12 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/09/29 18:18:52 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/09/29 19:26:07 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,40 +171,42 @@ bool	valid_color(t_tuple color)
 	return (true);
 }
 
-void	parse_ambient(const char *line, t_world **world, int is_fraction)
-{
-	while (*line != ' ')
-		line++;
-	while (*line == ' ')
-		line++;
-	(*world)->ambient_intensity = ft_atoi(line, &is_fraction) / 10.0;
-	is_fraction = 10;
-	if ((*world)->ambient_intensity > 1 || (*world)->ambient_intensity < 0)
-		exitf(" intensity parse error\n");
-	while (*line != ' ')
-		line++;
-	(*world)->ambient_color.x = ft_atoi(line, &is_fraction);
-	while (*line != ',')
-		line++;
-	line++;
-	(*world)->ambient_color.y = ft_atoi(line, &is_fraction);
-	is_fraction = 10;
-
-	while (*line != ',')
-		line++;
-	line++;
-	(*world)->ambient_color.z = ft_atoi(line, &is_fraction);
-	is_fraction = 10;
-	if (!valid_color((*world)->ambient_color))
-		exitf("color parse error\n");
-}
-
 void	reach_for(const char **line, char end, int skip)
 {
 	while (**line && **line != end)
 		(*line)++;
 	if (skip)
 		(*line)++;
+}
+
+void	parse_ambient(const char *line, t_world **world, int is_fraction)
+{
+	reach_for(&line, ' ', 0);
+	while (*line == ' ')
+		line++;
+	(*world)->ambient_intensity = ft_atoi(line, &is_fraction) / 10.0;
+	is_fraction = 10;
+	reach_for(&line, ' ', 0);
+	(*world)->ambient_color.x = ft_atoi(line, &is_fraction);
+	reach_for(&line, ',', 1);
+	(*world)->ambient_color.y = ft_atoi(line, &is_fraction);
+	is_fraction = 10;
+	reach_for(&line, ',', 1);
+	(*world)->ambient_color.z = ft_atoi(line, &is_fraction);
+	is_fraction = 10;
+	if (!valid_color((*world)->ambient_color) ||
+		(*world)->ambient_intensity > 1 || (*world)->ambient_intensity < 0)
+		exitf("ambience parse error\n");
+}
+
+bool	normalized_vector(t_tuple v)
+{
+	v.w = VECTOR;
+	if (!equal_tuple(vector(1, 0, 0), v)
+		&& !equal_tuple(vector(0, 1, 0), v)
+		&& !equal_tuple(vector(0, 0, 1), v))
+		return (false);
+	return (true);
 }
 
 void	parse_camera(const char *line, t_world **world, int is_fraction)
@@ -227,88 +229,99 @@ void	parse_camera(const char *line, t_world **world, int is_fraction)
 	is_fraction = 10;
 	reach_for(&line, ',', 1);
 	(*world)->camera.vec.z = ft_atoi(line, &is_fraction);
-	if ((*world)->camera.vec.z != 0 && (*world)->camera.vec.z != 1 && (*world)->camera.vec.z != -1)
-		exitf("camera o vector parse error\n");
 	is_fraction = 10;
 	reach_for(&line, ' ', 0);
 	(*world)->camera.fov = ft_atoi(line, &is_fraction);
-	if ((*world)->camera.fov < 0 || (*world)->camera.fov > 180)
-		exitf("camera FOV parse error\n");
+	if ((*world)->camera.fov < 0 || (*world)->camera.fov > 180
+		|| !normalized_vector((*world)->camera.vec))
+		exitf("camera parse error\n");
 }
 
-void	parse_lights()
+void	parse_light_pos(const char **line, t_light_ **light, int is_fraction)
 {
-	// light 3d coordinates
-		while (*line != ' ')
-			line++;
-		light = malloc(sizeof(t_light_));
-		light->pos.x = ft_atoi(line, &is_fraction) / (10.0 / is_fraction);
-		is_fraction = 10;
-		while (*line != ',')
-			line++;
-		line++;
-		light->pos.y = ft_atoi(line, &is_fraction) / (10.0 / is_fraction);
-		is_fraction = 10;
-		while (*line != ',')
-			line++;
-		line++;
-		light->pos.z = ft_atoi(line, &is_fraction) / (10.0 / is_fraction);
-		is_fraction = 10;
-		// light intensity
-		while (*line != ' ')
-			line++;
-		while (*line == ' ')
-			line++;
-		light->intensity = ft_atoi(line, &is_fraction) / 10.0;
-		is_fraction = 10;
-		if (light->intensity > 1 || light->intensity < 0) // intensity should be in range [0.0,1.0]
-		{
-			printf(" intensity parse error\n");
-			exit(EXIT_FAILURE);
-		}
-		// light rgb
-		while (*line != ' ')
-			line++;
-		light->color.x = ft_atoi(line, &is_fraction);
-		if (light->color.x > 255 || light->color.x < 0)
-		{
-			printf(" color parse error\n");
-			exit(EXIT_FAILURE);
-		}
-		while (*line != ',')
-			line++;
-		line++;
-		light->color.y = ft_atoi(line, &is_fraction);
-		is_fraction = 10;
+	reach_for(line, ' ', 0);
+	*light = malloc(sizeof(t_light_));
+	(*light)->pos.x = ft_atoi(*line, &is_fraction) / (10.0 / is_fraction);
+	is_fraction = 10;
+	reach_for(line, ',', 1);
+	(*light)->pos.y = ft_atoi(*line, &is_fraction) / (10.0 / is_fraction);
+	is_fraction = 10;
+	reach_for(line, ',', 1);
+	(*light)->pos.z = ft_atoi(*line, &is_fraction) / (10.0 / is_fraction);
+	is_fraction = 10;
+	reach_for(line, ' ', 0);
+}
 
-		if (light->color.y > 255 || light->color.y < 0)
-		{
-			printf(" color parse error\n");
-			exit(EXIT_FAILURE);
-		}
-		if (light->color.y > 255 || light->color.z < 0)
-		{
-			printf(" color parse error\n");
-			exit(EXIT_FAILURE);
-		}
-		while (*line != ',')
-			line++;
-		line++;
-		light->color.z = ft_atoi(line, &is_fraction);
-		is_fraction = 10;
+void	parse_lights(const char *line, t_light_ **lights_list, int is_fraction)
+{
+	t_light_	*light;
 
-		if (light->color.z > 255)
-		{
-			printf(" color parse error\n");
-			exit(EXIT_FAILURE);
-		}
-		if (light->color.z > 255)
-		{
-			printf(" color parse error\n");
-			exit(EXIT_FAILURE);
-		}
-		light->next = NULL;
-		append_lights(lights_list, light);
+	parse_light_pos(&line, &light, 10);
+	while (*line == ' ')
+		line++;
+	light->intensity = ft_atoi(line, &is_fraction) / 10.0;
+	is_fraction = 10;
+	reach_for(&line, ' ', 0);
+	light->color.x = ft_atoi(line, &is_fraction);
+	reach_for(&line, ',', 1);
+	light->color.y = ft_atoi(line, &is_fraction);
+	is_fraction = 10;
+	reach_for(&line, ',', 1);
+	light->color.z = ft_atoi(line, &is_fraction);
+	is_fraction = 10;
+	if (!valid_color(light->color) || light->intensity > 1
+		|| light->intensity < 0)
+		exitf("lights parse error\n");
+	light->next = NULL;
+	append_lights(lights_list, light);
+}
+
+void	alloc_and_parse_pos(t_sphere **sp, t_object_ **object, t_world **world, const char **line)
+{
+	int	is_fraction;
+
+	is_fraction = 10;
+	*sp = malloc(sizeof(t_sphere));
+	*object = malloc(sizeof(t_object_));
+	**sp = sphere(0);
+	(*sp)->material.ambient = (*world)->ambient_intensity;
+	reach_for(line, ' ', 0);
+	(*sp)->center.x = ft_atoi(*line, &is_fraction) / (10.0 / is_fraction);
+	is_fraction = 10;
+	reach_for(line, ',', 1);
+	(*sp)->center.y = ft_atoi(*line, &is_fraction) / (10.0 / is_fraction);
+	is_fraction = 10;
+	reach_for(line, ',', 1);
+	(*sp)->center.z = ft_atoi(*line, &is_fraction) / (10.0 / is_fraction);
+	is_fraction = 10;
+	reach_for(line, ' ', 0);
+}
+
+void	parse_sphere(const char *line, t_world **world, t_object_ **objects_list, int is_fraction)
+{
+	t_sphere	*sp;
+	t_object_	*object;
+
+	alloc_and_parse_pos(&sp, &object, world, &line);
+	while (*line == ' ')
+		line++;
+	sp->radius = ft_atoi(line, &is_fraction) / 10.0 / 2;
+	is_fraction = 10;
+	reach_for(&line, ' ', 0);
+	sp->material.color.x = ft_atoi(line, &is_fraction);
+	reach_for(&line, ',', 1);
+	sp->material.color.y = ft_atoi(line, &is_fraction);
+	is_fraction = 10;
+	reach_for(&line, ',', 1);
+	sp->material.color.z = ft_atoi(line, &is_fraction);
+	is_fraction = 10;
+	if (sp->radius <= 0 || !valid_color(sp->material.color))
+		exitf("sphere parse error\n");
+	sp->material.ambient = (*world)->ambient_intensity;
+	object->form = SPHERE;
+	object->object = sp;
+	object->next = NULL;
+	append_objects(objects_list, object);
 }
 
 void get_values(const char *line, t_light_ **lights_list, t_object_ **objects_list, t_world **world)
@@ -326,85 +339,24 @@ void get_values(const char *line, t_light_ **lights_list, t_object_ **objects_li
 	else if (line[0] == 'C' && line[1] == ' ') // C
 		parse_camera(line, world, 10);
 	else if (line[0] == 'L' && line[1] == ' ') // L
-		parse_lights();
+		parse_lights(line, lights_list, 10);
 	else if (line[0] == 's' && line[1] == 'p' && line[2] == ' ') // sp
-	{
-		// sphere center 3d coordinates
-		sp = malloc(sizeof(t_sphere));
-		object = malloc(sizeof(t_object_));
-		*sp = sphere(0);
-		sp->material.ambient = (*world)->ambient_intensity;
-		while (*line != ' ')
-			line++;
-		sp->center.x = ft_atoi(line, &is_fraction) / (10.0 / is_fraction);
-		is_fraction = 10;
-		while (*line != ',')
-			line++;
-		line++;
-		sp->center.y = ft_atoi(line, &is_fraction) / (10.0 / is_fraction);
-		is_fraction = 10;
-		while (*line != ',')
-			line++;
-		line++;
-		sp->center.z = ft_atoi(line, &is_fraction) / (10.0 / is_fraction);
-		is_fraction = 10;
-		/* sphere radius */
-		while (*line != ' ')
-			line++;
-		while (*line == ' ')
-			line++;
-		sp->radius = ft_atoi(line, &is_fraction) / 10.0 / 2;
-		is_fraction = 10;
-		if (sp->radius <= 0) // get rid of meaningless number
-		{
-			printf(" radius parse error\n");
-			exit(EXIT_FAILURE);
-		}
-		// sphere rgb
-		while (*line != ' ')
-			line++;
-		sp->material.color.x = ft_atoi(line, &is_fraction);
-		if (sp->material.color.x > 255 || sp->material.color.x < 0)
-		{
-			printf(" color parse error\n");
-			exit(EXIT_FAILURE);
-		}
-		while (*line != ',')
-			line++;
-		line++;
-		sp->material.color.y = ft_atoi(line, &is_fraction);
-		is_fraction = 10;
+		parse_sphere(line, world, objects_list, 10);
+}
 
-		if (sp->material.color.y > 255 || sp->material.color.y < 0)
-		{
-			printf(" color parse error\n");
-			exit(EXIT_FAILURE);
-		}
-		if (sp->material.color.y > 255 || sp->material.color.z < 0)
-		{
-			printf(" color parse error\n");
-			exit(EXIT_FAILURE);
-		}
-		while (*line != ',')
-			line++;
-		line++;
-		sp->material.color.z = ft_atoi(line, &is_fraction);
-		is_fraction = 10;
-		if (sp->material.color.z > 255)
-		{
-			printf(" color parse error\n");
-			exit(EXIT_FAILURE);
-		}
-		if (sp->material.color.z > 255)
-		{
-			printf(" color parse error\n");
-			exit(EXIT_FAILURE);
-		}
-		sp->material.ambient = (*world)->ambient_intensity;
-		object->form = SPHERE;
-		object->object = sp;
-		object->next = NULL;
-		append_objects(objects_list, object);
+void	clean_w(t_world *world)
+{
+	t_light_	*iter;
+
+	world->ambient_color.w = POINT;
+	world->camera.pos.w = POINT;
+	world->camera.vec.w = VECTOR;
+	iter = world->lights_list;
+	while (iter)
+	{
+		iter->color.w = POINT;
+		iter->pos.w = POINT;
+		iter = iter->next;
 	}
 }
 
@@ -428,6 +380,7 @@ t_world	*parse(const char *file)
 	}
 	world->lights_list = lights_list;
 	world->objects_list = objects_list;
+	clean_w(world);
 	return (world);
 }
 
@@ -455,5 +408,5 @@ int main()
 		printf("\tposition[%f %f %f]", world->lights_list->pos.x, world->lights_list->pos.y, world->lights_list->pos.z);
 		printf("\n\trgb[%f %f %f]", world->lights_list->color.x, world->lights_list->color.y, world->lights_list->color.z);
 		printf("\n\tintensity[%f]\n\n", world->lights_list->intensity);
-	}
+	} 
 }
