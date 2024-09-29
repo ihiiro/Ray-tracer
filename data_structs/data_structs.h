@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 11:20:46 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/09/26 17:52:04 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/09/27 22:06:23 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,12 +121,13 @@ typedef struct s_lighting_components
 {
 	t_tuple	effective_color;
 	t_tuple	lightv;
-	double	ambient;
-	double	diffuse;
-	double	specular;
+	t_tuple	ambient;
+	t_tuple	diffuse;
+	t_tuple	specular;
 	double	light_dot_normalv;
 	t_tuple	reflectv;
 	double	reflect_dot_eye;
 	double	specular_factor;
+	t_tuple	intensity;
 	
 }		t_lighting_components;
