@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 11:20:46 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/09/27 22:06:23 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/09/29 15:48:53 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,6 @@ typedef struct s_ray
 	t_tuple		direction;
 }	t_ray;
 
-/* CONSTANTS */
-# define POINT 1.0
-# define VECTOR 0.0
 
 /* CONVENIENT ALIASES */
 typedef t_tuple t_matrix;
@@ -131,3 +128,9 @@ typedef struct s_lighting_components
 	t_tuple	intensity;
 	
 }		t_lighting_components;
+
+
+/* CONSTANTS */
+# define POINT 1.0
+# define VECTOR 0.0
+# define SPHERE 0
