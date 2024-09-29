@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 10:26:12 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/09/29 16:34:35 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/09/29 17:38:17 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -391,6 +391,7 @@ void get_values(const char *line, t_light_ **lights_list, t_object_ **objects_li
 			exit(EXIT_FAILURE);
 		}
 		printf("%.0f]\n", light->color.z);
+		light->next = NULL;
 		append_lights(lights_list, light);
 	}
 	else if (line[0] == 's' && line[1] == 'p' && line[2] == ' ') // sp
@@ -478,8 +479,8 @@ void get_values(const char *line, t_light_ **lights_list, t_object_ **objects_li
 		printf("%.0f]\n", sp->material.color.z);
 		object->form = SPHERE;
 		object->object = sp;
+		object->next = NULL;
 		append_objects(objects_list, object);
-		printf("++f++\n");
 	}
 }
 
@@ -534,14 +535,16 @@ int main()
 	for (; world->objects_list; world->objects_list = world->objects_list->next)
 	{
 		t_sphere *sp = world->objects_list->object;
-		printf("\tform[%d]\n\tcpos[%f %f %f]\n\tr[%f]\n\t&trans[%p]\n\twamb[%f]\n\trgb[%f %f %f]\n", world->objects_list->form, sp->center.x, sp->center.y, sp->center.z,
+		printf("\tform[%d]\n\tcpos[%f %f %f]\n\tr[%f]\n\t&trans[%p]\n\twamb[%f]\n\trgb[%f %f %f]\n\n", world->objects_list->form, sp->center.x, sp->center.y, sp->center.z,
 		sp->radius, sp->transform, sp->material.ambient,sp->material.color.x, sp->material.color.y, sp->material.color.z);
+		// fprintf(stderr, "F");
+
 	}
 	printf("\nworld lights:\n");
-	for (; world->lights_list; world->objects_list = world->objects_list->next)
+	for (; world->lights_list; world->lights_list = world->lights_list->next)
 	{
-		printf("position[%f %f %f]", world->lights_list->pos.x, world->lights_list->pos.y, world->lights_list->pos.z);
-		printf("rgb[%f %f %f]", world->lights_list->color.x, world->lights_list->color.y, world->lights_list->color.z);
-		printf("intensity[%f]\n", world->lights_list->intensity);
+		printf("\tposition[%f %f %f]", world->lights_list->pos.x, world->lights_list->pos.y, world->lights_list->pos.z);
+		printf("\n\trgb[%f %f %f]", world->lights_list->color.x, world->lights_list->color.y, world->lights_list->color.z);
+		printf("\n\tintensity[%f]\n\n", world->lights_list->intensity);
 	}
 }
