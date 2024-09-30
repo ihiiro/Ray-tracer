@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 19:36:54 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/09/29 20:11:16 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/09/30 11:11:58 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,10 @@ bool	normalized_vector(t_tuple v)
 	if (!equal_tuple(vector(1, 0, 0), v)
 		&& !equal_tuple(vector(0, 1, 0), v)
 		&& !equal_tuple(vector(0, 0, 1), v)
-		&& !equal_tuple(vector(0, 0, 0), v))
+		&& !equal_tuple(vector(0, 0, 0), v)
+		&& !equal_tuple(vector(-1, 0, 0), v)
+		&& !equal_tuple(vector(0, -1, 0), v)
+		&& !equal_tuple(vector(0, 0, -1), v))
 		return (false);
 	return (true);
 }
@@ -52,7 +55,6 @@ void	clean_w(t_world *world)
 	while (iter)
 	{
 		iter->color.w = POINT;
-		iter->pos.w = POINT;
 		iter = iter->next;
 	}
 }

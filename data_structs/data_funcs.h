@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 11:25:19 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/09/29 19:49:15 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/09/30 11:24:57 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,3 +110,4 @@ void	append_objects(t_object_ **lst, t_object_ *new);
 void	parse_light_pos(const char **line, t_light_ **light, int is_fraction);
 void	append_lights(t_light_ **lst, t_light_ *new);
 bool	normalized_vector(t_tuple v);
+void	parse_colors(t_sphere *sp, const char *line);

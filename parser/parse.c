@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 19:30:58 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/09/29 20:20:39 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/09/30 11:25:44 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,17 +24,15 @@ t_object_ **objects_list, int is_fraction)
 	while (*line == ' ')
 		line++;
 	sp->radius = ft_atoi(line, &is_fraction) / (10.0 / is_fraction) / 2;
+	if (sp->radius <= 0)
+		exitf("sphere parse error\n");
+	sp->transform = matrix_multiply(scaling(sp->radius, sp->radius, sp->radius),
+			translation(sp->center.x, sp->center.y, sp->center.z), 4);
+	sp->center = point(0, 0, 0);
+	sp->radius = 1;
 	is_fraction = 10;
 	reach_for(&line, ' ', 0);
-	sp->material.color.x = ft_atoi(line, &is_fraction);
-	reach_for(&line, ',', 1);
-	sp->material.color.y = ft_atoi(line, &is_fraction);
-	is_fraction = 10;
-	reach_for(&line, ',', 1);
-	sp->material.color.z = ft_atoi(line, &is_fraction);
-	is_fraction = 10;
-	if (sp->radius <= 0 || !valid_color(sp->material.color))
-		exitf("sphere parse error\n");
+	parse_colors(sp, line);
 	sp->material.ambient = (*world)->ambient_intensity;
 	object->form = SPHERE;
 	object->object = sp;

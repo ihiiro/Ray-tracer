@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 10:26:12 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/09/29 20:20:18 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/09/30 11:26:13 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,20 @@
 #include "../data_structs/data_funcs.h"
 #include "get_next_line/get_next_line.h"
 #include <libc.h>
+
+void	parse_colors(t_sphere *sp, const char *line)
+{
+	int	is_fraction;
+
+	is_fraction = 1;
+	sp->material.color.x = ft_atoi(line, &is_fraction);
+	reach_for(&line, ',', 1);
+	sp->material.color.y = ft_atoi(line, &is_fraction);
+	reach_for(&line, ',', 1);
+	sp->material.color.z = ft_atoi(line, &is_fraction);
+	if (!valid_color(sp->material.color))
+		exitf("sphere parse error\n");
+}
 
 void	alloc_and_parse_pos(t_sphere **sp, t_object_ **object,
 t_world **world, const char **line)
@@ -84,16 +98,16 @@ t_world	*parse(const char *file)
 // {
 // 	t_world *world = parse("spec.rt");
 
-// 	printf("world ambient intensity: [%f]\n", world->ambient_intensity);
-// 	printf("world ambient rgb: [%f %f %f]\n", world->ambient_color.x, world->ambient_color.y, world->ambient_color.z);
-// 	printf("world camera:\n\t3d_coords[%f %f %f]\n", world->camera.pos.x, world->camera.pos.y, world->camera.pos.z);
-// 	printf("\torientation vector[%f %f %f]\n", world->camera.vec.x, world->camera.vec.y, world->camera.vec.z);
-// 	printf("\tFOV[%f]\n", world->camera.fov);
+// 	printf("world ambient intensity: [%.1f]\n", world->ambient_intensity);
+// 	printf("world ambient rgb: [%.1f %.1f %.1f]\n", world->ambient_color.x, world->ambient_color.y, world->ambient_color.z);
+// 	printf("world camera:\n\t3d_coords[%.1f %.1f %.1f]\n", world->camera.pos.x, world->camera.pos.y, world->camera.pos.z);
+// 	printf("\torientation vector[%.1f %.1f %.1f]\n", world->camera.vec.x, world->camera.vec.y, world->camera.vec.z);
+// 	printf("\tFOV[%.1f]\n", world->camera.fov);
 // 	printf("world objects(spheres):\n");
 // 	for (; world->objects_list; world->objects_list = world->objects_list->next)
 // 	{
 // 		t_sphere *sp = world->objects_list->object;
-// 		printf("\tform[%d]\n\tcpos[%f %f %f]\n\tr[%f]\n\t&trans[%p]\n\twamb[%f]\n\trgb[%f %f %f]\n\n", world->objects_list->form, sp->center.x, sp->center.y, sp->center.z,
+// 		printf("\tform[%d]\n\tcpos[%.1f %.1f %.1f]\n\tr[%.1f]\n\t&trans[%p]\n\twamb[%.1f]\n\trgb[%.1f %.1f %.1f]\n\n", world->objects_list->form, sp->center.x, sp->center.y, sp->center.z,
 // 		sp->radius, sp->transform, sp->material.ambient,sp->material.color.x, sp->material.color.y, sp->material.color.z);
 // 		// fprintf(stderr, "F");
 
@@ -101,8 +115,8 @@ t_world	*parse(const char *file)
 // 	printf("\nworld lights:\n");
 // 	for (; world->lights_list; world->lights_list = world->lights_list->next)
 // 	{
-// 		printf("\tposition[%f %f %f]", world->lights_list->pos.x, world->lights_list->pos.y, world->lights_list->pos.z);
-// 		printf("\n\trgb[%f %f %f]", world->lights_list->color.x, world->lights_list->color.y, world->lights_list->color.z);
-// 		printf("\n\tintensity[%f]\n\n", world->lights_list->intensity);
+// 		printf("\tposition[%.1f %.1f %.1f]", world->lights_list->pos.x, world->lights_list->pos.y, world->lights_list->pos.z);
+// 		printf("\n\trgb[%.1f %.1f %.1f]", world->lights_list->color.x, world->lights_list->color.y, world->lights_list->color.z);
+// 		printf("\n\tintensity[%.1f]\n\n", world->lights_list->intensity);
 // 	} 
 // }
