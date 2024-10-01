@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 19:22:03 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/01 20:43:58 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/01 22:53:12 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,12 @@ void	append_xs(t_xs_list **lst, t_xs xs)
 	node0 = malloc(sizeof(t_xs_list));
 	node0->object.object = xs.object0;
 	node0->object.form = xs.form;
-	printf("xs.t0%f\n", xs.t0);
 	node0->t = xs.t0;
 	node0->next = NULL;
 	if (!equal(xs.t0, xs.t1))
 	{
 		node1 = malloc(sizeof(t_xs_list));
 		node1->object.object = xs.object1;
-		printf("xs.t0%f\n", xs.t1);
 		node1->t = xs.t1;
 		node1->object.form = xs.form;
 		node1->next = NULL;
@@ -60,6 +58,39 @@ void	append_xs(t_xs_list **lst, t_xs xs)
 			break ;
 		}
 		ptr = ptr->next;
+	}
+}
+
+void	swap(t_xs_list *a, t_xs_list *b)
+{
+	t_xs_list	atmp;
+
+	atmp.object = a->object;
+	atmp.t = a->t;
+	a->object = b->object;
+	a->t = b->t;
+	b->object = atmp.object;
+	b->t = atmp.t;
+}
+
+void	sort_xs_list(t_xs_list *xs_list, int count)
+{
+	double		t;
+	int			c;
+	t_xs_list	*head;
+
+	c = 0;
+	head = xs_list;
+	while (c < count)
+	{
+		xs_list = head;
+		while (xs_list && xs_list->next)
+		{
+			if (xs_list->t > xs_list->next->t)
+				swap(xs_list, xs_list->next);
+			xs_list = xs_list->next;
+		}
+		c++;
 	}
 }
 
@@ -88,6 +119,7 @@ t_xs_list	*intersect_world(t_world *world, t_ray ray)
 		}
 		iter = iter->next;
 	}
+	sort_xs_list(xs_list, count);
 	xs_list->count = count;
 	return (xs_list);
 }

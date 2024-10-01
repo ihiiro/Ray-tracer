@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 10:47:12 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/01 20:39:50 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/02 00:01:21 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -623,12 +623,12 @@ int main()
 	r = return_ray(point(0, 0, -5), vector(0, 0, 1));
 	t_xs_list	*xs_list = intersect_world(world0, r);
 	assert(xs_list->count == 4);
-	for (t_xs_list *tmp = xs_list; tmp; tmp = tmp->next)
-		printf("t=%f object=%p form=%d\n", tmp->t, tmp->object.object, tmp->object.form);
-	// assert(xs_list->t == 4);
-	// assert(xs_list->next->t == 4.5);
-	// assert(xs_list->next->next->t == 5.5);
-	// assert(xs_list->next->next->next->t == 6);
+	// for (t_xs_list *tmp = xs_list; tmp; tmp = tmp->next)
+	// 	printf("t=%f object=%p form=%d\n", tmp->t, tmp->object.object, tmp->object.form);
+	assert(xs_list->t == 4);
+	assert(xs_list->next->t == 4.5);
+	assert(xs_list->next->next->t == 5.5);
+	assert(xs_list->next->next->next->t == 6);
 
 	/*  to remove */
 
