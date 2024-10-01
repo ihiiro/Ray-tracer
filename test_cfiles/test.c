@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 10:47:12 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/09/29 10:24:31 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/01 20:39:50 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -594,7 +594,6 @@ int main()
 	light = point_light(point(0, 10, -10), color(1, 1, 1));
 	t_lighting l2 = {m, light, pos, eyev, normalv};
 	final_color_intensity = lighting(l2);
-
 	assert(equal_tuple(final_color_intensity, color(0.7364, 0.7364, 0.7364)));
 	/* Lighting with eye in the path of the reflection vector */
 	m = material();
@@ -604,8 +603,6 @@ int main()
 	light = point_light(point(0, 10, -10), color(1, 1, 1));
 	t_lighting l3 = {m, light, pos, eyev, normalv};
 	final_color_intensity = lighting(l3);
-			printf("%f %f %f\n", final_color_intensity.x, final_color_intensity.y, final_color_intensity.z);
-
 	assert(equal_tuple(final_color_intensity, color(1.6364, 1.6364, 1.6364)));
 	/* Lighting with the light behind the surface */
 	m = material();
@@ -615,62 +612,74 @@ int main()
 	light = point_light(point(0, 0, 10), color(1, 1, 1));
 	t_lighting l4 = {m, light, pos, eyev, normalv};
 	final_color_intensity = lighting(l4);
-	printf("%f %f %f\n", final_color_intensity.x, final_color_intensity.y, final_color_intensity.z);
 	assert(equal_tuple(final_color_intensity, color(.1, .1, .1)));
-
-
+	/* The default world TESTS */
+	t_world	*world0 = parse("test_cfiles/test0.rt");
+	assert(equal_tuple(world0->lights_list->color, color(255, 255, 255)));
+	assert(equal(world0->lights_list->intensity, 1));
+	assert(equal_tuple(world0->lights_list->pos, point(-10, 10, -10)) && !world0->lights_list->next);
+	assert(world0->objects_list && world0->objects_list->next && !world0->objects_list->next->next);
+	/* interset world */
+	r = return_ray(point(0, 0, -5), vector(0, 0, 1));
+	t_xs_list	*xs_list = intersect_world(world0, r);
+	assert(xs_list->count == 4);
+	for (t_xs_list *tmp = xs_list; tmp; tmp = tmp->next)
+		printf("t=%f object=%p form=%d\n", tmp->t, tmp->object.object, tmp->object.form);
+	// assert(xs_list->t == 4);
+	// assert(xs_list->next->t == 4.5);
+	// assert(xs_list->next->next->t == 5.5);
+	// assert(xs_list->next->next->next->t == 6);
 
 	/*  to remove */
 
 
-	t_canvas c1 = canvas(WIDTH, WIDTH);
-    mlx_t *mlx = mlx_init(WIDTH, WIDTH, "sphere", false);
-    mlx_image_t *img = mlx_new_image(mlx, WIDTH, WIDTH);
-    t_ray ray = return_ray(point(0, 0, -5), vector(0, 0, 1));
-    double wall_z = 10;
-    double wall_size = 7;
-    double half = wall_size/2;
-    double pixel_size = wall_size / WIDTH;
-    t_sphere s1 = sphere(1);
-	s1.material = material();
-	s1.material.color = color(1, 0.2, 1);
-	t_light LIGHT = point_light(point(-10, 10, -10), color(1, 1, 1));
+	// t_canvas c1 = canvas(WIDTH, WIDTH);
+    // mlx_t *mlx = mlx_init(WIDTH, WIDTH, "sphere", false);
+    // mlx_image_t *img = mlx_new_image(mlx, WIDTH, WIDTH);
+    // t_ray ray = return_ray(point(0, 0, -5), vector(0, 0, 1));
+    // double wall_z = 10;
+    // double wall_size = 7;
+    // double half = wall_size/2;
+    // double pixel_size = wall_size / WIDTH;
+    // t_sphere s1 = sphere(1);
+	// s1.material = material();
+	// s1.material.color = color(1, 0.2, 1);
+	// t_light LIGHT = point_light(point(0, 0, 10), color(1, 1, 1));
 
 
-	// for (double i = .; i < 1; )
 	
 
-    for(int i = 0; i < WIDTH; i++)
-    {
-        double world_y = half - pixel_size * i;
-        for(int j = 0; j < WIDTH ; j++)
-        {
-            double world_x = -half + pixel_size * j;
-            t_tuple pos = point(world_x, world_y, wall_z);
-            t_ray r = return_ray(ray.origin, normalize_vec(sub_tuples(pos, ray.origin)));
-			// s1.transform = matrix_multiply(scaling(.4, 1, 1), identity(), 4);
-            t_xs xs = sphere_intersect(&s1, r);
-			t_intersection inter[2];
-			inter[0].atom_count = 2;
-			inter[0].t = xs.t0;
-			inter[1].t = xs.t1;
-            if (xs.count > 0)
-            {
-				t_tuple P = position(r, hit(inter).t);
-				// printf("%f %f %f\n", P.x, P.y, P.z);
-				normalv = normal_at(s1, P);
-				eyev = negate_tuple(r.direction);
-				t_lighting L = {s1.material, LIGHT, P, eyev, normalv};
-				final_color_intensity = lighting(L);
-				t_tuple fcl;
-				fcl = multiply_color_by_scalar(final_color_intensity, 255);
-                write_pixel(&c1, i, j, fcl);
-            }
-            else
-                write_pixel(&c1, i, j, color(0, 0, 0));
-        }
-    }
-    create_canvas(&c1, img, mlx);
-    mlx_loop(mlx);
+    // for(int i = 0; i < WIDTH; i++)
+    // {
+    //     double world_y = half - pixel_size * i;
+    //     for(int j = 0; j < WIDTH ; j++)
+    //     {
+    //         double world_x = -half + pixel_size * j;
+    //         t_tuple pos = point(world_x, world_y, wall_z);
+    //         t_ray r = return_ray(ray.origin, normalize_vec(sub_tuples(pos, ray.origin)));
+	// 		// s1.transform = matrix_multiply(scaling(.4, 1, 1), identity(), 4);
+    //         t_xs xs = sphere_intersect(&s1, r);
+	// 		t_intersection inter[2];
+	// 		inter[0].atom_count = 2;
+	// 		inter[0].t = xs.t0;
+	// 		inter[1].t = xs.t1;
+    //         if (xs.count > 0)
+    //         {
+	// 			t_tuple P = position(r, hit(inter).t);
+	// 			// printf("%f %f %f\n", P.x, P.y, P.z);
+	// 			normalv = normal_at(s1, P);
+	// 			eyev = negate_tuple(r.direction);
+	// 			t_lighting L = {s1.material, LIGHT, P, eyev, normalv};
+	// 			final_color_intensity = lighting(L);
+	// 			t_tuple fcl;
+	// 			fcl = multiply_color_by_scalar(final_color_intensity, 255);
+    //             write_pixel(&c1, i, j, fcl);
+    //         }
+    //         else
+    //             write_pixel(&c1, i, j, color(0, 0, 0));
+    //     }
+    // }
+    // create_canvas(&c1, img, mlx);
+    // mlx_loop(mlx);
 	
 }

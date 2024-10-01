@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 19:36:54 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/09/30 11:11:58 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/09/30 12:18:25 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,14 @@ void	clean_w(t_world *world)
 {
 	t_light_	*iter;
 
-	world->ambient_color.w = POINT;
+	world->ambient_color.w = VECTOR;
 	world->camera.pos.w = POINT;
 	world->camera.vec.w = VECTOR;
 	iter = world->lights_list;
 	while (iter)
 	{
-		iter->color.w = POINT;
+		iter->color.w = VECTOR;
+		iter->pos.w = POINT;
 		iter = iter->next;
 	}
 }

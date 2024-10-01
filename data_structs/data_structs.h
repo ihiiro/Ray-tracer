@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 11:20:46 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/09/29 20:04:29 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/01 20:37:40 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ typedef struct s_xs
 	void	*object1;
 	double	t0;
 	double	t1;
+	int		form;
 }	t_xs;
 
 /* OBJECTS */
@@ -169,3 +170,12 @@ typedef struct s_parser
 	const char	*line;
 	int			fd;
 }		t_parser;
+
+/* world-ray intersections */
+typedef struct s_xs_list
+{
+	int					count;
+	double				t;
+	t_object_			object;
+	struct s_xs_list	*next;
+}		t_xs_list;

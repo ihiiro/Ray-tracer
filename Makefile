@@ -6,7 +6,7 @@
 #    By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/18 10:41:01 by yel-yaqi          #+#    #+#              #
-#    Updated: 2024/09/30 11:26:32 by yel-yaqi         ###   ########.fr        #
+#    Updated: 2024/10/01 20:53:30 by yel-yaqi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,14 +48,15 @@ CFILES = data_structs/points_vectors.c \
 		parser/parser_linked_lists.c \
 		parser/parser_utils.c \
 		parser/exitf.c \
-		parser/atoi.c
+		parser/atoi.c \
+		data_structs/world.c
 
 OFILES = $(CFILES:.c=.o)
 
 
 
 data_structs/%.o: data_structs/%.c
-	cc -c $< -o $@
+	cc  -c $< -o $@
 
 test_fcfiles/%.o: test_fcfiles/%.c
 	cc -c $<
