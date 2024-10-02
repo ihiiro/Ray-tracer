@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 11:47:16 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/09/25 11:24:38 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/02 05:39:26 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ double	matrix_cofactor(t_matrix *matrix, int row, int column, size_t size)
 		minor = matrix_4_by_4_minor(matrix, row, column);
 	return (minor * pow(-1, row + column));
 }
+
+#include <libc.h>
 
 double	matrix_determinant(t_matrix *m, size_t size)
 {

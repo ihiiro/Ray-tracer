@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 16:51:33 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/02 04:42:02 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/02 06:13:26 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,13 @@ t_material	material()
 	return (m);
 }
 
+#include <libc.h>
+
 t_tuple lighting(t_lighting l)
 {
 	t_lighting_components	lc;
 
+	// printf("color=%f %f %f\n", l.m.color.x, l.m.color.y, l.m.color.z);
 	lc.effective_color = multiply_colors(l.m.color, l.light.intensity);
 	lc.lightv = normalize_vec(sub_tuples(l.light.position, l.point));
 	lc.ambient = multiply_color_by_scalar(l.ambient_effective_color, l.m.ambient); // change to global ambient
