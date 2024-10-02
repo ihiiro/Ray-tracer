@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 10:47:12 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/02 06:12:31 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/02 06:40:43 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -669,7 +669,6 @@ int main()
 	t_sphere *ss = (t_sphere *)world0->objects_list->object;
 	ss->material.diffuse = .7;
 	ss->material.specular = .2;
-	// fprintf(stderr, "%p\n", ss->transform);
 	xs_list->count = 1;
 	xs_list->next = NULL;
 	xs_list->object.object = ss;
@@ -678,19 +677,24 @@ int main()
 	comps = prepare_computations(xs_list, r);
 	comps.object.form = SPHERE;
 	t_tuple col = shade_hit(*world0, comps);
-	printf("%f %f %f\n", col.x, col.y, col.z);
 	assert(equal_tuple(col, color(0.38066, 0.47583, 0.2855)));
 	/*Shading an intersection from the inside*/
-	// r = return_ray(point(0,0, 0), vector(0, 0, 1));
-	// world0 = parse("test_cfiles/test1.rt");
-	// xs_list->count = 1;
-	// xs_list->next = NULL;
-	// xs_list->object.object = &ss;
-	// xs_list->t = 0.5;
-	// xs_list->object.form = SPHERE;
-	// comps = prepare_computations(xs_list, r);
-	// col = shade_hit(*world0, comps);
-	// assert(equal_tuple(col, color(0.90498, 0.90498, 0.90498)));
+	r = return_ray(point(0, 0, 0), vector(0, 0, 1));
+	world0 = parse("test_cfiles/test1.rt");
+	ss = (t_sphere *)world0->objects_list->object;
+	printf("light_pos=%f %f %f\n", world0->lights_list->pos.x, world0->lights_list->pos.y, world0->lights_list->pos.z);
+	xs_list->count = 1;
+	xs_list->next = NULL;
+	xs_list->object.object = ss;
+	xs_list->t = 0.5;
+	xs_list->object.form = SPHERE;
+	comps = prepare_computations(xs_list, r);
+	comps.object.form = SPHERE;
+
+	col = shade_hit(*world0, comps);
+	printf("%f %f %f\n", col.x, col.y, col.z);
+
+	assert(equal_tuple(col, color(0.90498, 0.90498, 0.90498)));
 	/*  to remove */
 
 
