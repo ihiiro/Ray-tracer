@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 00:38:01 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/02 02:48:24 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/02 04:35:09 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ t_comps 	prepare_computations(t_xs_list *intersection, t_ray ray)
 	return (comps);
 }
 
+#include <libc.h>
+
 t_tuple	shade_hit(t_world w, t_comps comps)
 {
 	t_lighting 	l;
@@ -45,8 +47,10 @@ t_tuple	shade_hit(t_world w, t_comps comps)
 		sp = (t_sphere *)comps.object.object;
 		l.m = sp->material;
 	}
-	l.light.intensity = multiply_color_by_scalar(w.lights_list->color, w.lights_list->intensity);
+	// l.light.intensity = multiply_color_by_scalar(w.lights_list->color, w.lights_list->intensity);
+	l.light.intensity = w.lights_list->color;
 	l.light.position = w.lights_list->pos;
+	printf("shade_hit(): %f %f %f\n", l.light.position.x, l.light.position.y, l.light.position.z);
 	l.point = comps.point;
 	l.eyev = comps.eyev;
 	l.normalv = comps.normalv;

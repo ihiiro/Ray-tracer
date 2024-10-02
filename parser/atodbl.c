@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 03:00:50 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/02 03:27:33 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/02 04:13:33 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,12 @@ static double    get_fraction(const char *str, int i)
         i++;
         point++;
     }
-    ((str[i] < '0' || str[i] > '9') && str[i] != '\0') && (exitf("parse error near a fraction\n"), 0);
+	if (str[i] != '\0' && str[i] != ',' && str[i] != '\n' && str[i] != ' ')
+	{
+		// printf("((((%c))))\n", str[i]);
+		exitf("parse error near a fraction\n");
+		
+	}
     while (point > 0)
     {
         res2 = res2 / 10;
@@ -75,11 +80,17 @@ double    atodbl(const char *str)
     (str[i] == '.') && (exitf((const char *)str), 0);
     while (str[i] >= '0' && str[i] <= '9')
     {
+		// printf("str[%d] = %c\n", i, str[i]);
         res = res * 10 + str[i] - '0';
         i++;
     }
+	// printf("str[%d] = %d\n", i, str[i]);
     (str[i] == '.') && (res2 = get_fraction(str, i + 1));
-    if (str[i] != '.' && str[i] != '\0')
-        exitf((const char *)str);
+    if (str[i] != '.' && str[i] != '\0' && str[i] != ' ' && str[i] != '\t' && str[i] != '\n' && str[i] != ',')
+	{
+        // printf("(((%c)))\n", str[i]);
+		exit(1);
+	}
+	// printf("res = %f\n", res);
     return ((res + res2) * sign);
 }
