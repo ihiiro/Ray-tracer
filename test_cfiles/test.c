@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 10:47:12 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/02 06:40:43 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/02 22:12:26 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -623,8 +623,6 @@ int main()
 	r = return_ray(point(0, 0, -5), vector(0, 0, 1));
 	t_xs_list	*xs_list = intersect_world(world0, r);
 	assert(xs_list->count == 4);
-	// for (t_xs_list *tmp = xs_list; tmp; tmp = tmp->next)
-	// 	printf("t=%f object=%p form=%d\n", tmp->t, tmp->object.object, tmp->object.form);
 	assert(xs_list->t == 4);
 	assert(xs_list->next->t == 4.5);
 	assert(xs_list->next->next->t == 5.5);
@@ -641,7 +639,6 @@ int main()
 	assert(equal_tuple(point(0, 0, -1), comps.point));
 	assert(equal_tuple(comps.eyev, vector(0, 0, -1)));
 	assert(equal_tuple(vector(0, 0, -1), comps.normalv));
-
 	/*The hit, when an intersection occurs on the outside*/
 	r = return_ray(point(0, 0, -5), vector(0, 0, 1));
 	s = sphere(0);
@@ -682,7 +679,6 @@ int main()
 	r = return_ray(point(0, 0, 0), vector(0, 0, 1));
 	world0 = parse("test_cfiles/test1.rt");
 	ss = (t_sphere *)world0->objects_list->object;
-	printf("light_pos=%f %f %f\n", world0->lights_list->pos.x, world0->lights_list->pos.y, world0->lights_list->pos.z);
 	xs_list->count = 1;
 	xs_list->next = NULL;
 	xs_list->object.object = ss;
@@ -690,14 +686,29 @@ int main()
 	xs_list->object.form = SPHERE;
 	comps = prepare_computations(xs_list, r);
 	comps.object.form = SPHERE;
-
 	col = shade_hit(*world0, comps);
-	printf("%f %f %f\n", col.x, col.y, col.z);
-
 	assert(equal_tuple(col, color(0.90498, 0.90498, 0.90498)));
+	/*  The color when a ray misses (black) */
+	world0 = parse("test_cfiles/test0.rt");
+	ss = (t_sphere *)world0->objects_list->object;
+	ss->material.diffuse = .7;
+	ss->material.specular = .2;
+	r = return_ray(point(0, 0, -5), vector(0, 1, 0));
+	col = color_at(world0, r);
+	assert(equal_tuple(color(0, 0, 0), col));
+	/* The color when a ray hits */
+	r = return_ray(point(0, 0, -5), vector(0, 0, 1));
+	col = color_at(world0, r);
+	assert(equal_tuple(color(0.38066, 0.47583, 0.2855), col));
+	// /* The color with an intersection behind the ray */
+	ss = (t_sphere*)world0->objects_list->object;
+	ss->material.ambient = 1;
+	ss = (t_sphere*)world0->objects_list->next->object;
+	ss->material.ambient = 1;
+	r = return_ray(point(0, 0, 0.75), vector(0, 0, -1));
+	col = color_at(world0, r);
+	assert(equal_tuple(col, ss->material.color));
 	/*  to remove */
-
-
 	// t_canvas c1 = canvas(WIDTH, WIDTH);
     // mlx_t *mlx = mlx_init(WIDTH, WIDTH, "sphere", false);
     // mlx_image_t *img = mlx_new_image(mlx, WIDTH, WIDTH);
@@ -712,7 +723,7 @@ int main()
 	// t_light LIGHT = point_light(point(0, 0, 10), color(1, 1, 1));
 
 
-	
+
 
     // for(int i = 0; i < WIDTH; i++)
     // {

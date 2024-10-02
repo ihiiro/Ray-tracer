@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 00:38:01 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/02 06:28:01 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/02 21:47:03 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,13 @@
 #include "data_funcs.h"
 #include "../maths/maths.h"
 
-#include <libc.h>
-
 t_comps 	prepare_computations(t_xs_list *intersection, t_ray ray)
 {
 	t_comps	comps;
 
 	comps.t = intersection->t;
 	comps.object.object = intersection->object.object;
+	comps.object.form = intersection->object.form;
 	comps.point = position(ray, comps.t);
 	
 	comps.eyev  = negate_tuple(ray.direction);
@@ -40,8 +39,6 @@ t_comps 	prepare_computations(t_xs_list *intersection, t_ray ray)
 	return (comps);
 }
 
-#include <libc.h>
-
 t_tuple	shade_hit(t_world w, t_comps comps)
 {
 	t_lighting 	l;
@@ -59,4 +56,18 @@ t_tuple	shade_hit(t_world w, t_comps comps)
 	l.eyev = comps.eyev;
 	l.normalv = comps.normalv;
 	return (lighting(l));
+}
+
+t_tuple	color_at(t_world *w, t_ray r)
+{
+	t_xs_list	*xs_list;
+	t_xs_list	*xs_hit;
+	t_comps		comps;
+
+	xs_list = intersect_world(w, r);
+	if (!xs_list)
+		return (color(0, 0, 0));
+	xs_hit = hit(xs_list);
+	comps = prepare_computations(xs_hit, r);
+	return (shade_hit(*w, comps));
 }

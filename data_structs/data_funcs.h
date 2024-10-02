@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 11:25:19 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/02 05:35:48 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/02 21:22:07 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,6 @@ void	parse_lights(const char *line, t_light_ **lights_list);
 void	clean_w(t_world *world);
 void	parse_sphere(const char *line, t_world **world, t_object_ **objects_list);
 void	alloc_and_parse_pos(t_sphere **sp, t_object_ **object, t_world **world, const char **line);
-// int		ft_atoi(const char *str, int *is_fraction);
 bool	valid_color(t_tuple color);
 void	exitf(const char *msg);
 void	append_objects(t_object_ **lst, t_object_ *new);
@@ -120,6 +119,7 @@ t_comps		prepare_computations(t_xs_list *intersection, t_ray ray);
 
 /* shading */
 t_tuple		shade_hit(t_world w, t_comps comps);
+t_tuple		color_at(t_world *w, t_ray r);
 
 /* fraction reader */
 double    atodbl(const char *str);

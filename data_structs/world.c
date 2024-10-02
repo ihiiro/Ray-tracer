@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 19:22:03 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/01 22:53:12 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/02 21:28:30 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,8 @@ void	sort_xs_list(t_xs_list *xs_list, int count)
 	int			c;
 	t_xs_list	*head;
 
+	if (!xs_list)
+		return ;
 	c = 0;
 	head = xs_list;
 	while (c < count)
@@ -119,7 +121,10 @@ t_xs_list	*intersect_world(t_world *world, t_ray ray)
 		}
 		iter = iter->next;
 	}
-	sort_xs_list(xs_list, count);
-	xs_list->count = count;
+	if (xs_list)
+	{
+		sort_xs_list(xs_list, count);
+		xs_list->count = count;
+	}
 	return (xs_list);
 }
