@@ -6,14 +6,14 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 19:30:17 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/09/30 11:04:49 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/02 03:27:05 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include <unistd.h>
 
-void	exitf(char *msg)
+void	exitf(const char *msg)
 {
 	size_t	len;
 

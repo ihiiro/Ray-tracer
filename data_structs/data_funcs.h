@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 11:25:19 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/01 20:24:31 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/02 03:28:15 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,8 @@ t_ray			return_ray(t_tuple org, t_tuple dir);
 t_tuple 		position(t_ray ray, double t);
 
 /* INTERSECTION TESTING */
-t_intersection	hit(t_intersection *intersections);
+// t_intersection	hit(t_intersection *intersections);
+t_xs_list	*hit(t_xs_list *xs_list);
 
 /* OBJECTS */
 t_sphere	sphere(int id);
@@ -97,17 +98,17 @@ t_tuple 	lighting(t_lighting l);
 
 /* PARSER */
 void	reach_for(const char **line, char end, int skip);
-void	parse_ambient(const char *line, t_world **world, int is_fraction);
-void	parse_camera(const char *line, t_world **world, int is_fraction);
-void	parse_lights(const char *line, t_light_ **lights_list, int is_fraction);
+void	parse_ambient(const char *line, t_world **world);
+void	parse_camera(const char *line, t_world **world);
+void	parse_lights(const char *line, t_light_ **lights_list);
 void	clean_w(t_world *world);
-void	parse_sphere(const char *line, t_world **world, t_object_ **objects_list, int is_fraction);
+void	parse_sphere(const char *line, t_world **world, t_object_ **objects_list);
 void	alloc_and_parse_pos(t_sphere **sp, t_object_ **object, t_world **world, const char **line);
-int		ft_atoi(const char *str, int *is_fraction);
+// int		ft_atoi(const char *str, int *is_fraction);
 bool	valid_color(t_tuple color);
-void	exitf(char *msg);
+void	exitf(const char *msg);
 void	append_objects(t_object_ **lst, t_object_ *new);
-void	parse_light_pos(const char **line, t_light_ **light, int is_fraction);
+void	parse_light_pos(const char **line, t_light_ **light);
 void	append_lights(t_light_ **lst, t_light_ *new);
 bool	normalized_vector(t_tuple v);
 void	parse_colors(t_sphere *sp, const char *line);
@@ -115,3 +116,10 @@ t_world	*parse(const char *file);
 
 /* WORLD */
 t_xs_list	*intersect_world(t_world *world, t_ray ray);
+t_comps		prepare_computations(t_xs_list *intersection, t_ray ray);
+
+/* shading */
+t_tuple		shade_hit(t_world w, t_comps comps);
+
+/* fraction reader */
+double    atodbl(const char *str);

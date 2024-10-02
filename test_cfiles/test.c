@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 10:47:12 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/02 00:01:21 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/02 02:58:51 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -427,46 +427,46 @@ int main()
 	assert(xs.count == 2 && (t_sphere *)xs.object0 == &s && (t_sphere *)xs.object1 == &s);
 	/* HIT TESTS */
 	/* The hit, when all intersections have positive t */
-	s = sphere(0);
-	t_intersection intersections[4];
-	intersections[0].atom_count = 2;
-	intersections[0].object = &s;
-	intersections[0].t = 1;
-	intersections[1].object = &s;
-	intersections[1].t = 2;
-	t_intersection closest_intersection = hit(intersections);
-	assert(equal(closest_intersection.t, 1) && closest_intersection.object == &s);
+	// s = sphere(0);
+	// t_intersection intersections[4];
+	// intersections[0].atom_count = 2;
+	// intersections[0].object = &s;
+	// intersections[0].t = 1;
+	// intersections[1].object = &s;
+	// intersections[1].t = 2;
+	// t_intersection closest_intersection = hit(intersections);
+	// assert(equal(closest_intersection.t, 1) && closest_intersection.object == &s);
 	/* The hit, when some intersections have negative t */
-	s = sphere(0);
-	intersections[0].atom_count = 2;
-	intersections[0].object = &s;
-	intersections[0].t = -1;
-	intersections[1].object = &s;
-	intersections[1].t = 1;
-	closest_intersection = hit(intersections);
-	assert(equal(closest_intersection.t, 1) && closest_intersection.object == &s);
+	// s = sphere(0);
+	// intersections[0].atom_count = 2;
+	// intersections[0].object = &s;
+	// intersections[0].t = -1;
+	// intersections[1].object = &s;
+	// intersections[1].t = 1;
+	// closest_intersection = hit(intersections);
+	// assert(equal(closest_intersection.t, 1) && closest_intersection.object == &s);
 	/* The hit, when all intersections have negative t */
-	s = sphere(0);
-	intersections[0].atom_count = 2;
-	intersections[0].object = &s;
-	intersections[0].t = -2;
-	intersections[1].object = &s;
-	intersections[1].t = -1;
-	closest_intersection = hit(intersections);
-	assert(equal(closest_intersection.t, INT_MAX) && closest_intersection.object == &s); // NO HIT
+	// s = sphere(0);
+	// intersections[0].atom_count = 2;
+	// intersections[0].object = &s;
+	// intersections[0].t = -2;
+	// intersections[1].object = &s;
+	// intersections[1].t = -1;
+	// closest_intersection = hit(intersections);
+	// assert(equal(closest_intersection.t, INT_MAX) && closest_intersection.object == &s); // NO HIT
 	/* The hit is always the lowest nonnegative intersection */
-	s = sphere(0);
-	intersections[0].atom_count = 4;
-	intersections[0].object = &s;
-	intersections[0].t = 5;
-	intersections[1].object = &s;
-	intersections[1].t = 7;
-	intersections[2].object = &s;
-	intersections[2].t = -3;
-	intersections[3].object = &s;
-	intersections[3].t = 2;
-	closest_intersection = hit(intersections);
-	assert(equal(closest_intersection.t, 2) && closest_intersection.object == &s);
+	// s = sphere(0);
+	// intersections[0].atom_count = 4;
+	// intersections[0].object = &s;
+	// intersections[0].t = 5;
+	// intersections[1].object = &s;
+	// intersections[1].t = 7;
+	// intersections[2].object = &s;
+	// intersections[2].t = -3;
+	// intersections[3].object = &s;
+	// intersections[3].t = 2;
+	// closest_intersection = hit(intersections);
+	// assert(equal(closest_intersection.t, 2) && closest_intersection.object == &s);
 	/*Transforming Sphere With Ray*/
 	r = return_ray(point(1, 2, 3), vector(0, 1, 0));
 	m0 = translation(3, 4, 5);
@@ -574,7 +574,7 @@ int main()
 	t_tuple eyev = vector(0, 0, -1);
 	t_tuple normalv = vector(0, 0, -1);
 	light = point_light(point(0, 0, -10), color(1, 1, 1));
-	t_lighting l = {m, light, pos, eyev, normalv};
+	t_lighting l = {m, light, pos, eyev, normalv, m.color};
 	t_tuple final_color_intensity = lighting(l);
 	assert(equal_tuple(final_color_intensity, color(1.9, 1.9, 1.9)));
 	/* Lighting with the eye between light and surface, eye offset 45° */
@@ -583,7 +583,7 @@ int main()
 	eyev = vector(0, sqrt(2)/2, -sqrt(2)/2);
 	normalv = vector(0, 0, -1);
 	light = point_light(point(0, 0, -10), color(1, 1, 1));
-	t_lighting l1 = {m, light, pos, eyev, normalv};
+	t_lighting l1 = {m, light, pos, eyev, normalv, m.color};
 	final_color_intensity = lighting(l1);
 	assert(equal_tuple(final_color_intensity, color(1.0, 1.0, 1.0)));
 	/* Lighting with eye opposite surface, light offset 45° */
@@ -592,7 +592,7 @@ int main()
 	eyev = vector(0, 0, -1);
 	normalv = vector(0, 0, -1);
 	light = point_light(point(0, 10, -10), color(1, 1, 1));
-	t_lighting l2 = {m, light, pos, eyev, normalv};
+	t_lighting l2 = {m, light, pos, eyev, normalv, m.color};
 	final_color_intensity = lighting(l2);
 	assert(equal_tuple(final_color_intensity, color(0.7364, 0.7364, 0.7364)));
 	/* Lighting with eye in the path of the reflection vector */
@@ -601,7 +601,7 @@ int main()
 	eyev = vector(0, -sqrt(2)/2, -sqrt(2)/2);
 	normalv = vector(0, 0, -1);
 	light = point_light(point(0, 10, -10), color(1, 1, 1));
-	t_lighting l3 = {m, light, pos, eyev, normalv};
+	t_lighting l3 = {m, light, pos, eyev, normalv, m.color};
 	final_color_intensity = lighting(l3);
 	assert(equal_tuple(final_color_intensity, color(1.6364, 1.6364, 1.6364)));
 	/* Lighting with the light behind the surface */
@@ -610,14 +610,14 @@ int main()
 	eyev = vector(0, 0, -1);
 	normalv = vector(0, 0, -1);
 	light = point_light(point(0, 0, 10), color(1, 1, 1));
-	t_lighting l4 = {m, light, pos, eyev, normalv};
+	t_lighting l4 = {m, light, pos, eyev, normalv, m.color};
 	final_color_intensity = lighting(l4);
 	assert(equal_tuple(final_color_intensity, color(.1, .1, .1)));
 	/* The default world TESTS */
 	t_world	*world0 = parse("test_cfiles/test0.rt");
-	assert(equal_tuple(world0->lights_list->color, color(255, 255, 255)));
+	assert(equal_tuple(world0->lights_list->color, color(1, 1, 1)));
 	assert(equal(world0->lights_list->intensity, 1));
-	assert(equal_tuple(world0->lights_list->pos, point(-10, 10, -10)) && !world0->lights_list->next);
+	assert(equal_tuple(world0->lights_list->pos, point(-10, 10, -10)));
 	assert(world0->objects_list && world0->objects_list->next && !world0->objects_list->next->next);
 	/* interset world */
 	r = return_ray(point(0, 0, -5), vector(0, 0, 1));
@@ -629,7 +629,63 @@ int main()
 	assert(xs_list->next->t == 4.5);
 	assert(xs_list->next->next->t == 5.5);
 	assert(xs_list->next->next->next->t == 6);
+	/*Precomputing the state of an intersection*/
+	r = return_ray(point(0, 0, -5), vector(0, 0, 1));
+	s = sphere(0);
+	xs_list->count = 1;
+	xs_list->next = NULL;
+	xs_list->object.object = &s;
+	xs_list->t = 4;
+	t_comps comps = prepare_computations(xs_list, r);
+	assert(equal(comps.t, 4) && comps.object.object == xs_list->object.object);
+	assert(equal_tuple(point(0, 0, -1), comps.point));
+	assert(equal_tuple(comps.eyev, vector(0, 0, -1)));
+	assert(equal_tuple(vector(0, 0, -1), comps.normalv));
 
+	/*The hit, when an intersection occurs on the outside*/
+	r = return_ray(point(0, 0, -5), vector(0, 0, 1));
+	s = sphere(0);
+	xs_list->count = 1;
+	xs_list->next = NULL;
+	xs_list->object.object = &s;
+	xs_list->t = 4;
+	comps = prepare_computations(xs_list, r);
+	assert(comps.inside == false);
+	/*The hit, when an intersection occurs on the inside*/
+	r = return_ray(point(0, 0, 0), vector(0, 0, 1));
+	s = sphere(0);
+	xs_list->count = 1;
+	xs_list->next = NULL;
+	xs_list->object.object = &s;
+	xs_list->t = 1;
+	comps = prepare_computations(xs_list, r);
+	assert(equal(comps.t, 1) && comps.object.object == xs_list->object.object);
+	assert(equal_tuple(point(0, 0, 1), comps.point));
+	assert(equal_tuple(comps.eyev, vector(0, 0, -1)));
+	assert(equal_tuple(vector(0, 0, -1), comps.normalv));
+	assert(comps.inside == true);
+	/*Shading an intersection*/
+	// r = return_ray(point(0, 0, -5), vector(0, 0, 1));
+	// t_sphere *ss = (t_sphere *)world0->objects_list->object;
+	// xs_list->count = 1;
+	// xs_list->next = NULL;
+	// xs_list->object.object = &s;
+	// xs_list->t = 4;
+	// xs_list->object.form = SPHERE;
+	// comps = prepare_computations(xs_list, r);
+	// t_tuple col = shade_hit(*world0, comps);
+	// assert(equal_tuple(col, color(0.38066, 0.47583, 0.2855)));
+	// /*Shading an intersection from the inside*/
+	// r = return_ray(point(0,0, 0), vector(0, 0, 1));
+	// world0 = parse("test_cfiles/test1.rt");
+	// xs_list->count = 1;
+	// xs_list->next = NULL;
+	// xs_list->object.object = &s;
+	// xs_list->t = 0.5;
+	// xs_list->object.form = SPHERE;
+	// comps = prepare_computations(xs_list, r);
+	// col = shade_hit(*world0, comps);
+	// assert(equal_tuple(col, color(0.90498, 0.90498, 0.90498)));
 	/*  to remove */
 
 

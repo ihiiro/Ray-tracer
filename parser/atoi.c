@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 19:58:23 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/09/29 20:00:58 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/02 03:13:47 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	ft_atoi(const char *str, int *is_fraction)
 		if (*str == '.')
 		{
 			str++;
-			*is_fraction = 1;
+			* = 1;
 		}
 		tmp = rslt * 10 + *str - '0';
 		if (tmp < rslt && sign == 1)

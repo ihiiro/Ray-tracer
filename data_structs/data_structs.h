@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 11:20:46 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/01 20:37:40 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/02 02:27:50 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ typedef struct s_lighting
 	t_tuple		point;
 	t_tuple		eyev;
 	t_tuple		normalv;
+	t_tuple		ambient_effective_color;
 }		t_lighting;
 
 typedef struct s_lighting_components
@@ -119,8 +120,7 @@ typedef struct s_lighting_components
 	t_tuple	reflectv;
 	double	reflect_dot_eye;
 	double	specular_factor;
-	t_tuple	intensity;
-	
+	t_tuple	intensity;	
 }		t_lighting_components;
 
 
@@ -179,3 +179,15 @@ typedef struct s_xs_list
 	t_object_			object;
 	struct s_xs_list	*next;
 }		t_xs_list;
+
+/*Precomputing the state of an intersection*/
+typedef	struct s_comps
+{
+	double		t;
+	t_object_	object;
+	t_tuple		point;
+	t_tuple		eyev;
+	t_tuple		normalv;
+	int 		inside;
+}	t_comps;
+

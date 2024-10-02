@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 19:36:54 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/09/30 12:18:25 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/02 02:35:42 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ void	reach_for(const char **line, char end, int skip)
 
 bool	valid_color(t_tuple color)
 {
-	if (color.x > 255 || color.x < 0
-		|| color.y > 255 || color.y < 0
-		|| color.z > 255 || color.z < 0)
+	if (color.x > 1 || color.x < 0
+		|| color.y > 1 || color.y < 0
+		|| color.z > 1 || color.z < 0)
 		return (false);
 	return (true);
 }

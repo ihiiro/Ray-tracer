@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 10:26:12 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/01 20:53:37 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/02 03:23:36 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,11 @@
 
 void	parse_colors(t_sphere *sp, const char *line)
 {
-	int	is_fraction;
-
-	is_fraction = 1;
-	sp->material.color.x = ft_atoi(line, &is_fraction);
+	sp->material.color.x = atodbl(line) / 255.0;
 	reach_for(&line, ',', 1);
-	sp->material.color.y = ft_atoi(line, &is_fraction);
+	sp->material.color.y = atodbl(line) / 255.0;
 	reach_for(&line, ',', 1);
-	sp->material.color.z = ft_atoi(line, &is_fraction);
+	sp->material.color.z = atodbl(line) / 255.0;
 	if (!valid_color(sp->material.color))
 		exitf("sphere parse error\n");
 }
@@ -32,22 +29,16 @@ void	parse_colors(t_sphere *sp, const char *line)
 void	alloc_and_parse_pos(t_sphere **sp, t_object_ **object,
 t_world **world, const char **line)
 {
-	int	is_fraction;
-
-	is_fraction = 10;
 	*sp = malloc(sizeof(t_sphere));
 	*object = malloc(sizeof(t_object_));
 	**sp = sphere(0);
 	(*sp)->material.ambient = (*world)->ambient_intensity;
 	reach_for(line, ' ', 0);
-	(*sp)->center.x = ft_atoi(*line, &is_fraction) / (10.0 / is_fraction);
-	is_fraction = 10;
+	(*sp)->center.x = atodbl(*line);
 	reach_for(line, ',', 1);
-	(*sp)->center.y = ft_atoi(*line, &is_fraction) / (10.0 / is_fraction);
-	is_fraction = 10;
+	(*sp)->center.y = atodbl(*line);
 	reach_for(line, ',', 1);
-	(*sp)->center.z = ft_atoi(*line, &is_fraction) / (10.0 / is_fraction);
-	is_fraction = 10;
+	(*sp)->center.z = atodbl(*line);
 	reach_for(line, ' ', 0);
 }
 
@@ -62,13 +53,13 @@ t_object_ **objects_list, t_world **world)
 
 	i = 0;
 	if (line[0] == 'A' && line[1] == ' ')
-		parse_ambient(line, world, 10);
+		parse_ambient(line, world);
 	else if (line[0] == 'C' && line[1] == ' ')
-		parse_camera(line, world, 10);
+		parse_camera(line, world);
 	else if (line[0] == 'L' && line[1] == ' ')
-		parse_lights(line, lights_list, 10);
+		parse_lights(line, lights_list);
 	else if (line[0] == 's' && line[1] == 'p' && line[2] == ' ')
-		parse_sphere(line, world, objects_list, 10);
+		parse_sphere(line, world, objects_list);
 }
 
 t_world	*parse(const char *file)
@@ -96,7 +87,7 @@ t_world	*parse(const char *file)
 
 // int main()
 // {
-// 	t_world *world = parse("test_cfiles/test0.rt");
+// 	t_world *world = parse("test_cfiles/test1.rt");
 
 // 	printf("world ambient intensity: [%.1f]\n", world->ambient_intensity);
 // 	printf("world ambient rgb: [%.1f %.1f %.1f]\n", world->ambient_color.x, world->ambient_color.y, world->ambient_color.z);
