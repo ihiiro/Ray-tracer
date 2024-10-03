@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 10:47:12 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/03 19:58:26 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/03 20:10:35 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,21 @@
 #define WIDTH 400
 #define HEIGHT 400
 
+#define GREEN "\033[0;32m"
+
+void _setcolor_ (char *code) {
+  printf("%s", code);
+}
+
+void _reset_ () {
+  printf("\033[0m");
+}
+
 int main()
 {
+	_setcolor_(GREEN);
+	printf("testing...");
+	_reset_();
 	/* TUPLES TESTS */
 	t_tuple a = return_tuple(4.3, -4.2, 3.1, POINT);
 	assert(a.x == 4.3);
@@ -745,6 +758,10 @@ int main()
     // create_canvas(&c1, img, mlx);
     // mlx_loop(mlx);
 	
+
+	_setcolor_(GREEN);
+	printf(" OK.\n");
+	_reset_();
 }
 
 
