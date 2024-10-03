@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 10:47:12 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/02 22:12:26 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/03 19:58:26 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -425,48 +425,6 @@ int main()
 	s = sphere(0);
 	xs = sphere_intersect(&s, r);
 	assert(xs.count == 2 && (t_sphere *)xs.object0 == &s && (t_sphere *)xs.object1 == &s);
-	/* HIT TESTS */
-	/* The hit, when all intersections have positive t */
-	// s = sphere(0);
-	// t_intersection intersections[4];
-	// intersections[0].atom_count = 2;
-	// intersections[0].object = &s;
-	// intersections[0].t = 1;
-	// intersections[1].object = &s;
-	// intersections[1].t = 2;
-	// t_intersection closest_intersection = hit(intersections);
-	// assert(equal(closest_intersection.t, 1) && closest_intersection.object == &s);
-	/* The hit, when some intersections have negative t */
-	// s = sphere(0);
-	// intersections[0].atom_count = 2;
-	// intersections[0].object = &s;
-	// intersections[0].t = -1;
-	// intersections[1].object = &s;
-	// intersections[1].t = 1;
-	// closest_intersection = hit(intersections);
-	// assert(equal(closest_intersection.t, 1) && closest_intersection.object == &s);
-	/* The hit, when all intersections have negative t */
-	// s = sphere(0);
-	// intersections[0].atom_count = 2;
-	// intersections[0].object = &s;
-	// intersections[0].t = -2;
-	// intersections[1].object = &s;
-	// intersections[1].t = -1;
-	// closest_intersection = hit(intersections);
-	// assert(equal(closest_intersection.t, INT_MAX) && closest_intersection.object == &s); // NO HIT
-	/* The hit is always the lowest nonnegative intersection */
-	// s = sphere(0);
-	// intersections[0].atom_count = 4;
-	// intersections[0].object = &s;
-	// intersections[0].t = 5;
-	// intersections[1].object = &s;
-	// intersections[1].t = 7;
-	// intersections[2].object = &s;
-	// intersections[2].t = -3;
-	// intersections[3].object = &s;
-	// intersections[3].t = 2;
-	// closest_intersection = hit(intersections);
-	// assert(equal(closest_intersection.t, 2) && closest_intersection.object == &s);
 	/*Transforming Sphere With Ray*/
 	r = return_ray(point(1, 2, 3), vector(0, 1, 0));
 	m0 = translation(3, 4, 5);
@@ -708,6 +666,35 @@ int main()
 	r = return_ray(point(0, 0, 0.75), vector(0, 0, -1));
 	col = color_at(world0, r);
 	assert(equal_tuple(col, ss->material.color));
+	/* The transformation matrix for the default orientation */
+	t_tuple from = point(0, 0, 0);
+	t_tuple to = point(0, 0, -1);
+	t_tuple up = vector(0, 1, 0);
+	t_matrix *t_ = view_transform(from, to, up);
+	assert(equal_matrices(t_, identity(), 4));
+	/* A view transformation matrix looking in positive z direction */
+	from = point(0, 0, 0);
+	to = point(0, 0, 1);
+	up = vector(0, 1, 0);
+	t_ = view_transform(from, to, up);
+	assert(equal_matrices(t_, scaling(-1, 1, -1), 4));
+	/* The view transformation moves the world */
+	from = point(0, 0, 8);
+	to = point(0, 0, 0);
+	up = vector(0, 1, 0);
+	t_ = view_transform(from, to, up);
+	assert(equal_matrices(t_, translation(0, 0, -8), 4));
+	/*An arbitrary view transformation*/
+	from = point(1, 3, 2);
+	to = point(4, -2, 8);
+	up = vector(1, 1, 0);
+	t_ = view_transform(from, to, up);
+	matrix = return_4_by_4_matrix(return_tuple(-0.50709, 0.50709, 0.67612, -2.36643),
+	return_tuple(0.76772, 0.60609, 0.12122, -2.82843),
+	return_tuple(-0.35857, 0.59761, -0.71714, 0.00000),
+	return_tuple(0.00000, 0.00000, 0.00000, 1.00000));
+	assert(equal_matrices(t_, matrix, 4));
+	
 	/*  to remove */
 	// t_canvas c1 = canvas(WIDTH, WIDTH);
     // mlx_t *mlx = mlx_init(WIDTH, WIDTH, "sphere", false);
@@ -759,3 +746,15 @@ int main()
     // mlx_loop(mlx);
 	
 }
+
+
+/* debugging helpers */
+// print 4x4 matrix
+/*
+
+	printf("%f %f %f %f\n", t_[0].x, t_[0].y, t_[0].z, t_[0].w);
+	printf("%f %f %f %f\n", t_[1].x, t_[1].y, t_[1].z, t_[1].w);
+	printf("%f %f %f %f\n", t_[2].x, t_[2].y, t_[2].z, t_[2].w);
+	printf("%f %f %f %f\n", t_[3].x, t_[3].y, t_[3].z, t_[3].w);
+
+*/

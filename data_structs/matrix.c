@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 11:54:52 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/09/24 04:26:08 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/03 19:44:30 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ bool	equal_matrices(t_matrix *a, t_matrix *b, size_t size)
 t_matrix	*matrix_multiply(t_matrix *A, t_matrix *B, size_t size)
 {
 	t_matrix	*M;
-	size_t	i;
+	size_t		i;
 
 	i = 0;
 	if (size == 2)
