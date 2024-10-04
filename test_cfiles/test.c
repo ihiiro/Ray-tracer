@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 10:47:12 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/04 20:28:11 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/04 21:12:57 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -752,127 +752,58 @@ int main()
 	assert(equal_tuple(color(0.38066, 0.47583, 0.2855), *pixel_at(&image, 5, 5)));
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	
-	/*  to remove */
-	// t_canvas c1 = canvas(WIDTH, WIDTH);
-    // mlx_t *mlx = mlx_init(WIDTH, WIDTH, "sphere", false);
-    // mlx_image_t *img = mlx_new_image(mlx, WIDTH, WIDTH);
-    // t_ray ray = return_ray(point(0, 0, -5), vector(0, 0, 1));
-    // double wall_z = 10;
-    // double wall_size = 7;
-    // double half = wall_size/2;
-    // double pixel_size = wall_size / WIDTH;
-    // t_sphere s1 = sphere(1);
-	// s1.material = material();
-	// s1.material.color = color(1, 0.2, 1);
-	// t_light LIGHT = point_light(point(0, 0, 10), color(1, 1, 1));
-
-
-
-
-    // for(int i = 0; i < WIDTH; i++)
-    // {
-    //     double world_y = half - pixel_size * i;
-    //     for(int j = 0; j < WIDTH ; j++)
-    //     {
-    //         double world_x = -half + pixel_size * j;
-    //         t_tuple pos = point(world_x, world_y, wall_z);
-    //         t_ray r = return_ray(ray.origin, normalize_vec(sub_tuples(pos, ray.origin)));
-	// 		// s1.transform = matrix_multiply(scaling(.4, 1, 1), identity(), 4);
-    //         t_xs xs = sphere_intersect(&s1, r);
-	// 		t_intersection inter[2];
-	// 		inter[0].atom_count = 2;
-	// 		inter[0].t = xs.t0;
-	// 		inter[1].t = xs.t1;
-    //         if (xs.count > 0)
-    //         {
-	// 			t_tuple P = position(r, hit(inter).t);
-	// 			// printf("%f %f %f\n", P.x, P.y, P.z);
-	// 			normalv = normal_at(s1, P);
-	// 			eyev = negate_tuple(r.direction);
-	// 			t_lighting L = {s1.material, LIGHT, P, eyev, normalv};
-	// 			final_color_intensity = lighting(L);
-	// 			t_tuple fcl;
-	// 			fcl = multiply_color_by_scalar(final_color_intensity, 255);
-    //             write_pixel(&c1, i, j, fcl);
-    //         }
-    //         else
-    //             write_pixel(&c1, i, j, color(0, 0, 0));
-    //     }
-    // }
-    // create_canvas(&c1, img, mlx);
-    // mlx_loop(mlx);
 	
+
+
+
+	/* to remove */
+	// walls
+	t_world	*scene = parse("scene.rt");
+	t_sphere *floor = (t_sphere*)scene->objects_list->object;
+	floor->transform = scaling(10, 0.01, 10);
+	floor->material.specular = 0;
+	t_sphere *wall_left = (t_sphere*)scene->objects_list->next->object;
+	wall_left->transform = matrix_multiply(matrix_multiply(rotation_y(-M_PI/4),
+		rotation_x(M_PI/2), 4), scaling(10, 0.01, 10), 4);
+	wall_left->material = floor->material;
+	t_sphere *wall_right = (t_sphere*)scene->objects_list->next->next->object;
+	wall_right->transform = matrix_multiply(matrix_multiply(rotation_y(M_PI/4),
+		rotation_x(M_PI/2), 4), scaling(10, 0.01, 10), 4);
+	wall_right->material = floor->material;
+	// spheres
+	// t_sphere *sp_middle = (t_sphere*)scene->objects_list->next->next->next->object;
+	// sp_middle->transform = translation(-0.5, 1, 0.5);
+	// sp_middle->material.diffuse = .7;
+	// sp_middle->material.specular = .3;
+	// t_sphere *sp_right = (t_sphere*)scene->objects_list->next->next->next->next->object;
+	// sp_right->transform = matrix_multiply(translation(1.5, 0.5, -0.5),
+	// 	scaling(0.5, 0.5, 0.5), 4);
+	// sp_right->material.diffuse = .7;
+	// sp_right->material.specular = .3;
+	// t_sphere *sp_left =(t_sphere*)scene->objects_list->next->next->next->next->next->object;
+	// sp_left->transform = matrix_multiply(translation(-1.5, 0.33, -0.75),
+	// 	scaling(0.33, 0.33, 0.33), 4);
+	// sp_left->material.diffuse = .7;
+	// sp_left->material.specular = .3;
+
+	// camera
+	camera(100, 50, &scene->camera);
+	scene->camera.transform = view_transform(point(0, 1.5, -5),
+		point(0, 1, 0), vector(0, 1, 0));
+
+
+	mlx_t	*mlx = mlx_init(400, 400, "scene", false);
+	mlx_image_t	*img = mlx_new_image(mlx, 400, 400);
+	image = canvas(scene->camera.hsize, scene->camera.vsize);
+	
+
+	render(&image, &scene->camera, scene);
+	create_canvas(&image, img, mlx);
+	
+
+	mlx_image_to_window(mlx, img, 0, 0);
+	mlx_loop(mlx);
 
 	_setcolor_(GREEN);
 	printf(" OK.\n");
