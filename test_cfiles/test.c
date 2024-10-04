@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 10:47:12 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/04 18:06:24 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/04 20:28:11 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -738,6 +738,9 @@ int main()
 	assert(equal_tuple(r.direction, vector(sqrt(2)/2, 0, -sqrt(2)/2)));
 	/* Rendering default world with a camera */
 	world0 = parse("test_cfiles/test0.rt");
+	ss = (t_sphere *)world0->objects_list->object;
+	ss->material.diffuse = .7;
+	ss->material.specular = .2;
 	cam = &world0->camera;
 	camera(11, 11, cam);
 	from = point(0, 0, -5);

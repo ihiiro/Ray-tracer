@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 19:06:28 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/04 18:12:03 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/04 19:50:50 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,18 +71,9 @@ t_ray	ray_for_pixel(t_camera_ *cam, double px, double py)
 	camray.yoffset = (py + .5) * cam->pixel_size;
 	camray.world_x = cam->half_width - camray.xoffset;
 	camray.world_y = cam->half_height - camray.yoffset;
-	if (invert_matrix(cam->transform, 4) == NULL)
-	{
-		camray.pixel = multiply_matrix_by_tuple(cam->transform,
-		point(camray.world_x, camray.world_y, -1));
-		camray.origin = multiply_matrix_by_tuple(cam->transform, point(0, 0, 0));
-	}
-	else
-	{
-		camray.pixel = multiply_matrix_by_tuple(invert_matrix(cam->transform, 4),
-		point(camray.world_x, camray.world_y, -1));
-		camray.origin = multiply_matrix_by_tuple(invert_matrix(cam->transform, 4), point(0, 0, 0));
-	}
+	camray.pixel = multiply_matrix_by_tuple(invert_matrix(cam->transform, 4),
+	point(camray.world_x, camray.world_y, -1));
+	camray.origin = multiply_matrix_by_tuple(invert_matrix(cam->transform, 4), point(0, 0, 0));
 	camray.direction = normalize_vec(sub_tuples(camray.pixel, camray.origin));
 	return (return_ray(camray.origin, camray.direction));
 }

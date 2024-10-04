@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 11:47:16 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/04 18:09:47 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/04 19:38:28 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ t_matrix	*invert_matrix(t_matrix *m0, size_t size)
 
 	(i = -1, determinant = matrix_determinant(m0, size));
 	if (equal(determinant, 0))
-		return (NULL);
+		return (m0);
 	mt = malloc(sizeof(t_tuple) * size);
 	(!mt) && (exit(EXIT_FAILURE), 0);
 	while(++i < size)
