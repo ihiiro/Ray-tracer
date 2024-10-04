@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 10:47:12 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/03 20:10:35 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/04 18:06:24 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void _reset_ () {
 int main()
 {
 	_setcolor_(GREEN);
-	printf("testing...");
+	printf("testing infrastructure...");
 	_reset_();
 	/* TUPLES TESTS */
 	t_tuple a = return_tuple(4.3, -4.2, 3.1, POINT);
@@ -707,6 +707,118 @@ int main()
 	return_tuple(-0.35857, 0.59761, -0.71714, 0.00000),
 	return_tuple(0.00000, 0.00000, 0.00000, 1.00000));
 	assert(equal_matrices(t_, matrix, 4));
+	/* Constructing a camera */
+	world0 = parse("test_cfiles/cam.rt");
+	t_camera_ *cam = &world0->camera;
+	camera(160, 120, cam);
+	assert(equal(cam->hsize, 160));
+	assert(equal(cam->vsize, 120));
+	assert(equal(cam->fov, M_PI / 2));
+	assert(equal_matrices(cam->transform, identity(), 4));
+	/* The pixel size for a horizontal canvas */
+	camera(200, 125, cam);
+	assert(equal(cam->pixel_size, .01));
+	camera(125, 200, cam);
+	assert(equal(cam->pixel_size, .01));
+	/* Constructing a ray through the center of the canvas */
+	camera(201, 101, cam);
+	r = ray_for_pixel(cam, 100, 50);
+	assert(equal_tuple(r.origin, point(0, 0, 0)));
+	assert(equal_tuple(r.direction, vector(0, 0, -1)));
+	/* Constructing a ray through a corner of the canvas */
+	camera(201, 101, cam);
+	r = ray_for_pixel(cam, 0, 0);
+	assert(equal_tuple(r.origin, point(0, 0, 0)));
+	assert(equal_tuple(r.direction, vector(0.66519, 0.33259, -0.66851)));
+	/* Constructing a ray when the camera is transformed */
+	camera(201, 101, cam);
+	cam->transform = matrix_multiply(rotation_y(M_PI / 4), translation(0, -2, 5), 4);
+	r = ray_for_pixel(cam, 100, 50);
+	assert(equal_tuple(r.origin, point(0, 2, -5)));
+	assert(equal_tuple(r.direction, vector(sqrt(2)/2, 0, -sqrt(2)/2)));
+	/* Rendering default world with a camera */
+	world0 = parse("test_cfiles/test0.rt");
+	cam = &world0->camera;
+	camera(11, 11, cam);
+	from = point(0, 0, -5);
+	to = cam->vec;
+	up = vector(0, 1, 0);
+	cam->transform = view_transform(from, to, up);
+	t_canvas	image = canvas(cam->hsize, cam->vsize);
+	render(&image, cam, world0);
+	assert(equal_tuple(color(0.38066, 0.47583, 0.2855), *pixel_at(&image, 5, 5)));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	
 	/*  to remove */
 	// t_canvas c1 = canvas(WIDTH, WIDTH);

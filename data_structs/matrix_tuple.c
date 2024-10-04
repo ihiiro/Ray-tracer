@@ -6,13 +6,15 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 16:54:46 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/09/20 17:00:53 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/04 18:08:33 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "data_structs.h"
 #include "data_funcs.h"
 #include "../maths/maths.h"
+
+#include <libc.h>
 
 t_tuple multiply_matrix_by_tuple(t_matrix *m, t_tuple t)
 {

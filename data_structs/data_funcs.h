@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 11:25:19 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/03 19:19:48 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/04 17:54:02 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,3 +125,7 @@ t_tuple		color_at(t_world *w, t_ray r);
 double    atodbl(const char *str);
 /*view transformation*/
 t_matrix	*view_transform(t_tuple from, t_tuple to, t_tuple up);
+/*Camera*/
+void	camera(double hsize, double vsize, t_camera_ *c);
+t_ray	ray_for_pixel(t_camera_ *cam, double px, double py);
+void	render(t_canvas *canvas, t_camera_ *cam, t_world *world);

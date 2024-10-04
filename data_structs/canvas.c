@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 14:29:47 by aboulakr          #+#    #+#             */
-/*   Updated: 2024/09/29 10:23:44 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/04 18:05:21 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void    create_canvas(t_canvas *c, mlx_image_t *img, mlx_t *mlx)
 
 void	write_pixel(t_canvas *canvas, int x, int y, t_tuple rgb)
 {
-	canvas->pixels[y][x].color = color(rgb.x, rgb.y, rgb.z);
+	canvas->pixels[canvas->height - y - 1][x].color = color(rgb.x, rgb.y, rgb.z);
 }
 
 t_tuple *pixel_at(t_canvas *canvas, int x, int y)

@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 11:20:46 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/02 02:27:50 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/04 17:29:24 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,6 +151,12 @@ typedef struct s_camera_
 	t_tuple		pos;
 	t_tuple		vec;
 	double		fov;
+	double		hsize;
+	double		vsize;
+	t_matrix	*transform;
+	double		pixel_size;
+	double		half_width;
+	double		half_height;
 }		t_camera_;
 
 typedef struct s_world
@@ -191,3 +197,13 @@ typedef	struct s_comps
 	int 		inside;
 }	t_comps;
 
+typedef struct s_camray
+{
+	double	xoffset;
+	double	yoffset;
+	double	world_x;
+	double	world_y;
+	t_tuple	pixel;
+	t_tuple	origin;
+	t_tuple	direction;
+}		t_camray;
