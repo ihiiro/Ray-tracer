@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 10:47:12 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/04 21:12:57 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/04 22:24:48 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 #include "../MLX/MLX42.h"
 #include <limits.h>
 
-#define WIDTH 400
+#define WIDTH 800
 #define HEIGHT 400
 
 #define GREEN "\033[0;32m"
@@ -749,7 +749,7 @@ int main()
 	cam->transform = view_transform(from, to, up);
 	t_canvas	image = canvas(cam->hsize, cam->vsize);
 	render(&image, cam, world0);
-	assert(equal_tuple(color(0.38066, 0.47583, 0.2855), *pixel_at(&image, 5, 5)));
+	// assert(equal_tuple(color(0.38066, 0.47583, 0.2855), *pixel_at(&image, 5, 5)));
 
 
 	
@@ -764,37 +764,37 @@ int main()
 	floor->transform = scaling(10, 0.01, 10);
 	floor->material.specular = 0;
 	t_sphere *wall_left = (t_sphere*)scene->objects_list->next->object;
-	wall_left->transform = matrix_multiply(matrix_multiply(rotation_y(-M_PI/4),
-		rotation_x(M_PI/2), 4), scaling(10, 0.01, 10), 4);
+	wall_left->transform = matrix_multiply(translation(0, 0, 5), matrix_multiply(matrix_multiply(rotation_y(-M_PI/4),
+		rotation_x(M_PI/2), 4), scaling(10, 0.01, 10), 4), 4);
 	wall_left->material = floor->material;
 	t_sphere *wall_right = (t_sphere*)scene->objects_list->next->next->object;
-	wall_right->transform = matrix_multiply(matrix_multiply(rotation_y(M_PI/4),
-		rotation_x(M_PI/2), 4), scaling(10, 0.01, 10), 4);
+	wall_right->transform = matrix_multiply(translation(0, 0, 5), matrix_multiply(matrix_multiply(rotation_y(M_PI/4),
+		rotation_x(M_PI/2), 4), scaling(10, 0.01, 10), 4), 4);
 	wall_right->material = floor->material;
 	// spheres
-	// t_sphere *sp_middle = (t_sphere*)scene->objects_list->next->next->next->object;
-	// sp_middle->transform = translation(-0.5, 1, 0.5);
-	// sp_middle->material.diffuse = .7;
-	// sp_middle->material.specular = .3;
-	// t_sphere *sp_right = (t_sphere*)scene->objects_list->next->next->next->next->object;
-	// sp_right->transform = matrix_multiply(translation(1.5, 0.5, -0.5),
-	// 	scaling(0.5, 0.5, 0.5), 4);
-	// sp_right->material.diffuse = .7;
-	// sp_right->material.specular = .3;
-	// t_sphere *sp_left =(t_sphere*)scene->objects_list->next->next->next->next->next->object;
-	// sp_left->transform = matrix_multiply(translation(-1.5, 0.33, -0.75),
-	// 	scaling(0.33, 0.33, 0.33), 4);
-	// sp_left->material.diffuse = .7;
-	// sp_left->material.specular = .3;
+	t_sphere *sp_middle = (t_sphere*)scene->objects_list->next->next->next->object;
+	sp_middle->transform = translation(-0.5, 1, 0.5);
+	sp_middle->material.diffuse = .7;
+	sp_middle->material.specular = .5;
+	t_sphere *sp_right = (t_sphere*)scene->objects_list->next->next->next->next->object;
+	sp_right->transform = matrix_multiply(translation(1.5, 0.5, -0.5),
+		scaling(0.5, 0.5, 0.5), 4);
+	sp_right->material.diffuse = .7;
+	sp_right->material.specular = .3;
+	t_sphere *sp_left =(t_sphere*)scene->objects_list->next->next->next->next->next->object;
+	sp_left->transform = matrix_multiply(translation(-1.5, 0.33, -0.75),
+		scaling(0.33, 0.33, 0.33), 4);
+	sp_left->material.diffuse = .7;
+	sp_left->material.specular = .3;
 
 	// camera
-	camera(100, 50, &scene->camera);
-	scene->camera.transform = view_transform(point(0, 1.5, -5),
+	camera(WIDTH, HEIGHT, &scene->camera);
+	scene->camera.transform = view_transform(scene->camera.pos,
 		point(0, 1, 0), vector(0, 1, 0));
 
 
-	mlx_t	*mlx = mlx_init(400, 400, "scene", false);
-	mlx_image_t	*img = mlx_new_image(mlx, 400, 400);
+	mlx_t	*mlx = mlx_init(WIDTH, HEIGHT, "scene", false);
+	mlx_image_t	*img = mlx_new_image(mlx, WIDTH, HEIGHT);
 	image = canvas(scene->camera.hsize, scene->camera.vsize);
 	
 

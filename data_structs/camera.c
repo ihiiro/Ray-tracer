@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 19:06:28 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/04 19:50:50 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/04 21:23:27 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void	render(t_canvas *canvas, t_camera_ *cam, t_world *world)
 		{
 			ray = ray_for_pixel(cam, x, y);
 			rgb = color_at(world, ray);
-			write_pixel(canvas, x, y, rgb);
+			write_pixel(canvas, x, y, multiply_color_by_scalar(rgb, 255));
 			x++;
 		}
 		y++;
