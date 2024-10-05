@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 19:06:28 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/04 21:23:27 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/05 15:35:55 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 #include "data_funcs.h"
 #include "../maths/maths.h"
 #include <math.h>
-
-#include <libc.h>
 
 t_matrix	*view_transform(t_tuple from, t_tuple to, t_tuple up)
 {
@@ -48,7 +46,7 @@ void	camera(double hsize, double vsize, t_camera_ *c)
 	c->hsize = hsize;
 	c->vsize = vsize;
 	c->transform = identity();
-	half_view = tan(c->fov / 2.0);
+	half_view = tan(radians(c->fov / 2.0)); // take degrees (convert to radians)
 	aspect = c->hsize / c->vsize;
 	if (aspect >= 1)
 	{
@@ -67,8 +65,8 @@ t_ray	ray_for_pixel(t_camera_ *cam, double px, double py)
 {
 	t_camray	camray;
 
-	camray.xoffset = (px + .5) * cam->pixel_size;
-	camray.yoffset = (py + .5) * cam->pixel_size;
+	camray.xoffset = cam->pixel_size * (px + .5);
+	camray.yoffset = cam->pixel_size * (py + .5);
 	camray.world_x = cam->half_width - camray.xoffset;
 	camray.world_y = cam->half_height - camray.yoffset;
 	camray.pixel = multiply_matrix_by_tuple(invert_matrix(cam->transform, 4),
@@ -93,7 +91,7 @@ void	render(t_canvas *canvas, t_camera_ *cam, t_world *world)
 		{
 			ray = ray_for_pixel(cam, x, y);
 			rgb = color_at(world, ray);
-			write_pixel(canvas, x, y, multiply_color_by_scalar(rgb, 255));
+			write_pixel(canvas, x, y, rgb);
 			x++;
 		}
 		y++;

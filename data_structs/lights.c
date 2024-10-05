@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 16:51:33 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/02 06:32:54 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/05 15:35:16 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ t_material	material()
 	m.ambient = 0.1;
 	m.diffuse = 0.9;
 	m.specular = 0.9;
-	m.shininess = 200.0; // NewValue = (((OldValue - OldMin) * (NewMax - NewMin)) / (OldMax - OldMin)) + NewMin
+	m.shininess = 200.0;
 	return (m);
 }
 
@@ -48,10 +48,9 @@ t_tuple lighting(t_lighting l)
 {
 	t_lighting_components	lc;
 
-	// printf("color=%f %f %f\n", l.m.color.x, l.m.color.y, l.m.color.z);
 	lc.effective_color = multiply_colors(l.m.color, l.light.intensity);
 	lc.lightv = normalize_vec(sub_tuples(l.light.position, l.point));
-	lc.ambient = multiply_color_by_scalar(l.ambient_effective_color, l.m.ambient); // change to global ambient
+	lc.ambient = multiply_color_by_scalar(l.ambient_effective_color, l.m.ambient);
 	lc.light_dot_normalv = vec_dot(lc.lightv, l.normalv);
 	if (lc.light_dot_normalv < 0)
 	{
