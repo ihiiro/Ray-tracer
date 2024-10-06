@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 19:30:58 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/02 03:37:38 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/06 11:25:46 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@ t_object_ **objects_list)
 	alloc_and_parse_pos(&sp, &object, world, &line);
 	while (*line == ' ')
 		line++;
-	sp->radius = atodbl(line) / 2;
+	sp->radius = atodbl(line) / 2.0;
 	if (sp->radius <= 0)
 		exitf("sphere parse error\n");
-	sp->transform = matrix_multiply(scaling(sp->radius, sp->radius, sp->radius),
-			translation(sp->center.x, sp->center.y, sp->center.z), 4);
+	sp->transform = matrix_multiply(translation(sp->center.x, sp->center.y, sp->center.z),
+		scaling(sp->radius, sp->radius, sp->radius), 4);
 	sp->center = point(0, 0, 0);
 	sp->radius = 1;
 	reach_for(&line, ' ', 1);

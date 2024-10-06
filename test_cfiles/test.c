@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 10:47:12 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/05 15:40:49 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/06 13:11:56 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@
 #include "../MLX/MLX42.h"
 #include <limits.h>
 
-#define WIDTH 800
-#define HEIGHT 400
+#define WIDTH 300
+#define HEIGHT 300
 
 #define GREEN "\033[0;32m"
 
@@ -749,14 +749,14 @@ int main()
 	cam->transform = view_transform(from, to, up);
 	t_canvas	image = canvas(cam->hsize, cam->vsize);
 	render(&image, cam, world0);
-	assert(equal_tuple(color(0.38066, 0.47583, 0.2855), *pixel_at(&image, 5, 5)));
-
-
+	col = color(97.068604, 121.335755, 72.801453);
+	assert(equal_tuple(col, *pixel_at(&image, 5, 5)));
 
 
 
 	// /* to remove */
 	// // walls
+	// t_world	*scene = parse("s.rt");
 	// t_world	*scene = parse("scene.rt");
 	// t_sphere *floor = (t_sphere*)scene->objects_list->object;
 	// floor->transform = scaling(10, 0.01, 10);
@@ -788,7 +788,7 @@ int main()
 	// // camera
 	// camera(WIDTH, HEIGHT, &scene->camera);
 	// scene->camera.transform = view_transform(scene->camera.pos,
-	// 	point(0, 1, 0), vector(0, 1, 0));
+	// 	scene->camera.vec, vector(0, 1, 0));
 
 
 	// mlx_t	*mlx = mlx_init(WIDTH, HEIGHT, "scene", false);

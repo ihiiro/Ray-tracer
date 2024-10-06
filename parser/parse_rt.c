@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 10:26:12 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/04 21:22:17 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/06 11:16:58 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ t_world	*parse(const char *file)
 
 // int main()
 // {
-// 	t_world *world = parse("scene.rt");
+// 	t_world *world = parse("s.rt");
 
 // 	printf("world ambient intensity: [%.4f]\n", world->ambient_intensity);
 // 	printf("world ambient rgb: [%.4f %.4f %.4f]\n", world->ambient_color.x, world->ambient_color.y, world->ambient_color.z);

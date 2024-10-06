@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 19:06:28 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/05 15:35:55 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/06 13:11:35 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ t_matrix	*view_transform(t_tuple from, t_tuple to, t_tuple up)
 	return (matrix_multiply(orientation, translation(-from.x, -from.y,
 	-from.z), 4));
 }
+
 void	camera(double hsize, double vsize, t_camera_ *c)
 {
 	double	half_view;
@@ -46,7 +47,7 @@ void	camera(double hsize, double vsize, t_camera_ *c)
 	c->hsize = hsize;
 	c->vsize = vsize;
 	c->transform = identity();
-	half_view = tan(radians(c->fov / 2.0)); // take degrees (convert to radians)
+	half_view = tan(radians(c->fov / 2.0));
 	aspect = c->hsize / c->vsize;
 	if (aspect >= 1)
 	{
@@ -76,6 +77,8 @@ t_ray	ray_for_pixel(t_camera_ *cam, double px, double py)
 	return (return_ray(camray.origin, camray.direction));
 }
 
+#include <libc.h>
+
 void	render(t_canvas *canvas, t_camera_ *cam, t_world *world)
 {
 	int		x;
@@ -90,7 +93,7 @@ void	render(t_canvas *canvas, t_camera_ *cam, t_world *world)
 		while (x < cam->hsize)
 		{
 			ray = ray_for_pixel(cam, x, y);
-			rgb = color_at(world, ray);
+			rgb = multiply_color_by_scalar(color_at(world, ray), 255);
 			write_pixel(canvas, x, y, rgb);
 			x++;
 		}
