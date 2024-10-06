@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 11:25:19 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/04 17:54:02 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/06 16:09:41 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,3 +129,5 @@ t_matrix	*view_transform(t_tuple from, t_tuple to, t_tuple up);
 void	camera(double hsize, double vsize, t_camera_ *c);
 t_ray	ray_for_pixel(t_camera_ *cam, double px, double py);
 void	render(t_canvas *canvas, t_camera_ *cam, t_world *world);
+/*Shadows*/
+bool	is_shadowed(t_world *w, t_tuple point);

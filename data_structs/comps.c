@@ -6,13 +6,15 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 00:38:01 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/04 21:14:10 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/06 18:33:19 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "data_structs.h"
 #include "data_funcs.h"
 #include "../maths/maths.h"
+
+#include <libc.h>
 
 t_comps 	prepare_computations(t_xs_list *intersection, t_ray ray)
 {
@@ -22,7 +24,6 @@ t_comps 	prepare_computations(t_xs_list *intersection, t_ray ray)
 	comps.object.object = intersection->object.object;
 	comps.object.form = intersection->object.form;
 	comps.point = position(ray, comps.t);
-	
 	comps.eyev  = negate_tuple(ray.direction);
 	
 	if (intersection->object.form == SPHERE)
@@ -32,10 +33,10 @@ t_comps 	prepare_computations(t_xs_list *intersection, t_ray ray)
 	{
 		comps.inside = true;
 		comps.normalv = negate_tuple(comps.normalv);
-		
 	}
 	else
 		comps.inside = false;
+	comps.over_point = add_tuples(comps.point, scale_tuple(comps.normalv, EPSILON));
 	return (comps);
 }
 
@@ -52,13 +53,12 @@ t_tuple	shade_hit(t_world w, t_comps comps)
 	}
 	l.light.intensity = multiply_color_by_scalar(w.lights_list->color, w.lights_list->intensity);
 	l.light.position = w.lights_list->pos;
-	l.point = comps.point;
+	l.point = comps.over_point;
 	l.eyev = comps.eyev;
 	l.normalv = comps.normalv;
+	l.in_shadow = is_shadowed(&w, l.point);
 	return (lighting(l));
 }
-
-#include <libc.h>
 
 t_tuple	color_at(t_world *w, t_ray r)
 {

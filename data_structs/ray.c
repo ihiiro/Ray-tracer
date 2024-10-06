@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 18:52:35 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/02 00:29:30 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/06 14:18:06 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,25 +57,6 @@ t_xs	sphere_intersect(t_sphere *s, t_ray r)
 	
 	return (xs);
 }
-
-// t_intersection	hit(t_intersection *intersections)
-// {
-// 	int				n;
-// 	int				i;
-// 	t_intersection	hit_intersection;
-
-// 	n = intersections[0].atom_count;
-// 	hit_intersection.t = INT_MAX;
-// 	hit_intersection.object = intersections[0].object;
-// 	i = 0;
-// 	while (i < n)
-// 	{
-// 		if (intersections[i].t >= 0 && intersections[i].t < hit_intersection.t)
-// 			hit_intersection = intersections[i];
-// 		i++;
-// 	}
-// 	return (hit_intersection);
-// }
 
 t_xs_list	*hit(t_xs_list *xs_list)
 {

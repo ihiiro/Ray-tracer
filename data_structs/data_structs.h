@@ -6,12 +6,12 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 11:20:46 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/04 17:29:24 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/06 18:20:34 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
-
+# include <stdbool.h>
 
 typedef struct s_shear
 {
@@ -107,6 +107,7 @@ typedef struct s_lighting
 	t_tuple		eyev;
 	t_tuple		normalv;
 	t_tuple		ambient_effective_color;
+	bool		in_shadow;
 }		t_lighting;
 
 typedef struct s_lighting_components
@@ -195,6 +196,7 @@ typedef	struct s_comps
 	t_tuple		eyev;
 	t_tuple		normalv;
 	int 		inside;
+	t_tuple	over_point;
 }	t_comps;
 
 typedef struct s_camray

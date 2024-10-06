@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 10:47:12 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/06 13:11:56 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/06 19:12:32 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ int main()
 		for (int y = 0; y < 200; y++)
 			assert(equal_tuple(c.pixels[x][y].color, color(255, 255, 255)));
 	write_pixel(&c, 2, 3, color(255, 0, 0));
-	// assert(equal_tuple(*pixel_at(&c, 2, 3), color(255, 0, 0)));
+	assert(equal_tuple(*pixel_at(&c, 2, 3), color(255, 0, 0)));
 	/* MATRICES TESTS */
 	/* 4 by 4 */
 	t_matrix *matrix = return_4_by_4_matrix(
@@ -645,7 +645,7 @@ int main()
 	comps = prepare_computations(xs_list, r);
 	comps.object.form = SPHERE;
 	t_tuple col = shade_hit(*world0, comps);
-	assert(equal_tuple(col, color(0.38066, 0.47583, 0.2855)));
+	assert(equal_tuple(col, color(0.400661, 0.475826, 0.325496)));
 	/*Shading an intersection from the inside*/
 	r = return_ray(point(0, 0, 0), vector(0, 0, 1));
 	world0 = parse("test_cfiles/test1.rt");
@@ -670,7 +670,7 @@ int main()
 	/* The color when a ray hits */
 	r = return_ray(point(0, 0, -5), vector(0, 0, 1));
 	col = color_at(world0, r);
-	assert(equal_tuple(color(0.38066, 0.47583, 0.2855), col));
+	assert(equal_tuple(color(0.400661, 0.475826, 0.325496), col));
 	// /* The color with an intersection behind the ray */
 	ss = (t_sphere*)world0->objects_list->object;
 	ss->material.ambient = 1;
@@ -749,11 +749,65 @@ int main()
 	cam->transform = view_transform(from, to, up);
 	t_canvas	image = canvas(cam->hsize, cam->vsize);
 	render(&image, cam, world0);
-	col = color(97.068604, 121.335755, 72.801453);
+	col = color(102.168544, 121.335680, 83.001408);
 	assert(equal_tuple(col, *pixel_at(&image, 5, 5)));
+	/*Lighting with the surface in shadow*/
+	m = material();
+	eyev = vector(0, 0, -1);
+	normalv = vector(0, 0, -1);
+	light = point_light(point(0, 0, -10), color(1, 1, 1));
+	int in_shadow = true;
+	t_lighting l50 = {m, light, light.position, eyev, normalv, color(1, 1, 1),in_shadow};
+	result = lighting(l50);
+	assert(equal_tuple(result, color(0.1, 0.1, 0.1)));
+	t_world	*dw = parse("test_cfiles/test0.rt");
+	/*There is no shadow when nothing is collinear with point and light*/
+	p = point(0, 10, 0);
+	assert(is_shadowed(dw, p) == false);
+	/*The shadow when an object is between the point and the light*/
+	p = point(10, -10, 10);
+	assert(is_shadowed(dw, p) == true);
+	/* There is no shadow when an object is behind the light*/
+	p = point(-20, 20, -20);
+	assert(is_shadowed(dw, p) == false);
+	/*There is no shadow when an object is behind the point*/
+	p = point(-2, 2, -2);
+	assert(is_shadowed(dw, p) == false);
+	/*shade_hit() is given an intersection in shadow*/
+	dw->lights_list->pos = point(0, 0, -10);
+	ss = (t_sphere*)dw->objects_list->next->object;
+	ss->transform = translation(0, 0, 10);
+	r = return_ray(point(0, 0, 5), vector(0, 0, 1));
+	xs_list = intersect_world(dw, r);
+	t_xs_list	*the_hit = hit(xs_list);
+	comps = prepare_computations(the_hit, r);
+	col = shade_hit(*dw, comps);
+	// printf("%f %f %f\n", col.x, col.y, col.z);
+	assert(equal_tuple(col, color(0.1, 0.1, 0.1)));
+	/* The hit should offset the point */
+	r = return_ray(point(0, 0, -5), vector(0, 0, 1));
+	dw = parse("test_cfiles/test2.rt");
+	xs_list = intersect_world(dw, r);
+	the_hit = hit(xs_list);
+	comps = prepare_computations(the_hit, r);
+	assert(comps.over_point.z < -EPSILON/2);
+	assert(comps.point.z > comps.over_point.z);
 
 
 
+
+
+	
+
+
+
+
+
+
+
+
+
+	
 	// /* to remove */
 	// // walls
 	// t_world	*scene = parse("s.rt");
