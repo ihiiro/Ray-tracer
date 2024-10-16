@@ -6,7 +6,7 @@
 #    By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/18 10:41:01 by yel-yaqi          #+#    #+#              #
-#    Updated: 2024/10/16 17:20:12 by yel-yaqi         ###   ########.fr        #
+#    Updated: 2024/10/16 19:27:40 by yel-yaqi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,8 +69,8 @@ test_fcfiles/%.o: test_fcfiles/%.c
 $(TESTS): $(TEST_OFILES) $(MLX_LIB) $(OFILES)
 	cc -g -fsanitize=address $(DEPS) $(MLX_LIB) $^ -o $@
 
-parser_rt: $(MLX_LIB) $(OFILES)
-	cc $(DEPS) $(MLX_LIB) $^ -o $@
+# parser_rt: $(MLX_LIB) $(OFILES)
+# 	cc $(DEPS) $(MLX_LIB) $^ -o $@
 
 all: $(TESTS)
 
