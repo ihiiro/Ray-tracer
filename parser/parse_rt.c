@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 10:26:12 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/16 17:32:15 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/16 17:36:40 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,4 +116,8 @@ int main()
 }
 
 
+// NOTES <======================
+
+
 // CHECK NORMALIZED VECTOR PROPERLY!!
+// ATODBL OVERFLOW/UNDERFLOW ERROR CORRECTION!!
