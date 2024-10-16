@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 11:25:19 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/16 16:16:55 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/16 17:30:37 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,11 @@ bool	normalized_vector(t_tuple v);
 void	parse_colors(t_sphere *sp, const char *line);
 t_world	*parse(const char *file);
 void	validate_line(char *line);
+void	validate_a(char *line);
+void	validate_c(char *line);
+void	validate_l(char *line);
+void	validate_sp(char *line);
+void	validate_field(char **line, bool type);
 
 /* WORLD */
 t_xs_list	*intersect_world(t_world *world, t_ray ray);

@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 18:27:56 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/16 16:38:15 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/16 17:32:43 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,61 +49,20 @@ void	validate_field(char **line, bool type)
 		validate_n(line);
 }
 
-void	validate_A(char *line)
-{
-	line++;
-	while (*line == ' ')
-		line++;
-	validate_field(&line, SINGLE);
-	if (*line != ' ')
-		exitf("missing space between fields\n");
-	while (*line == ' ')
-		line++;
-	validate_field(&line, MULTI);
-	if (*line != '\n')
-		exitf("A: too many fields\n");
-}
-
-void	validate_C(char *line)
-{
-	line++;
-	while (*line == ' ')
-		line++;
-	validate_field(&line, MULTI);
-	while (*line == ' ')
-		line++;
-	validate_field(&line, MULTI);
-	while (*line == ' ')
-		line++;
-	validate_field(&line, SINGLE);
-	if (*line != '\n')
-		exitf("C: too many fields\n");
-}
-
-void	validate_L(char *line)
-{
-	line++;
-	while (*line == ' ')
-		line++;
-	validate_field(&line, MULTI);
-	while (*line == ' ')
-		line++;
-	validate_field(&line, SINGLE);
-	while (*line == ' ')
-		line++;
-	validate_field(&line, MULTI);
-	if (*line != '\n')
-		exitf("L: too many fields\n");
-}
-
 void	validate_line(char *line)
 {
 	if (line[0] == 'A')
-		validate_A(line);
+		validate_a(line);
 	else if (line[0] == 'C')
-		validate_C(line);
+		validate_c(line);
 	else if (line[0] == 'L')
-		validate_L(line);
-	// else if (line[0] == 's')
-	// 	validate_s(line);
+		validate_l(line);
+	else if (line[0] == 's')
+		validate_sp(line);
+	// pl
+	//
+	// cy
+	//
+	//co
+	//
 }

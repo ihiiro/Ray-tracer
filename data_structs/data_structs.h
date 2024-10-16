@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 11:20:46 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/16 15:34:02 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/16 17:27:04 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,16 +180,6 @@ typedef struct s_parser
 	const char	*line;
 	int			fd;
 }		t_parser;
-
-typedef struct s_parser_flags_
-{
-	int		A;
-	int		C;
-	int		L;
-	int		sp;
-	int		cy;
-	int		pl;
-}	t_parser_flags_;
 
 /* world-ray intersections */
 typedef struct s_xs_list

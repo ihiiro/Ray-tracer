@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 10:26:12 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/16 16:38:01 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/16 17:32:15 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,16 +46,20 @@ t_world **world, const char **line)
 void	get_values(const char *line, t_light_ **lights_list,
 t_object_ **objects_list, t_world **world)
 {
-	t_parser_flags_	pf;
-
-	if (line[0] == 'A' && line[1] == ' ')
+	if (line[0] == 'A')
 		parse_ambient(line, world);
-	else if (line[0] == 'C' && line[1] == ' ')
+	else if (line[0] == 'C')
 		parse_camera(line, world);
-	else if (line[0] == 'L' && line[1] == ' ')
+	else if (line[0] == 'L')
 		parse_lights(line, lights_list);
-	else if (line[0] == 's' && line[1] == 'p' && line[2] == ' ')
+	else if (line[0] == 's' && line[1] == 'p')
 		parse_sphere(line, world, objects_list);
+	// pl
+	//
+	// cy
+	//
+	//co
+	//
 }
 
 t_world	*parse(const char *file)
@@ -65,6 +69,7 @@ t_world	*parse(const char *file)
 	parser_.lights_list = NULL;
 	parser_.objects_list = NULL;
 	parser_.world = malloc(sizeof(t_world));
+	memset(parser_.world, 0, sizeof(t_world));
 	parser_.fd = open(file, O_RDONLY);
 	if (parser_.fd < 0)
 		exit(EXIT_FAILURE);
@@ -75,13 +80,13 @@ t_world	*parse(const char *file)
 			&parser_.objects_list, &parser_.world);
 		parser_.line = get_next_line(parser_.fd);
 	}
+	if (!parser_.lights_list || !parser_.objects_list)
+		exitf("world: no objects and/or no lights\n");
 	parser_.world->lights_list = parser_.lights_list;
 	parser_.world->objects_list = parser_.objects_list;
 	clean_w(parser_.world);
 	return (parser_.world);
 }
-
-
 
 int main()
 {

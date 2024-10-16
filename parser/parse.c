@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 19:30:58 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/16 16:32:53 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/16 17:29:44 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ t_object_ **objects_list)
 	sp->radius = atodbl(line) / 2.0;
 	if (sp->radius <= 0)
 		exitf("sphere parse error\n");
-	sp->transform = matrix_multiply(translation(sp->center.x, sp->center.y, sp->center.z),
-		scaling(sp->radius, sp->radius, sp->radius), 4);
+	sp->transform = matrix_multiply(translation(sp->center.x, sp->center.y,
+				sp->center.z), scaling(sp->radius, sp->radius, sp->radius), 4);
 	sp->center = point(0, 0, 0);
 	sp->radius = 1;
 	reach_for(&line, ' ', 1);
@@ -75,6 +75,11 @@ void	parse_light_pos(const char **line, t_light_ **light)
 
 void	parse_camera(const char *line, t_world **world)
 {
+	static int	c;
+
+	c++;
+	if (c > 1)
+		exitf("C: multiple invokes\n");
 	validate_line((char *)line);
 	reach_for(&line, ' ', 0);
 	(*world)->camera.pos.x = atodbl(line);
@@ -98,6 +103,11 @@ void	parse_camera(const char *line, t_world **world)
 
 void	parse_ambient(const char *line, t_world **world)
 {
+	static int	a;
+
+	a++;
+	if (a != 1)
+		exitf("A: multiple invokes\n");
 	validate_line((char *)line);
 	reach_for(&line, ' ', 0);
 	while (*line == ' ')

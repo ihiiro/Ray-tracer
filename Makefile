@@ -6,7 +6,7 @@
 #    By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/18 10:41:01 by yel-yaqi          #+#    #+#              #
-#    Updated: 2024/10/16 15:03:05 by yel-yaqi         ###   ########.fr        #
+#    Updated: 2024/10/16 17:20:12 by yel-yaqi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,6 +50,8 @@ CFILES = data_structs/points_vectors.c \
 		parser/validate_line.c \
 		parser/exitf.c \
 		parser/atodbl.c \
+		parser/validate_objects.c \
+		parser/validate_envi.c \
 		data_structs/world.c \
 		data_structs/comps.c \
 		data_structs/camera.c
