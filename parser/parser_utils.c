@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 19:36:54 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/02 02:35:42 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/08 18:26:13 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ bool	valid_color(t_tuple color)
 	return (true);
 }
 
-bool	normalized_vector(t_tuple v)
+bool	normalized_vector(t_tuple v) // maybe wrong
 {
 	v.w = VECTOR;
 	if (!equal_tuple(vector(1, 0, 0), v)

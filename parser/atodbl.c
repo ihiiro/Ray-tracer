@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 03:00:50 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/02 04:13:33 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/16 15:40:25 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,19 +39,15 @@ static double    get_fraction(const char *str, int i)
     point = 0;
     res2 = 0;
     if (str[i] == '\0')
-        exitf("parse error near a fraction\n");
+        exitf("atodbl error\n");
     while (str[i] >= '0' && str[i] <= '9')
     {
         res2 = res2 * 10 + str[i] - '0';
         i++;
         point++;
     }
-	if (str[i] != '\0' && str[i] != ',' && str[i] != '\n' && str[i] != ' ')
-	{
-		// printf("((((%c))))\n", str[i]);
-		exitf("parse error near a fraction\n");
-		
-	}
+	if (str[i] != '\0' && str[i] != ',' && str[i] != '\n' && str[i] != ' ' )
+		exitf("atodbl error\n");
     while (point > 0)
     {
         res2 = res2 / 10;
@@ -77,20 +73,14 @@ double    atodbl(const char *str)
     if (str[i] == '-' || str[i] == '+')
         if (str[i++] == '-')
             sign = -1;
-    (str[i] == '.') && (exitf((const char *)str), 0);
+    (str[i] == '.') && (exitf("atodbl: fraction form: N.n\n"), 0);
     while (str[i] >= '0' && str[i] <= '9')
     {
-		// printf("str[%d] = %c\n", i, str[i]);
         res = res * 10 + str[i] - '0';
         i++;
     }
-	// printf("str[%d] = %d\n", i, str[i]);
     (str[i] == '.') && (res2 = get_fraction(str, i + 1));
     if (str[i] != '.' && str[i] != '\0' && str[i] != ' ' && str[i] != '\t' && str[i] != '\n' && str[i] != ',')
-	{
-        // printf("(((%c)))\n", str[i]);
-		exit(1);
-	}
-	// printf("res = %f\n", res);
+		exitf("atodbl error\n");
     return ((res + res2) * sign);
 }

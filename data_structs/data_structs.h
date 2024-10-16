@@ -6,12 +6,13 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 11:20:46 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/06 18:20:34 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/16 15:34:02 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 # include <stdbool.h>
+# include <stddef.h>
 
 typedef struct s_shear
 {
@@ -129,6 +130,8 @@ typedef struct s_lighting_components
 # define POINT 1.0
 # define VECTOR 0.0
 # define SPHERE 0
+# define MULTI  0
+# define SINGLE 1
 
 
 /* PARSER */
@@ -177,6 +180,16 @@ typedef struct s_parser
 	const char	*line;
 	int			fd;
 }		t_parser;
+
+typedef struct s_parser_flags_
+{
+	int		A;
+	int		C;
+	int		L;
+	int		sp;
+	int		cy;
+	int		pl;
+}	t_parser_flags_;
 
 /* world-ray intersections */
 typedef struct s_xs_list

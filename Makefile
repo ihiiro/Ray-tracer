@@ -6,7 +6,7 @@
 #    By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/18 10:41:01 by yel-yaqi          #+#    #+#              #
-#    Updated: 2024/10/06 13:12:08 by yel-yaqi         ###   ########.fr        #
+#    Updated: 2024/10/16 15:03:05 by yel-yaqi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,6 +47,7 @@ CFILES = data_structs/points_vectors.c \
 		parser/parse.c \
 		parser/parser_linked_lists.c \
 		parser/parser_utils.c \
+		parser/validate_line.c \
 		parser/exitf.c \
 		parser/atodbl.c \
 		data_structs/world.c \
@@ -66,8 +67,8 @@ test_fcfiles/%.o: test_fcfiles/%.c
 $(TESTS): $(TEST_OFILES) $(MLX_LIB) $(OFILES)
 	cc -g -fsanitize=address $(DEPS) $(MLX_LIB) $^ -o $@
 
-# parser_rt: $(MLX_LIB) $(OFILES)
-# 	cc $(DEPS) $(MLX_LIB) $^ -o $@
+parser_rt: $(MLX_LIB) $(OFILES)
+	cc $(DEPS) $(MLX_LIB) $^ -o $@
 
 all: $(TESTS)
 
@@ -77,5 +78,6 @@ clean:
 
 fclean: clean
 	rm -f $(TESTS)
+	rm -f parser_rt
 
 re: fclean all

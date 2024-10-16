@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 19:30:58 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/06 11:25:46 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/16 16:32:53 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,8 @@ void	parse_lights(const char *line, t_light_ **lights_list)
 
 void	parse_light_pos(const char **line, t_light_ **light)
 {
-	reach_for(line, ' ', 1);
+	validate_line((char *)*line);
+	reach_for(line, ' ', 0);
 	*light = malloc(sizeof(t_light_));
 	(*light)->pos.x = atodbl(*line);
 	reach_for(line, ',', 1);
@@ -74,7 +75,8 @@ void	parse_light_pos(const char **line, t_light_ **light)
 
 void	parse_camera(const char *line, t_world **world)
 {
-	reach_for(&line, ' ', 1);
+	validate_line((char *)line);
+	reach_for(&line, ' ', 0);
 	(*world)->camera.pos.x = atodbl(line);
 	reach_for(&line, ',', 1);
 	(*world)->camera.pos.y = atodbl(line);
@@ -96,7 +98,8 @@ void	parse_camera(const char *line, t_world **world)
 
 void	parse_ambient(const char *line, t_world **world)
 {
-	reach_for(&line, ' ', 1);
+	validate_line((char *)line);
+	reach_for(&line, ' ', 0);
 	while (*line == ' ')
 		line++;
 	(*world)->ambient_intensity = atodbl(line);

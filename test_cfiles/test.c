@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 10:47:12 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/06 19:12:32 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/08 17:34:17 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -810,7 +810,7 @@ int main()
 	
 	// /* to remove */
 	// // walls
-	// t_world	*scene = parse("s.rt");
+	t_world	*scene = parse("ss.rt");
 	// t_world	*scene = parse("scene.rt");
 	// t_sphere *floor = (t_sphere*)scene->objects_list->object;
 	// floor->transform = scaling(10, 0.01, 10);
@@ -839,23 +839,23 @@ int main()
 	// sp_left->material.diffuse = .7;
 	// sp_left->material.specular = .3;
 
-	// // camera
-	// camera(WIDTH, HEIGHT, &scene->camera);
-	// scene->camera.transform = view_transform(scene->camera.pos,
-	// 	scene->camera.vec, vector(0, 1, 0));
+	// camera
+	camera(WIDTH, HEIGHT, &scene->camera);
+	scene->camera.transform = view_transform(scene->camera.pos,
+		scene->camera.vec, vector(0, 1, 0));
 
 
-	// mlx_t	*mlx = mlx_init(WIDTH, HEIGHT, "scene", false);
-	// mlx_image_t	*img = mlx_new_image(mlx, WIDTH, HEIGHT);
-	// image = canvas(scene->camera.hsize, scene->camera.vsize);
+	mlx_t	*mlx = mlx_init(WIDTH, HEIGHT, "scene", false);
+	mlx_image_t	*img = mlx_new_image(mlx, WIDTH, HEIGHT);
+	image = canvas(scene->camera.hsize, scene->camera.vsize);
 	
 
-	// render(&image, &scene->camera, scene);
-	// create_canvas(&image, img, mlx);
+	render(&image, &scene->camera, scene);
+	create_canvas(&image, img, mlx);
 	
 
-	// mlx_image_to_window(mlx, img, 0, 0);
-	// mlx_loop(mlx);
+	mlx_image_to_window(mlx, img, 0, 0);
+	mlx_loop(mlx);
 
 	_setcolor_(GREEN);
 	printf(" OK.\n");
