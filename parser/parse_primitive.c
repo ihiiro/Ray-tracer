@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 11:50:07 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/18 18:44:10 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/18 18:51:31 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,21 @@
 #include "../data_structs/data_funcs.h"
 #include <stdlib.h>
 
+void	init_parse_plane(t_plane **pl, t_object_ **object, t_world *world)
+{
+	*pl = malloc(sizeof(t_plane));
+	*object = malloc(sizeof(t_object_));
+	**pl = plane();
+	(*pl)->material.ambient = world->ambient_intensity;
+}
+
 void	parse_plane(const char *line, t_world **world,
 t_object_ **objects_list)
 {
 	t_plane		*pl;
 	t_object_	*object;
 
-	pl = malloc(sizeof(t_plane));
-	object = malloc(sizeof(t_object_));
-	*pl = plane();
-	pl->material.ambient = (*world)->ambient_intensity;
+	init_parse_plane(&pl, &object, *world);
 	validate_line((char *)line);
 	reach_for(&line, ' ', 0);
 	pl->pip.x = atodbl(line);
