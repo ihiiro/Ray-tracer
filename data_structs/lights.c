@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 16:51:33 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/06 19:11:59 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/18 12:28:11 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_light		point_light(t_tuple position, t_tuple intensity)
 	return (light);
 }
 
-t_material	material()
+t_material	material(void)
 {
 	t_material	m;
 

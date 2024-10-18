@@ -6,7 +6,7 @@
 #    By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/18 10:41:01 by yel-yaqi          #+#    #+#              #
-#    Updated: 2024/10/16 19:27:40 by yel-yaqi         ###   ########.fr        #
+#    Updated: 2024/10/18 13:05:10 by yel-yaqi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,6 +52,7 @@ CFILES = data_structs/points_vectors.c \
 		parser/atodbl.c \
 		parser/validate_objects.c \
 		parser/validate_envi.c \
+		parser/parse_primitive.c \
 		data_structs/world.c \
 		data_structs/comps.c \
 		data_structs/camera.c
@@ -61,16 +62,16 @@ OFILES = $(CFILES:.c=.o)
 
 
 data_structs/%.o: data_structs/%.c
-	cc  -c $< -o $@
+	cc -c $< -o $@
 
 test_fcfiles/%.o: test_fcfiles/%.c
 	cc -c $<
 
 $(TESTS): $(TEST_OFILES) $(MLX_LIB) $(OFILES)
-	cc -g -fsanitize=address $(DEPS) $(MLX_LIB) $^ -o $@
+	cc -D TEST $(DEPS) $(MLX_LIB) $^ -o $@
 
-# parser_rt: $(MLX_LIB) $(OFILES)
-# 	cc $(DEPS) $(MLX_LIB) $^ -o $@
+parser_rt: $(MLX_LIB) $(OFILES)
+	cc $(DEPS) $(MLX_LIB) $^ -o $@
 
 all: $(TESTS)
 

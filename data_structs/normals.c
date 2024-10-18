@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 16:30:17 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/02 05:42:04 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/17 18:52:54 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@ t_tuple	normal_at(t_sphere s, t_tuple world_point)
 	t_tuple	object_normal;
 	t_tuple	world_normal;
 
-	// if (!s.transform)
-	// 	exit(1);
 	object_point = multiply_matrix_by_tuple(invert_matrix(s.transform, 4), world_point);
 	object_normal = vector(object_point.x, object_point.y, object_point.z);
 	world_normal = multiply_matrix_by_tuple(matrix_transpose(invert_matrix(s.transform, 4), 4), object_normal);

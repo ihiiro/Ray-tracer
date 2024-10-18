@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 19:36:54 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/16 19:18:39 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/17 19:13:34 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ bool	normalized_vector(t_tuple v)
 		&& !equal_tuple(vector(-1, 0, 0), v)
 		&& !equal_tuple(vector(0, -1, 0), v)
 		&& !equal_tuple(vector(0, 0, -1), v))
-		return (false);
+		return (false); // replace with calcing the actual magnitude (shoould be 1) and range in [-1,1]
 	return (true);
 }
 

@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 11:25:19 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/16 19:36:47 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/18 13:02:35 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ t_xs_list	*hit(t_xs_list *xs_list);
 
 /* OBJECTS */
 t_sphere	sphere(int id);
+t_plane		plane(void);
 t_xs		sphere_intersect(t_sphere *s, t_ray r);
 t_ray		transform_ray(t_ray r, t_matrix *m);
 void		set_transform(t_sphere *s, t_matrix *m);
@@ -93,7 +94,7 @@ t_tuple	reflect(t_tuple in, t_tuple normal);
 t_light		point_light(t_tuple position, t_tuple intensity);
 
 /* lights */
-t_material	material();
+t_material	material(void);
 t_tuple 	lighting(t_lighting l);
 
 /* PARSER */
@@ -103,6 +104,7 @@ void	parse_camera(const char *line, t_world **world);
 void	parse_lights(const char *line, t_light_ **lights_list);
 void	clean_w(t_world *world);
 void	parse_sphere(const char *line, t_world **world, t_object_ **objects_list);
+void	parse_plane(const char *line, t_world **world, t_object_ **objects_list);
 void	alloc_and_parse_pos(t_sphere **sp, t_object_ **object, t_world **world, const char **line);
 bool	valid_color(t_tuple color);
 void	exitf(const char *msg);
@@ -118,6 +120,7 @@ void	validate_c(char *line);
 void	validate_l(char *line);
 void	validate_sp(char *line);
 void	validate_field(char **line, bool type);
+void	validate_pl(char *line);
 
 /* WORLD */
 t_xs_list	*intersect_world(t_world *world, t_ray ray);
