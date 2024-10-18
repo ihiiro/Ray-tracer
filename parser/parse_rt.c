@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 10:26:12 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/18 13:20:33 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/18 13:38:51 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@
 void	parse_colors(t_tuple *primitive_rgb, const char *line)
 {
 	primitive_rgb->x = atodbl(line) / 255.0;
-	reach_for(&line, ',', 1);
+	reach_for(&line, ',', 0);
 	primitive_rgb->y = atodbl(line) / 255.0;
-	reach_for(&line, ',', 1);
+	reach_for(&line, ',', 0);
 	primitive_rgb->z = atodbl(line) / 255.0;
 	if (!valid_color(*primitive_rgb))
 		exitf("sphere parse error\n");
