@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 11:50:07 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/18 17:10:40 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/18 18:44:10 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,20 +32,12 @@ t_object_ **objects_list)
 	reach_for(&line, ',', 1);
 	pl->pip.z = atodbl(line);
 	reach_for(&line, ' ', 0);
-
-	while (*line == ' ')
-		line++;
-	// reach_for(&line, ' ', 0);
 	pl->normal.x = atodbl(line);
 	reach_for(&line, ',', 1);
 	pl->normal.y = atodbl(line);
 	reach_for(&line, ',', 1);
 	pl->normal.z = atodbl(line);
 	reach_for(&line, ' ', 0);
-
-	// while (*line == ' ')
-	// 		line++;
-
 	pl->transform = translation(pl->pip.x, pl->pip.y, pl->pip.z);
 	pl->pip = point(0, 0, 0);
 	parse_colors(&pl->material.color, line);
