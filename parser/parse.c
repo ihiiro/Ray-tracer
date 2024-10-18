@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 19:30:58 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/18 13:37:40 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/18 13:43:10 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_object_ **objects_list)
 				sp->center.z), scaling(sp->radius, sp->radius, sp->radius), 4);
 	sp->center = point(0, 0, 0);
 	sp->radius = 1;
-	reach_for(&line, ' ', 1);
+	reach_for(&line, ' ', 0);
 	parse_colors(&sp->material.color, line);
 	sp->material.ambient = (*world)->ambient_intensity;
 	object->form = SPHERE;
@@ -47,7 +47,7 @@ void	parse_lights(const char *line, t_light_ **lights_list)
 	while (*line == ' ')
 		line++;
 	light->intensity = atodbl(line);
-	reach_for(&line, ' ', 1);
+	reach_for(&line, ' ', 0);
 	light->color.x = atodbl(line) / 255.0;
 	reach_for(&line, ',', 1);
 	light->color.y = atodbl(line) / 255.0;
@@ -70,7 +70,7 @@ void	parse_light_pos(const char **line, t_light_ **light)
 	(*light)->pos.y = atodbl(*line);
 	reach_for(line, ',', 1);
 	(*light)->pos.z = atodbl(*line);
-	reach_for(line, ' ', 1);
+	reach_for(line, ' ', 0);
 }
 
 void	parse_camera(const char *line, t_world **world)
@@ -94,7 +94,7 @@ void	parse_camera(const char *line, t_world **world)
 	(*world)->camera.vec.y = atodbl(line);
 	reach_for(&line, ',', 1);
 	(*world)->camera.vec.z = atodbl(line);
-	reach_for(&line, ' ', 1);
+	reach_for(&line, ' ', 0);
 	(*world)->camera.fov = atodbl(line);
 	if ((*world)->camera.fov < 0 || (*world)->camera.fov > 180
 		|| !normalized_vector((*world)->camera.vec))
@@ -113,7 +113,7 @@ void	parse_ambient(const char *line, t_world **world)
 	while (*line == ' ')
 		line++;
 	(*world)->ambient_intensity = atodbl(line);
-	reach_for(&line, ' ', 1);
+	reach_for(&line, ' ', 0);
 	(*world)->ambient_color.x = atodbl(line) / 255.0;
 	reach_for(&line, ',', 1);
 	(*world)->ambient_color.y = atodbl(line) / 255.0;

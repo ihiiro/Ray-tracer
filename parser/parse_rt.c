@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 10:26:12 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/18 13:38:51 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/18 13:42:32 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ t_world **world, const char **line)
 	(*sp)->center.y = atodbl(*line);
 	reach_for(line, ',', 1);
 	(*sp)->center.z = atodbl(*line);
-	reach_for(line, ' ', 1);
+	reach_for(line, ' ', 0);
 }
 
 void	get_values(const char *line, t_light_ **lights_list,

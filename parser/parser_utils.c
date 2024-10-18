@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 19:36:54 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/17 19:13:34 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/18 13:59:08 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	reach_for(const char **line, char end, int skip)
 {
 	while (**line && **line != end)
 		(*line)++;
-	if (skip)
+	if (skip && **line)
 		(*line)++;
 }
 
