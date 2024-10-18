@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 19:30:58 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/18 13:43:10 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/18 16:13:05 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ void	parse_camera(const char *line, t_world **world)
 		|| !normalized_vector((*world)->camera.vec))
 		exitf("camera parse error\n");
 }
+
 
 void	parse_ambient(const char *line, t_world **world)
 {

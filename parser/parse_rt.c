@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 10:26:12 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/18 13:42:32 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/18 17:22:11 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@
 void	parse_colors(t_tuple *primitive_rgb, const char *line)
 {
 	primitive_rgb->x = atodbl(line) / 255.0;
-	reach_for(&line, ',', 0);
+	reach_for(&line, ',', 1);
 	primitive_rgb->y = atodbl(line) / 255.0;
-	reach_for(&line, ',', 0);
+	reach_for(&line, ',', 1);
 	primitive_rgb->z = atodbl(line) / 255.0;
 	if (!valid_color(*primitive_rgb))
 		exitf("sphere parse error\n");
@@ -90,8 +90,9 @@ t_world	*parse(const char *file)
 
 int main()
 {
+	printf("============================================================================================================\n");
 	t_world *world = parse("s.rt");
-	t_world	*orig = world;
+	t_object_	*orig = world->objects_list;
 
 	printf("world ambient intensity: [%.4f]\n", world->ambient_intensity);
 	printf("world ambient rgb: [%.4f %.4f %.4f]\n", world->ambient_color.x, world->ambient_color.y, world->ambient_color.z);
@@ -111,11 +112,10 @@ int main()
 		}
 	}
 	// planes
-	world = orig;
+	world->objects_list = orig;
 	printf("\nworld objects(planes):\n");
 	for (; world->objects_list; world->objects_list = world->objects_list->next)
 	{
-		printf("f");
 		if (world->objects_list->form == PLANE)
 		{
 			t_plane	*pl = world->objects_list->object;
