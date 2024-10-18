@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 10:26:12 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/18 12:51:49 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/18 13:20:33 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,14 @@
 #include "get_next_line/get_next_line.h"
 #include <libc.h>
 
-void	parse_colors(t_sphere *sp, const char *line)
+void	parse_colors(t_tuple *primitive_rgb, const char *line)
 {
-	sp->material.color.x = atodbl(line) / 255.0;
+	primitive_rgb->x = atodbl(line) / 255.0;
 	reach_for(&line, ',', 1);
-	sp->material.color.y = atodbl(line) / 255.0;
+	primitive_rgb->y = atodbl(line) / 255.0;
 	reach_for(&line, ',', 1);
-	sp->material.color.z = atodbl(line) / 255.0;
-	if (!valid_color(sp->material.color))
+	primitive_rgb->z = atodbl(line) / 255.0;
+	if (!valid_color(*primitive_rgb))
 		exitf("sphere parse error\n");
 }
 
@@ -91,6 +91,7 @@ t_world	*parse(const char *file)
 int main()
 {
 	t_world *world = parse("s.rt");
+	t_world	*orig = world;
 
 	printf("world ambient intensity: [%.4f]\n", world->ambient_intensity);
 	printf("world ambient rgb: [%.4f %.4f %.4f]\n", world->ambient_color.x, world->ambient_color.y, world->ambient_color.z);
@@ -98,6 +99,7 @@ int main()
 	printf("\torientation vector[%.4f %.4f %.4f]\n", world->camera.vec.x, world->camera.vec.y, world->camera.vec.z);
 	printf("\tFOV[%.4f]\n", world->camera.fov);
 	printf("world objects(spheres):\n");
+	// spheres
 	for (; world->objects_list; world->objects_list = world->objects_list->next)
 	{
 		if (world->objects_list->form == SPHERE)
@@ -107,11 +109,20 @@ int main()
 			sp->radius, sp->transform, sp->material.ambient,sp->material.color.x, sp->material.color.y, sp->material.color.z);
 			// fprintf(stderr, "F");
 		}
+	}
+	// planes
+	world = orig;
+	printf("\nworld objects(planes):\n");
+	for (; world->objects_list; world->objects_list = world->objects_list->next)
+	{
+		printf("f");
 		if (world->objects_list->form == PLANE)
 		{
-			// plane data
+			t_plane	*pl = world->objects_list->object;
+			printf("\tform[%d]\n\tpip[%.4f %.4f %.4f]\n\tnormal[%.4f %.4f %.4f]\n\t&trans[%p]\n\twamb[%.4f]\n\trgb[%.4f %.4f %.4f]\n\n",
+			world->objects_list->form, pl->pip.x, pl->pip.y, pl->pip.z, pl->normal.x, pl->normal.y, pl->normal.z, pl->transform,
+			pl->material.ambient, pl->material.color.x, pl->material.color.y, pl->material.color.z);
 		}
-
 	}
 	printf("\nworld lights:\n");
 	for (; world->lights_list; world->lights_list = world->lights_list->next)

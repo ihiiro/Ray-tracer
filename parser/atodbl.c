@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 03:00:50 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/16 19:36:39 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/18 13:24:50 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static double    get_fraction(const char *str, int i)
         point++;
     }
 	if (str[i] != '\0' && str[i] != ',' && str[i] != '\n' && str[i] != ' ' )
-		exitf("atodbl error\n");
+		exitf("atodbl error A\n");
     while (point > 0)
     {
         res2 = res2 / 10;
@@ -81,6 +81,9 @@ double    atodbl(const char *str)
     }
     (str[i] == '.') && (res2 = get_fraction(str, i + 1));
     if (str[i] != '.' && str[i] != '\0' && str[i] != ' ' && str[i] != '\t' && str[i] != '\n' && str[i] != ',')
-		exitf("atodbl error\n");
+	{
+		exitf("atodbl error B\n");
+		
+	}
     return ((res + res2) * sign);
 }
