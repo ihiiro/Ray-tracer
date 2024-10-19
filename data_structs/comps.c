@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 00:38:01 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/19 12:44:31 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/19 19:56:25 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_comps 	prepare_computations(t_xs_list *intersection, t_ray ray)
 	if (intersection->object.form == SPHERE)
 		comps.normalv = normal_at(*(t_sphere *)comps.object.object, comps.point);
 	else if (intersection->object.form == PLANE)
-		comps.normalv = vector(0, 1, 0);
+		comps.normalv = ((t_plane *)intersection->object.object)->normal;
 	if (vec_dot(comps.normalv, comps.eyev) < 0)
 	{
 		comps.inside = true;

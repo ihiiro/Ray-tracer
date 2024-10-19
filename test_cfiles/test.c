@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 10:47:12 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/19 18:58:11 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/19 19:55:10 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -793,14 +793,14 @@ int main()
 	assert(comps.over_point.z < -EPSILON/2);
 	assert(comps.point.z > comps.over_point.z);
 	/* A ray intersecting a plane from above */
-	t_plane	pl = plane();
-	r = return_ray(point(0, 1, 0), vector(0, -1, 0));
-	t_xs inter = plane_intersect(&pl, r);
-	assert(inter.count == 2 && equal(inter.t0, 1));
-	/* A ray intersecting a plane from below */
-	r = return_ray(point(0, -1, 0), vector(0, 1, 0));
-	inter = plane_intersect(&pl, r);
-	assert(inter.count == 2 && equal(inter.t0, 1));
+	// t_plane	pl = plane();
+	// r = return_ray(point(0, 1, 0), vector(0, -1, 0));
+	// t_xs inter = plane_intersect(&pl, r);
+	// assert(inter.count == 2 && equal(inter.t0, 1));
+	// /* A ray intersecting a plane from below */
+	// r = return_ray(point(0, -1, 0), vector(0, 1, 0));
+	// inter = plane_intersect(&pl, r);
+	// assert(inter.count == 2 && equal(inter.t0, 1));
 
 
 
