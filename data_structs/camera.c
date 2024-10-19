@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 19:06:28 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/08 17:39:56 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/19 12:45:30 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ t_ray	ray_for_pixel(t_camera_ *cam, double px, double py)
 	camray.direction = normalize_vec(sub_tuples(camray.pixel, camray.origin));
 	return (return_ray(camray.origin, camray.direction));
 }
+
+#include <libc.h>
 
 void	render(t_canvas *canvas, t_camera_ *cam, t_world *world)
 {

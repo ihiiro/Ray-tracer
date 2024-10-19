@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 21:36:48 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/19 11:18:43 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/19 17:23:57 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ t_xs	plane_intersect(t_plane *pl, t_ray ray)
 	tmp_matrix = invert_matrix(pl->transform, 4);
 	ray = transform_ray(ray, tmp_matrix);
 	free(tmp_matrix);
-	printf("ray.direction.y = %f\n", ray.direction.y);
 	if (fabs(ray.direction.y) < EPSILON)
 		return (list.count = 0, list);
 	list.t0 = -(ray.origin.y) / ray.direction.y;
