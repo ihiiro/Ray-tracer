@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 18:52:35 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/06 14:18:06 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/19 10:48:16 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,15 @@ t_tuple position(t_ray ray, double t)
 
 t_xs	sphere_intersect(t_sphere *s, t_ray r)
 {
-	t_tuple sphere_to_ray;
-	t_xs	xs;
-	double	a;
-	double	b;
-	double	c;
-	double	discriminant;
+	t_tuple		 sphere_to_ray;
+	t_xs		xs;
+	double		a;
+	double		b;
+	double		c;
+	double		discriminant;
+	t_matrix	*tmp_matrix;
 
-	t_matrix *tmp_matrix = invert_matrix(s->transform, 4);
+	tmp_matrix = invert_matrix(s->transform, 4);
 	r = transform_ray(r, tmp_matrix);
 	free(tmp_matrix);
 	sphere_to_ray = sub_tuples(r.origin, s->center);
@@ -78,8 +79,3 @@ t_ray		transform_ray(t_ray r, t_matrix *m)
 	ray.direction = multiply_matrix_by_tuple(m, r.direction);
 	return (ray);
 }
-
-
-// 2 4 2 2
-
-// 2

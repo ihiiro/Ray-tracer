@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 10:26:12 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/18 18:40:21 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/18 21:29:02 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,52 +88,53 @@ t_world	*parse(const char *file)
 	return (parser_.world);
 }
 
-int main()
-{
-	printf("============================================================================================================\n");
-	t_world *world = parse("s.rt");
-	t_object_	*orig = world->objects_list;
+// int main()
+// {
+// 	printf("============================================================================================================\n");
+// 	t_world *world = parse("s.rt");
+// 	t_object_	*orig = world->objects_list;
 
-	printf("world ambient intensity: [%.4f]\n", world->ambient_intensity);
-	printf("world ambient rgb: [%.4f %.4f %.4f]\n", world->ambient_color.x, world->ambient_color.y, world->ambient_color.z);
-	printf("world camera:\n\t3d_coords[%.4f %.4f %.4f]\n", world->camera.pos.x, world->camera.pos.y, world->camera.pos.z);
-	printf("\torientation vector[%.4f %.4f %.4f]\n", world->camera.vec.x, world->camera.vec.y, world->camera.vec.z);
-	printf("\tFOV[%.4f]\n", world->camera.fov);
-	printf("world objects(spheres):\n");
-	// spheres
-	for (; world->objects_list; world->objects_list = world->objects_list->next)
-	{
-		if (world->objects_list->form == SPHERE)
-		{
-			t_sphere *sp = world->objects_list->object;
-			printf("\tform[%d]\n\tcpos[%.4f %.4f %.4f]\n\tr[%.4f]\n\t&trans[%p]\n\twamb[%.4f]\n\trgb[%.4f %.4f %.4f]\n\n", world->objects_list->form, sp->center.x, sp->center.y, sp->center.z,
-			sp->radius, sp->transform, sp->material.ambient,sp->material.color.x, sp->material.color.y, sp->material.color.z);
-			// fprintf(stderr, "F");
-		}
-	}
-	// planes
-	world->objects_list = orig;
-	printf("\nworld objects(planes):\n");
-	for (; world->objects_list; world->objects_list = world->objects_list->next)
-	{
-		if (world->objects_list->form == PLANE)
-		{
-			t_plane	*pl = world->objects_list->object;
-			printf("\tform[%d]\n\tpip[%.4f %.4f %.4f]\n\tnormal[%.4f %.4f %.4f]\n\t&trans[%p]\n\twamb[%.4f]\n\trgb[%.4f %.4f %.4f]\n\n",
-			world->objects_list->form, pl->pip.x, pl->pip.y, pl->pip.z, pl->normal.x, pl->normal.y, pl->normal.z, pl->transform,
-			pl->material.ambient, pl->material.color.x, pl->material.color.y, pl->material.color.z);
-		}
-	}
-	printf("\nworld lights:\n");
-	for (; world->lights_list; world->lights_list = world->lights_list->next)
-	{
-		printf("\tposition[%.4f %.4f %.4f]", world->lights_list->pos.x, world->lights_list->pos.y, world->lights_list->pos.z);
-		printf("\n\trgb[%.4f %.4f %.4f]", world->lights_list->color.x, world->lights_list->color.y, world->lights_list->color.z);
-		printf("\n\tintensity[%.4f]\n\n", world->lights_list->intensity);
-	} 
-}
+// 	printf("world ambient intensity: [%.4f]\n", world->ambient_intensity);
+// 	printf("world ambient rgb: [%.4f %.4f %.4f]\n", world->ambient_color.x, world->ambient_color.y, world->ambient_color.z);
+// 	printf("world camera:\n\t3d_coords[%.4f %.4f %.4f]\n", world->camera.pos.x, world->camera.pos.y, world->camera.pos.z);
+// 	printf("\torientation vector[%.4f %.4f %.4f]\n", world->camera.vec.x, world->camera.vec.y, world->camera.vec.z);
+// 	printf("\tFOV[%.4f]\n", world->camera.fov);
+// 	printf("world objects(spheres):\n");
+// 	// spheres
+// 	for (; world->objects_list; world->objects_list = world->objects_list->next)
+// 	{
+// 		if (world->objects_list->form == SPHERE)
+// 		{
+// 			t_sphere *sp = world->objects_list->object;
+// 			printf("\tform[%d]\n\tcpos[%.4f %.4f %.4f]\n\tr[%.4f]\n\t&trans[%p]\n\twamb[%.4f]\n\trgb[%.4f %.4f %.4f]\n\n", world->objects_list->form, sp->center.x, sp->center.y, sp->center.z,
+// 			sp->radius, sp->transform, sp->material.ambient,sp->material.color.x, sp->material.color.y, sp->material.color.z);
+// 			// fprintf(stderr, "F");
+// 		}
+// 	}
+// 	// planes
+// 	world->objects_list = orig;
+// 	printf("\nworld objects(planes):\n");
+// 	for (; world->objects_list; world->objects_list = world->objects_list->next)
+// 	{
+// 		if (world->objects_list->form == PLANE)
+// 		{
+// 			t_plane	*pl = world->objects_list->object;
+// 			printf("\tform[%d]\n\tpip[%.4f %.4f %.4f]\n\tnormal[%.4f %.4f %.4f]\n\t&trans[%p]\n\twamb[%.4f]\n\trgb[%.4f %.4f %.4f]\n\n",
+// 			world->objects_list->form, pl->pip.x, pl->pip.y, pl->pip.z, pl->normal.x, pl->normal.y, pl->normal.z, pl->transform,
+// 			pl->material.ambient, pl->material.color.x, pl->material.color.y, pl->material.color.z);
+// 		}
+// 	}
+// 	printf("\nworld lights:\n");
+// 	for (; world->lights_list; world->lights_list = world->lights_list->next)
+// 	{
+// 		printf("\tposition[%.4f %.4f %.4f]", world->lights_list->pos.x, world->lights_list->pos.y, world->lights_list->pos.z);
+// 		printf("\n\trgb[%.4f %.4f %.4f]", world->lights_list->color.x, world->lights_list->color.y, world->lights_list->color.z);
+// 		printf("\n\tintensity[%.4f]\n\n", world->lights_list->intensity);
+// 	} 
+// }
 
 
 // NOTES <======================
 
 // ATODBL OVERFLOW/UNDERFLOW ERROR CORRECTION!!
+// make vector normalized or not correct !!

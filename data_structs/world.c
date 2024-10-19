@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 19:22:03 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/02 21:28:30 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/18 22:03:30 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,13 +112,18 @@ t_xs_list	*intersect_world(t_world *world, t_ray ray)
 		{
 			obj_xs = sphere_intersect(iter->object, ray);
 			obj_xs.form = SPHERE;
-			if (obj_xs.count == 2 && obj_xs.t0 == obj_xs.t1)
-				count++;
-			else if (obj_xs.count == 2 && obj_xs.t0 != obj_xs.t1)
-				count += 2;
-			if (obj_xs.count == 2)
-				append_xs(&xs_list, obj_xs);
 		}
+		else if (iter->form == PLANE)
+		{
+			obj_xs = plane_intersect(iter->object, ray);
+			obj_xs.form = PLANE;
+		}
+		if (obj_xs.count == 2 && obj_xs.t0 == obj_xs.t1)
+				count++;
+		else if (obj_xs.count == 2 && obj_xs.t0 != obj_xs.t1)
+			count += 2;
+		if (obj_xs.count == 2)
+			append_xs(&xs_list, obj_xs);
 		iter = iter->next;
 	}
 	if (xs_list)

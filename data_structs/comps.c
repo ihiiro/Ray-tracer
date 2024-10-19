@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 00:38:01 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/06 18:33:19 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/19 11:01:24 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,12 @@ t_comps 	prepare_computations(t_xs_list *intersection, t_ray ray)
 	
 	if (intersection->object.form == SPHERE)
 		comps.normalv = normal_at(*(t_sphere *)comps.object.object, comps.point);
+	else if (intersection->object.form == PLANE)
+	{
+		printf("plane\n");
+		comps.normalv = vector(0, 1, 0);
+		
+	}
 	
 	if (vec_dot(comps.normalv, comps.eyev) < 0)
 	{
@@ -44,12 +50,18 @@ t_tuple	shade_hit(t_world w, t_comps comps)
 {
 	t_lighting 	l;
 	t_sphere	*sp;
+	t_plane		*pl;
 
 	l.ambient_effective_color = w.ambient_color;
 	if (comps.object.form == SPHERE)
 	{
 		sp = (t_sphere *)comps.object.object;
 		l.m = sp->material;
+	}
+	else if (comps.object.form == PLANE)
+	{
+		pl = (t_plane *)comps.object.object;
+		l.m = pl->material;
 	}
 	l.light.intensity = multiply_color_by_scalar(w.lights_list->color, w.lights_list->intensity);
 	l.light.position = w.lights_list->pos;

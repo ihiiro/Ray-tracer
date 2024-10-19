@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 11:25:19 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/18 13:08:25 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/18 21:56:02 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,3 +140,4 @@ t_ray	ray_for_pixel(t_camera_ *cam, double px, double py);
 void	render(t_canvas *canvas, t_camera_ *cam, t_world *world);
 /*Shadows*/
 bool	is_shadowed(t_world *w, t_tuple point);
+t_xs	plane_intersect(t_plane *pl, t_ray ray);

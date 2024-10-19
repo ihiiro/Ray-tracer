@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 11:50:07 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/18 18:51:31 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/18 22:31:40 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ t_object_ **objects_list)
 	reach_for(&line, ',', 1);
 	pl->normal.z = atodbl(line);
 	reach_for(&line, ' ', 0);
-	pl->transform = translation(pl->pip.x, pl->pip.y, pl->pip.z);
+	// pl->transform = translation(pl->pip.x, pl->pip.y, pl->pip.z);
+	// pl->transform = rotation_x(radians(90));
 	pl->pip = point(0, 0, 0);
 	parse_colors(&pl->material.color, line);
 	object->form = PLANE;
@@ -51,3 +52,22 @@ t_object_ **objects_list)
 	object->next = NULL;
 	append_objects(objects_list, object);
 }
+
+
+
+/*
+
+0 1 0 \\ for ray-plane intersection
+1 0 0 \\ from file
+
+rotation_x z
+
+rotation_y y
+
+rotation_z x
+
+
+
+
+
+*/
