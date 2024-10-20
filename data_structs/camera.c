@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 19:06:28 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/19 20:35:21 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/20 11:29:24 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ t_matrix	*view_transform(t_tuple from, t_tuple to, t_tuple up)
 		forward = normalize_vec(sub_tuples(to, from));
 	else
 		forward = to;
+	if (equal(forward.y, 1) || equal(forward.y, -1))
+		forward = normalize_vec(vector(0, forward.y, NUDGE));
 	upn = normalize_vec(up);
 	left = vec_cross(forward, upn);
 	true_up = vec_cross(left, forward);

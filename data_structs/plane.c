@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 21:36:48 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/19 20:23:40 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/20 10:16:58 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ if (abs(denom) > 0.0001f) // your favorite epsilon
 return false;
 
 */
-
+#include <libc.h>
 t_xs	plane_intersect(t_plane *pl, t_ray ray)
 {
 	t_xs 		list;
@@ -42,7 +42,6 @@ t_xs	plane_intersect(t_plane *pl, t_ray ray)
 	if (fabs(vd) > EPSILON)
 	{
 		list.t0 = vec_dot(sub_tuples(point(0, 0, 0), ray.origin), pl->normal) / vd;
-		printf("%f\n", list.t0);
 		list.t1 = list.t0;
 		list.count = 2;
 		list.object0 = pl;
