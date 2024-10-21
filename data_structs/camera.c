@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 19:06:28 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/20 11:29:24 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/21 19:28:32 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 #include "data_funcs.h"
 #include "../maths/maths.h"
 #include <math.h>
+
+#include <libc.h>
 
 t_matrix	*view_transform(t_tuple from, t_tuple to, t_tuple up)
 {
@@ -49,7 +51,10 @@ void	camera(double hsize, double vsize, t_camera_ *c)
 	c->hsize = hsize;
 	c->vsize = vsize;
 	c->transform = identity();
-	half_view = tan(radians(c->fov / 2.0));
+	if (equal(c->vec.y, 1) || equal(c->vec.y, -1))
+		half_view = tan(radians(c->fov * (NUDGE - .002) / 2.0));
+	else
+		half_view = tan(radians(c->fov / 2.0));
 	aspect = c->hsize / c->vsize;
 	if (aspect >= 1)
 	{
@@ -78,8 +83,6 @@ t_ray	ray_for_pixel(t_camera_ *cam, double px, double py)
 	camray.direction = normalize_vec(sub_tuples(camray.pixel, camray.origin));
 	return (return_ray(camray.origin, camray.direction));
 }
-
-#include <libc.h>
 
 void	render(t_canvas *canvas, t_camera_ *cam, t_world *world)
 {

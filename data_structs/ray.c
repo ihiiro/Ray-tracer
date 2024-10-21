@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 18:52:35 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/20 10:24:23 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/21 19:29:21 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 #include "../maths/maths.h"
 #include <stdlib.h>
 #include <math.h>
-#include <limits.h>
 
 t_ray	return_ray(t_tuple org, t_tuple dir)
 {
@@ -29,7 +28,6 @@ t_tuple position(t_ray ray, double t)
 {
 	return (add_tuples(ray.origin, scale_tuple(ray.direction, t)));
 }
-#include <libc.h>
 
 t_xs	sphere_intersect(t_sphere *s, t_ray r)
 {

@@ -6,15 +6,13 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 00:38:01 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/19 19:56:25 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/21 16:25:15 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "data_structs.h"
 #include "data_funcs.h"
 #include "../maths/maths.h"
-
-#include <libc.h>
 
 t_comps 	prepare_computations(t_xs_list *intersection, t_ray ray)
 {

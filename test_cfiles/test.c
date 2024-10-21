@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 10:47:12 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/20 12:02:43 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/21 19:32:15 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -842,7 +842,7 @@ int main()
 	// // camera
 	camera(WIDTH, HEIGHT, &scene->camera);
 	scene->camera.transform = view_transform(scene->camera.pos,
-		scene->camera.vec, vector(0, 1, 0));
+		scene->camera.vec, vector(0,1,0));
 
 
 	mlx_t	*mlx = mlx_init(WIDTH, HEIGHT, "scene", false);
