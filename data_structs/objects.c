@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 20:01:21 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/18 13:01:11 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/22 11:37:15 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,17 @@ t_plane	plane(void)
 	p.pip = point(0, 0, 0);
 	p.normal = vector(0, 1, 0);
 	return (p);
+}
+
+t_cylinder	cylinder(void)
+{
+	t_cylinder	c;
+
+	c.center = point(0, 0, 0);
+	c.height = 1;
+	c.radius = 1;
+	c.vec = point(0, 1, 0);
+	c.transform = identity();
+	c.material = material();
+	return (c);
 }

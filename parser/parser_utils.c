@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 19:36:54 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/19 12:12:22 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/22 14:05:10 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,23 +33,12 @@ bool	valid_color(t_tuple color)
 
 bool	normalized_vector(t_tuple v)
 {
-	// v.w = VECTOR;
-	// if (!equal_tuple(vector(1, 0, 0), v)
-	// 	&& !equal_tuple(vector(0, 1, 0), v)
-	// 	&& !equal_tuple(vector(0, 0, 1), v)
-	// 	&& !equal_tuple(vector(0, 0, 0), v)
-	// 	&& !equal_tuple(vector(-1, 0, 0), v)
-	// 	&& !equal_tuple(vector(0, -1, 0), v)
-	// 	&& !equal_tuple(vector(0, 0, -1), v))
-	// 	return (false); // replace with calcing the actual magnitude (shoould be 1) and range in [-1,1]
-	// return (true);
 	return (equal(vector_magnitude(v), 1));
 }
 
 void	clean_w(t_world *world)
 {
 	t_light_	*iter;
-	t_object_	*iter_obj;
 
 	world->ambient_color.w = VECTOR;
 	world->camera.pos.w = POINT;
@@ -60,12 +49,5 @@ void	clean_w(t_world *world)
 		iter->color.w = VECTOR;
 		iter->pos.w = POINT;
 		iter = iter->next;
-	}
-	iter_obj = world->objects_list;
-	while (iter_obj)
-	{
-		if (iter_obj->form == PLANE)
-			((t_plane *)iter_obj->object)->normal.w = VECTOR;
-		iter_obj = iter_obj->next;
 	}
 }

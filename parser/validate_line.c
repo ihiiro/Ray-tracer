@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 18:27:56 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/18 12:57:00 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/22 11:42:07 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,8 @@ void	validate_line(char *line)
 		validate_sp(line);
 	else if (line[0] == 'p')
 		validate_pl(line);
-	// cy
-	//
+	else if (line[0] == 'c')
+		validate_cy(line);
 	//co
 	//
 }

@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 19:38:56 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/09/29 19:40:09 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/22 14:04:51 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,26 @@ void	front_objects(t_object_ **lst, t_object_ *new)
 	*lst = new;
 }
 
+bool	validate_normalized_vectors(t_object_ *object)
+{
+	t_plane		*pl;
+	t_cylinder	*cy;
+
+	pl = NULL;
+	cy = NULL;
+	if (object->form == PLANE)
+		pl = object->object;
+	else if (object->form == CYLINDER)
+		cy = object->object;
+	if (pl)
+		if (!normalized_vector(pl->normal))
+			return (false);
+	if (cy)
+		if (!normalized_vector(cy->vec))
+			return (false);
+	return (true);
+}
+
 void	append_objects(t_object_ **lst, t_object_ *new)
 {
 	t_object_	*ptr;
@@ -73,4 +93,6 @@ void	append_objects(t_object_ **lst, t_object_ *new)
 		}
 		ptr = ptr->next;
 	}
+	if (!validate_normalized_vectors(new))
+		exitf("append_objects: non-unit vector\n");
 }

@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 11:20:46 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/18 12:13:06 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/22 11:22:40 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,16 @@ typedef struct s_plane
 	t_matrix 	*transform;
 }		t_plane;
 
+typedef struct s_cylinder
+{
+	t_tuple 	center;
+	t_tuple		vec;
+	double		height;
+	double		radius;
+	t_matrix 	*transform;
+	t_material	material;
+}	t_cylinder;
+
 typedef struct s_intersection
 {
 	int			atom_count;
@@ -136,9 +146,11 @@ typedef struct s_lighting_components
 /* CONSTANTS */
 # define POINT 1.0
 # define VECTOR 0.0
+
 //objects
-# define SPHERE 0
-# define PLANE  1
+# define SPHERE 	0
+# define PLANE  	1
+# define CYLINDER 	2
 
 //
 # define MULTI  0
