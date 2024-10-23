@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aboulakr <aboulakr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 10:47:12 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/21 19:32:15 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/23 15:46:07 by aboulakr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -793,14 +793,121 @@ int main()
 	assert(comps.over_point.z < -EPSILON/2);
 	assert(comps.point.z > comps.over_point.z);
 	/* A ray intersecting a plane from above */
-	// t_plane	pl = plane();
-	// r = return_ray(point(0, 1, 0), vector(0, -1, 0));
-	// t_xs inter = plane_intersect(&pl, r);
-	// assert(inter.count == 2 && equal(inter.t0, 1));
-	// /* A ray intersecting a plane from below */
-	// r = return_ray(point(0, -1, 0), vector(0, 1, 0));
-	// inter = plane_intersect(&pl, r);
-	// assert(inter.count == 2 && equal(inter.t0, 1));
+	t_plane	pl = plane();
+	r = return_ray(point(0, 1, 0), vector(0, -1, 0));
+	t_xs inter = plane_intersect(&pl, r);
+	assert(inter.count == 2 && equal(inter.t0, 1));
+	/* A ray intersecting a plane from below */
+	r = return_ray(point(0, -1, 0), vector(0, 1, 0));
+	inter = plane_intersect(&pl, r);
+	assert(inter.count == 2 && equal(inter.t0, 1));
+	/* A ray misses a cylinder */
+	t_cylinder cyl = cylinder();
+	t_tuple direction = normalize_vec(vector(0, 1, 0));
+	r = return_ray(point(1, 0, 0), direction);
+	xs = cylinder_intersect(&cyl, r);
+	assert(equal(0, xs.count));
+	direction = normalize_vec(vector(0, 1, 0));
+	r = return_ray(point(0, 0, 0), direction);
+	xs = cylinder_intersect(&cyl, r);
+	assert(equal(0, xs.count));
+	direction = normalize_vec(vector(1, 1, 1));
+	r = return_ray(point(0, 0, -5), direction);
+	xs = cylinder_intersect(&cyl, r);
+	assert(equal(0, xs.count));
+	/* A ray strikes a cylinder */
+	direction = normalize_vec(vector(0, 0, 1));
+	r = return_ray(point(1, 0, -5), direction);
+	xs = cylinder_intersect(&cyl, r);
+	// printf("count %d ------ t0 %f -------- t1 %f\n", xs.count,xs.t0,xs.t1);
+	assert(equal(xs.count, 2) && equal(5, xs.t0) && equal(5, xs.t1));
+
+	direction = normalize_vec(vector(0, 0, 1));
+	r = return_ray(point(0, 0, -5), direction);
+	xs = cylinder_intersect(&cyl, r);
+	// assert(equal(xs.count, 2) && equal(4, xs.t0) && equal(6, xs.t1));
+
+	direction = normalize_vec(vector(0.1, 1, 1));
+	r = return_ray(point(0.5, 0, -5), direction);
+	xs = cylinder_intersect(&cyl, r);
+	// assert(equal(xs.count, 2) && equal(6.80798, xs.t0) && equal(7.08872, xs.t1));
+
+	/* Normal vector on a cylinder */
+	// cyl = cylinder();
+	// normal = normal_at_cylinder(cyl, point(1,0,0));
+	// assert(equal_tuple(normal, vector(1,0,0)));
+
+	// normal = normal_at_cylinder(cyl, point(0,5,-1));
+	// assert(equal_tuple(normal, vector(0,0,-1)));
+
+	// normal = normal_at_cylinder(cyl, point(0,-2, 1));
+	// assert(equal_tuple(normal, vector(0,0,1)));
+
+	// normal = normal_at_cylinder(cyl, point(-1, 1, 0));
+	// assert(equal_tuple(normal, vector(-1,0,0)));
+
+	// /*Intersecting a constrained cylinder*/
+	// cyl = cylinder();
+	// cyl.maximum = 2;
+	// cyl.minimum = 1;
+
+	// direction = normalize_vec(vector(0.1, 1, 0));
+	// r = return_ray(point(0, 1.5, 0), direction);
+	// xs = cylinder_intersect(&cyl, r);
+	// // printf("count %d\n", xs.count);
+	// assert(equal(xs.count, 0));
+
+	// direction = normalize_vec(vector(0, 0, 1));
+	// r = return_ray(point(0, 3, -5), direction);
+	// xs = cylinder_intersect(&cyl, r);
+	// assert(equal(xs.count, 0));
+
+	// direction = normalize_vec(vector(0, 0, 1));
+	// r = return_ray(point(0, 0, -5), direction);
+	// xs = cylinder_intersect(&cyl, r);
+	// assert(equal(xs.count, 0));
+
+	// direction = normalize_vec(vector(0, 0, 1));
+	// r = return_ray(point(0, 2, -5), direction);
+	// xs = cylinder_intersect(&cyl, r);
+	// assert(equal(xs.count, 0));
+
+	// direction = normalize_vec(vector(0, 0, 1));
+	// r = return_ray(point(0, 1, -5), direction);
+	// xs = cylinder_intersect(&cyl, r);
+	// assert(equal(xs.count, 0));
+
+	// direction = normalize_vec(vector(0, 0, 1));
+	// r = return_ray(point(0, 1.5, -2), direction);
+	// xs = cylinder_intersect(&cyl, r);
+	// assert(equal(xs.count, 2));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

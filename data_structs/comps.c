@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   comps.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aboulakr <aboulakr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 00:38:01 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/21 16:25:15 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/23 11:09:34 by aboulakr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ t_comps 	prepare_computations(t_xs_list *intersection, t_ray ray)
 		comps.normalv = normal_at(*(t_sphere *)comps.object.object, comps.point);
 	else if (intersection->object.form == PLANE)
 		comps.normalv = ((t_plane *)intersection->object.object)->normal;
+	else if (intersection->object.form == CYLINDER)
+		comps.normalv = normal_at_cylinder(*(t_cylinder *)comps.object.object, comps.point);
 	if (vec_dot(comps.normalv, comps.eyev) < 0)
 	{
 		comps.inside = true;
@@ -44,6 +46,7 @@ t_tuple	shade_hit(t_world w, t_comps comps)
 	t_lighting 	l;
 	t_sphere	*sp;
 	t_plane		*pl;
+	t_cylinder	*cy;
 
 	l.ambient_effective_color = w.ambient_color;
 	if (comps.object.form == SPHERE)
@@ -55,6 +58,11 @@ t_tuple	shade_hit(t_world w, t_comps comps)
 	{
 		pl = (t_plane *)comps.object.object;
 		l.m = pl->material;
+	}
+	else if (comps.object.form == CYLINDER)
+	{
+		cy = (t_cylinder *)comps.object.object;
+		l.m = cy->material;
 	}
 	l.light.intensity = multiply_color_by_scalar(w.lights_list->color, w.lights_list->intensity);
 	l.light.position = w.lights_list->pos;

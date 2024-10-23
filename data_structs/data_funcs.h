@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   data_funcs.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aboulakr <aboulakr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 11:25:19 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/22 11:55:30 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/23 14:03:18 by aboulakr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,3 +144,10 @@ void	render(t_canvas *canvas, t_camera_ *cam, t_world *world);
 /*Shadows*/
 bool	is_shadowed(t_world *w, t_tuple point);
 t_xs	plane_intersect(t_plane *pl, t_ray ray);
+
+/*Cylinder intersect*/
+t_xs	cylinder_intersect(t_cylinder *cy, t_ray ray);
+t_tuple   normal_at_cylinder(t_cylinder cy, t_tuple world_point);
+double	maximum_y(t_tuple center, double	heigh);
+double	minimum_y(t_tuple center, double	heigh);
+

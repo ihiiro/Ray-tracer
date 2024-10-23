@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   data_structs.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aboulakr <aboulakr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 11:20:46 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/22 11:22:40 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/23 20:35:39 by aboulakr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,10 +99,11 @@ typedef struct s_cylinder
 	t_tuple		vec;
 	double		height;
 	double		radius;
+	double		minimum;
+	double		maximum;
 	t_matrix 	*transform;
 	t_material	material;
 }	t_cylinder;
-
 typedef struct s_intersection
 {
 	int			atom_count;

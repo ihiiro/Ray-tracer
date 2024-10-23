@@ -3,16 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   parse_primitive.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aboulakr <aboulakr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 11:50:07 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/22 14:08:58 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/23 22:12:41 by aboulakr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../data_structs/data_structs.h"
 #include "../data_structs/data_funcs.h"
+#include "../maths/maths.h"
 #include <stdlib.h>
+#include <math.h>
 
 void	init_parse_plane(t_plane **pl, t_object_ **object, t_world *world)
 {
@@ -82,11 +84,17 @@ const char **line, t_object_ **object)
 	(*cy)->vec.w = VECTOR;
 }
 
+#include <stdio.h>
+
 void	parse_cylinder(const char *line, t_world **world,
 t_object_ **objects_list)
 {
 	t_cylinder	*cy;
 	t_object_	*object;
+	t_tuple	    direction;
+	t_matrix	*rotation_matrix;
+	double 		angle_z;
+	double 		angle_x;
 
 	parse_cylinder_center_and_vector(&cy, world, &line, &object);
 	while (*line == ' ')
@@ -99,12 +107,14 @@ t_object_ **objects_list)
 	reach_for(&line, ' ', 0);
 	if (cy->height <= 0 || cy->radius <= 0)
 		exitf("cy: height or radius <= 0\n");
+	direction = normalize_vec(cy->vec);
+	double angle_x = atan2(direction.z, direction.y); // Rotate around X-axis
+    double angle_z = atan2(direction.x, direction.y); // Rotate around Z-axis
+   	rotation_matrix = matrix_multiply(rotation_x(angle_x), rotation_z(angle_z), 4);
 	cy->transform = matrix_multiply(translation(cy->center.x,
-				cy->center.y, cy->center.z),
-			scaling(cy->radius, cy->radius + cy->height, cy->radius), 4);
-	cy->radius = 1;
+				cy->center.y, cy->center.z), matrix_multiply(rotation_matrix,
+			scaling(cy->radius, 1, cy->radius), 4), 4);
 	cy->center = point(0, 0, 0);
-	cy->height = 1;
 	parse_colors(&cy->material.color, line);
 	object->form = CYLINDER;
 	object->object = cy;
