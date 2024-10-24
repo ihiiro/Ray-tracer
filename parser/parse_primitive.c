@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_primitive.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aboulakr <aboulakr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 11:50:07 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/23 22:12:41 by aboulakr         ###   ########.fr       */
+/*   Updated: 2024/10/24 13:27:47 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,12 @@ t_object_ **objects_list)
 	t_matrix	*rotation_matrix;
 	double 		angle_z;
 	double 		angle_x;
+	int			shape;
 
+	if (line[1] == 'o')
+		shape = CONE;
+	else
+		shape = CYLINDER;
 	parse_cylinder_center_and_vector(&cy, world, &line, &object);
 	while (*line == ' ')
 		line++;
@@ -107,16 +112,16 @@ t_object_ **objects_list)
 	reach_for(&line, ' ', 0);
 	if (cy->height <= 0 || cy->radius <= 0)
 		exitf("cy: height or radius <= 0\n");
-	direction = normalize_vec(cy->vec);
-	double angle_x = atan2(direction.z, direction.y); // Rotate around X-axis
-    double angle_z = atan2(direction.x, direction.y); // Rotate around Z-axis
+	direction = cy->vec;
+	angle_x = atan2(direction.z, direction.y); // Rotate around X-axis
+    angle_z = atan2(direction.x, direction.y); // Rotate around Z-axis
    	rotation_matrix = matrix_multiply(rotation_x(angle_x), rotation_z(angle_z), 4);
 	cy->transform = matrix_multiply(translation(cy->center.x,
 				cy->center.y, cy->center.z), matrix_multiply(rotation_matrix,
 			scaling(cy->radius, 1, cy->radius), 4), 4);
 	cy->center = point(0, 0, 0);
 	parse_colors(&cy->material.color, line);
-	object->form = CYLINDER;
+	object->form = shape;
 	object->object = cy;
 	object->next = NULL;
 	append_objects(objects_list, object);

@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 19:38:56 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/22 14:04:51 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/24 13:30:09 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ bool	validate_normalized_vectors(t_object_ *object)
 	cy = NULL;
 	if (object->form == PLANE)
 		pl = object->object;
-	else if (object->form == CYLINDER)
+	else if (object->form == CYLINDER || object->form == CONE)
 		cy = object->object;
 	if (pl)
 		if (!normalized_vector(pl->normal))

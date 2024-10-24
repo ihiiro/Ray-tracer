@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   comps.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aboulakr <aboulakr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 00:38:01 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/23 11:09:34 by aboulakr         ###   ########.fr       */
+/*   Updated: 2024/10/24 13:30:44 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_comps 	prepare_computations(t_xs_list *intersection, t_ray ray)
 		comps.normalv = normal_at(*(t_sphere *)comps.object.object, comps.point);
 	else if (intersection->object.form == PLANE)
 		comps.normalv = ((t_plane *)intersection->object.object)->normal;
-	else if (intersection->object.form == CYLINDER)
+	else if (intersection->object.form == CYLINDER || intersection->object.form == CONE)
 		comps.normalv = normal_at_cylinder(*(t_cylinder *)comps.object.object, comps.point);
 	if (vec_dot(comps.normalv, comps.eyev) < 0)
 	{
@@ -59,7 +59,7 @@ t_tuple	shade_hit(t_world w, t_comps comps)
 		pl = (t_plane *)comps.object.object;
 		l.m = pl->material;
 	}
-	else if (comps.object.form == CYLINDER)
+	else if (comps.object.form == CYLINDER || comps.object.form == CONE)
 	{
 		cy = (t_cylinder *)comps.object.object;
 		l.m = cy->material;

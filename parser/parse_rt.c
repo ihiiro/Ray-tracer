@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_rt.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aboulakr <aboulakr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 10:26:12 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/22 23:25:50 by aboulakr         ###   ########.fr       */
+/*   Updated: 2024/10/24 13:25:54 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,8 @@ t_object_ **objects_list, t_world **world)
 		parse_plane(line, world, objects_list);
 	else if (line[0] == 'c' && line[1] == 'y')
 		parse_cylinder(line, world, objects_list);
-	//co
-	//
+	else if (line[0] == 'c' && line[1] == 'o')
+		parse_cylinder(line, world, objects_list);
 }
 
 t_world	*parse(const char *file)

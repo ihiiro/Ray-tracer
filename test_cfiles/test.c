@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aboulakr <aboulakr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 10:47:12 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/23 15:46:07 by aboulakr         ###   ########.fr       */
+/*   Updated: 2024/10/24 12:47:25 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -833,54 +833,39 @@ int main()
 	// assert(equal(xs.count, 2) && equal(6.80798, xs.t0) && equal(7.08872, xs.t1));
 
 	/* Normal vector on a cylinder */
-	// cyl = cylinder();
-	// normal = normal_at_cylinder(cyl, point(1,0,0));
-	// assert(equal_tuple(normal, vector(1,0,0)));
+	cyl = cylinder();
+	normal = normal_at_cylinder(cyl, point(1,0,0));
+	assert(equal_tuple(normal, vector(1,0,0)));
 
-	// normal = normal_at_cylinder(cyl, point(0,5,-1));
-	// assert(equal_tuple(normal, vector(0,0,-1)));
+	normal = normal_at_cylinder(cyl, point(0,5,-1));
+	assert(equal_tuple(normal, vector(0,0,-1)));
 
-	// normal = normal_at_cylinder(cyl, point(0,-2, 1));
-	// assert(equal_tuple(normal, vector(0,0,1)));
+	normal = normal_at_cylinder(cyl, point(0,-2, 1));
+	assert(equal_tuple(normal, vector(0,0,1)));
 
-	// normal = normal_at_cylinder(cyl, point(-1, 1, 0));
-	// assert(equal_tuple(normal, vector(-1,0,0)));
+	normal = normal_at_cylinder(cyl, point(-1, 1, 0));
+	assert(equal_tuple(normal, vector(-1,0,0)));
 
-	// /*Intersecting a constrained cylinder*/
-	// cyl = cylinder();
-	// cyl.maximum = 2;
-	// cyl.minimum = 1;
-
-	// direction = normalize_vec(vector(0.1, 1, 0));
-	// r = return_ray(point(0, 1.5, 0), direction);
-	// xs = cylinder_intersect(&cyl, r);
-	// // printf("count %d\n", xs.count);
-	// assert(equal(xs.count, 0));
-
-	// direction = normalize_vec(vector(0, 0, 1));
-	// r = return_ray(point(0, 3, -5), direction);
-	// xs = cylinder_intersect(&cyl, r);
-	// assert(equal(xs.count, 0));
-
-	// direction = normalize_vec(vector(0, 0, 1));
-	// r = return_ray(point(0, 0, -5), direction);
-	// xs = cylinder_intersect(&cyl, r);
-	// assert(equal(xs.count, 0));
-
-	// direction = normalize_vec(vector(0, 0, 1));
-	// r = return_ray(point(0, 2, -5), direction);
-	// xs = cylinder_intersect(&cyl, r);
-	// assert(equal(xs.count, 0));
-
-	// direction = normalize_vec(vector(0, 0, 1));
-	// r = return_ray(point(0, 1, -5), direction);
-	// xs = cylinder_intersect(&cyl, r);
-	// assert(equal(xs.count, 0));
-
-	// direction = normalize_vec(vector(0, 0, 1));
-	// r = return_ray(point(0, 1.5, -2), direction);
-	// xs = cylinder_intersect(&cyl, r);
-	// assert(equal(xs.count, 2));
+	/* cylinder tests */
+	cyl = cylinder();
+	cyl.maximum = 2;
+	cyl.minimum = 1;
+	direction = normalize_vec(vector(0.1, 1, 0));
+	r = return_ray(point(0, 1.5, 0), direction);
+	xs = cylinder_intersect(&cyl, r);
+	assert(equal(xs.count, 0));
+	direction = normalize_vec(vector(0, 0, 1));
+	r = return_ray(point(0, 3, -5), direction);
+	xs = cylinder_intersect(&cyl, r);
+	assert(equal(xs.count, 0));
+	direction = normalize_vec(vector(0, 0, 1));
+	r = return_ray(point(0, 2, -5), direction);
+	xs = cylinder_intersect(&cyl, r);
+	assert(equal(xs.count, 0));
+	direction = normalize_vec(vector(0, 0, 1));
+	r = return_ray(point(0, 1, -5), direction);
+	xs = cylinder_intersect(&cyl, r);
+	assert(equal(xs.count, 0));
 
 
 
