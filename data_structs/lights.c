@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 16:51:33 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/25 20:05:01 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/25 22:28:49 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,17 @@ t_material	material(void)
 t_tuple lighting(t_lighting l)
 {
 	t_lighting_components	lc;
+	static bool				ambient_set;
 
 	lc.effective_color = multiply_colors(l.m.color, l.light.intensity);
 	lc.lightv = normalize_vec(sub_tuples(l.light.position, l.point));
-	lc.ambient = multiply_color_by_scalar(l.ambient_effective_color, l.m.ambient);
+	if (!ambient_set)
+	{
+		lc.ambient = multiply_color_by_scalar(l.ambient_effective_color, l.m.ambient);
+		ambient_set = 1;
+	}
+	else
+		lc.ambient = color(0, 0, 0);
 	lc.light_dot_normalv = vec_dot(lc.lightv, l.normalv);
 	if (lc.light_dot_normalv < 0 || l.in_shadow == true)
 	{
