@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 10:26:12 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/24 13:25:54 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/26 00:44:02 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,14 +61,21 @@ t_object_ **objects_list, t_world **world)
 		parse_cylinder(line, world, objects_list);
 }
 
+void	init_parse(t_parser *parser_)
+{
+	parser_->world->camera.vec = vector(0, 0, 0);
+	parser_->world->ambient_intensity = -1;
+	parser_->lights_list = NULL;
+	parser_->objects_list = NULL;
+}
+
 t_world	*parse(const char *file)
 {
 	t_parser	parser_;
 
-	parser_.lights_list = NULL;
-	parser_.objects_list = NULL;
 	parser_.world = malloc(sizeof(t_world));
 	memset(parser_.world, 0, sizeof(t_world));
+	init_parse(&parser_);
 	parser_.fd = open(file, O_RDONLY);
 	if (parser_.fd < 0)
 		exit(EXIT_FAILURE);
@@ -84,6 +91,10 @@ t_world	*parse(const char *file)
 	parser_.world->lights_list = parser_.lights_list;
 	parser_.world->objects_list = parser_.objects_list;
 	clean_w(parser_.world);
+	if (equal_tuple(parser_.world->camera.vec, vector(0, 0, 0)))
+		exitf("world: no camera\n");
+	if (equal(-1, parser_.world->ambient_intensity))
+		exitf("world: no ambient defined\n");
 	return (parser_.world);
 }
 
