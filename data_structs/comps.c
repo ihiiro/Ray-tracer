@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 00:38:01 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/24 13:30:44 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/25 20:07:40 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,38 +47,42 @@ t_tuple	shade_hit(t_world w, t_comps comps)
 	t_sphere	*sp;
 	t_plane		*pl;
 	t_cylinder	*cy;
+	t_light_	*lights;
+	t_tuple		final_color;
 
+	lights = w.lights_list;
 	l.ambient_effective_color = w.ambient_color;
 	if (comps.object.form == SPHERE)
-	{
-		sp = (t_sphere *)comps.object.object;
-		l.m = sp->material;
-	}
+		l.m = ((t_sphere *)comps.object.object)->material;
 	else if (comps.object.form == PLANE)
-	{
-		pl = (t_plane *)comps.object.object;
-		l.m = pl->material;
-	}
+		l.m = ((t_plane *)comps.object.object)->material;
 	else if (comps.object.form == CYLINDER || comps.object.form == CONE)
-	{
-		cy = (t_cylinder *)comps.object.object;
-		l.m = cy->material;
-	}
-	l.light.intensity = multiply_color_by_scalar(w.lights_list->color, w.lights_list->intensity);
-	l.light.position = w.lights_list->pos;
+		l.m = ((t_cylinder *)comps.object.object)->material;
 	l.point = comps.over_point;
 	l.eyev = comps.eyev;
 	l.normalv = comps.normalv;
-	l.in_shadow = is_shadowed(&w, l.point);
-	return (lighting(l));
+	final_color = color(0, 0, 0);
+	while (lights)
+	{
+		l.in_shadow = is_shadowed(&w, lights, l.point);
+		l.light.intensity = multiply_color_by_scalar(lights->color, lights->intensity);
+		l.light.position = lights->pos;
+		final_color = add_colors(final_color, lighting(l));
+		lights = lights->next;
+	}
+	return (final_color);
 }
+
+#include <libc.h>
 
 t_tuple	color_at(t_world *w, t_ray r)
 {
 	t_xs_list	*xs_list;
 	t_xs_list	*xs_hit;
 	t_comps		comps;
+	t_tuple		final_color;
 
+	final_color = color(0, 0, 0);
 	xs_list = intersect_world(w, r);
 	if (!xs_list)
 		return (color(0, 0, 0));

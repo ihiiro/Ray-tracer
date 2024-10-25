@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 17:20:29 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/16 17:30:29 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/25 20:10:15 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	validate_a(char *line)
 	while (*line == ' ')
 		line++;
 	validate_field(&line, MULTI);
-	if (*line != '\n')
+	if (*line != '\n' && *line != '\0')
 		exitf("A: too many fields\n");
 }
 
@@ -44,7 +44,7 @@ void	validate_c(char *line)
 	while (*line == ' ')
 		line++;
 	validate_field(&line, SINGLE);
-	if (*line != '\n')
+	if (*line != '\n' && *line != '\0')
 		exitf("C: too many fields\n");
 }
 
@@ -62,6 +62,6 @@ void	validate_l(char *line)
 	while (*line == ' ')
 		line++;
 	validate_field(&line, MULTI);
-	if (*line != '\n')
+	if (*line != '\n' && *line != '\0')
 		exitf("L: too many fields\n");
 }

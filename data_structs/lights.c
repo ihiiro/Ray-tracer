@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 16:51:33 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/19 18:58:15 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/25 20:05:01 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ t_tuple lighting(t_lighting l)
 	return (lc.intensity);
 }
 
-bool	is_shadowed(t_world *w, t_tuple point)
+bool	is_shadowed(t_world *w, t_light_ *light, t_tuple point)
 {
 	t_tuple	v;
 	double	distance;
@@ -81,7 +81,7 @@ bool	is_shadowed(t_world *w, t_tuple point)
 	t_xs_list	*intersections;
 	t_xs_list	*h;
 
-	v = sub_tuples(w->lights_list->pos, point);
+	v = sub_tuples(light->pos, point);
 	distance = vector_magnitude(v);
 	direction = normalize_vec(v);
 	ray = return_ray(point, direction);

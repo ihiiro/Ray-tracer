@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   data_funcs.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aboulakr <aboulakr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 11:25:19 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/23 14:03:18 by aboulakr         ###   ########.fr       */
+/*   Updated: 2024/10/25 20:05:29 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,7 +142,7 @@ void	camera(double hsize, double vsize, t_camera_ *c);
 t_ray	ray_for_pixel(t_camera_ *cam, double px, double py);
 void	render(t_canvas *canvas, t_camera_ *cam, t_world *world);
 /*Shadows*/
-bool	is_shadowed(t_world *w, t_tuple point);
+bool	is_shadowed(t_world *w, t_light_ *light, t_tuple point);
 t_xs	plane_intersect(t_plane *pl, t_ray ray);
 
 /*Cylinder intersect*/
