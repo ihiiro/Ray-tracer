@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 10:47:12 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/25 19:26:07 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/25 22:45:59 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -949,9 +949,9 @@ int main()
 	mlx_image_to_window(mlx, img, 0, 0);
 	mlx_loop(mlx);
 
-	_setcolor_(GREEN);
-	printf(" OK.\n");
-	_reset_();
+	// _setcolor_(GREEN);
+	// printf(" OK.\n");
+	// _reset_();
 }
 
 
