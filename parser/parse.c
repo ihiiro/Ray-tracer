@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 19:30:58 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/22 14:04:32 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/25 23:36:17 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ t_object_ **objects_list)
 	sp->radius = 1;
 	reach_for(&line, ' ', 0);
 	parse_colors(&sp->material.color, line);
-	sp->material.ambient = (*world)->ambient_intensity;
 	object->form = SPHERE;
 	object->object = sp;
 	object->next = NULL;

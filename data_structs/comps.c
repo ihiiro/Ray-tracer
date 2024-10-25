@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 00:38:01 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/25 23:01:06 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/25 23:35:24 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,6 @@ t_comps 	prepare_computations(t_xs_list *intersection, t_ray ray)
 	return (comps);
 }
 
-#include <libc.h>
-
 t_tuple	shade_hit(t_world w, t_comps comps)
 {
 	t_lighting 	l;
@@ -76,8 +74,6 @@ t_tuple	shade_hit(t_world w, t_comps comps)
 	}
 	return (final_color);
 }
-
-#include <libc.h>
 
 t_tuple	color_at(t_world *w, t_ray r)
 {

@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 19:36:54 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/22 14:05:10 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/25 23:30:20 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ bool	normalized_vector(t_tuple v)
 void	clean_w(t_world *world)
 {
 	t_light_	*iter;
+	t_object_	*objects;
 
 	world->ambient_color.w = VECTOR;
 	world->camera.pos.w = POINT;
@@ -49,5 +50,16 @@ void	clean_w(t_world *world)
 		iter->color.w = VECTOR;
 		iter->pos.w = POINT;
 		iter = iter->next;
+	}
+	objects = world->objects_list;
+	while (objects)
+	{
+		if (objects->form == CYLINDER)
+			((t_cylinder *)objects->object)->material.ambient = world->ambient_intensity;
+		else if (objects->form == SPHERE)
+			((t_sphere *)objects->object)->material.ambient = world->ambient_intensity;
+		else if (objects->form == PLANE)
+			((t_plane *)objects->object)->material.ambient = world->ambient_intensity;
+		objects = objects->next;
 	}
 }

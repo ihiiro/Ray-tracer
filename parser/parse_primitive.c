@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 11:50:07 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/25 18:37:59 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/25 23:37:15 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ void	init_parse_plane(t_plane **pl, t_object_ **object, t_world *world)
 	*pl = malloc(sizeof(t_plane));
 	*object = malloc(sizeof(t_object_));
 	**pl = plane();
-	(*pl)->material.ambient = world->ambient_intensity;
 }
 
 void	parse_pip(t_plane *pl, const char **line)
@@ -107,7 +106,6 @@ const char **line, t_object_ **object)
 	*cy = malloc(sizeof(t_cylinder));
 	*object = malloc(sizeof(t_object_));
 	**cy = cylinder();
-	(*cy)->material.ambient = (*world)->ambient_intensity;
 	validate_line(*(char **)line);
 	reach_for(line, ' ', 0);
 	(*cy)->center.x = atodbl(*line);
