@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 11:50:07 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/24 13:27:47 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/25 18:37:59 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,47 @@
 #include "../maths/maths.h"
 #include <stdlib.h>
 #include <math.h>
+
+t_matrix *rotation_axis_angle(t_tuple axis, double angle) 
+{
+    double magnitude = vector_magnitude(axis);
+    t_tuple normalized_axis = return_tuple(axis.x / magnitude, axis.y / magnitude, axis.z / magnitude, axis.w);
+    double x = normalized_axis.x;
+    double y = normalized_axis.y;
+    double z = normalized_axis.z;
+    double cos_theta = cos(angle);
+    double sin_theta = sin(angle);
+    double one_minus_cos = 1 - cos_theta;
+    t_tuple row1 = return_tuple(
+        cos_theta + x * x * one_minus_cos,
+        x * y * one_minus_cos - z * sin_theta,
+        x * z * one_minus_cos + y * sin_theta,
+        0
+    );
+    t_tuple row2 = return_tuple(
+        y * x * one_minus_cos + z * sin_theta,
+        cos_theta + y * y * one_minus_cos,
+        y * z * one_minus_cos - x * sin_theta,
+        0
+    );
+    t_tuple row3 = return_tuple(
+        z * x * one_minus_cos - y * sin_theta,
+        z * y * one_minus_cos + x * sin_theta,
+        cos_theta + z * z * one_minus_cos,
+        0
+    );
+    t_tuple row4 = return_tuple(0, 0, 0, 1);
+    return return_4_by_4_matrix(row1, row2, row3, row4);
+}
+
+t_matrix    *align_vector_to_axis(t_tuple vec, t_tuple target_axis)
+{
+    t_tuple axis = vec_cross(target_axis, vec);
+    double angle = acos(vec_dot(target_axis, vec));
+    if (vector_magnitude(axis) == 0)
+        return identity();
+    return rotation_axis_angle(axis, angle);
+}
 
 void	init_parse_plane(t_plane **pl, t_object_ **object, t_world *world)
 {
@@ -84,8 +125,6 @@ const char **line, t_object_ **object)
 	(*cy)->vec.w = VECTOR;
 }
 
-#include <stdio.h>
-
 void	parse_cylinder(const char *line, t_world **world,
 t_object_ **objects_list)
 {
@@ -93,8 +132,6 @@ t_object_ **objects_list)
 	t_object_	*object;
 	t_tuple	    direction;
 	t_matrix	*rotation_matrix;
-	double 		angle_z;
-	double 		angle_x;
 	int			shape;
 
 	if (line[1] == 'o')
@@ -113,9 +150,7 @@ t_object_ **objects_list)
 	if (cy->height <= 0 || cy->radius <= 0)
 		exitf("cy: height or radius <= 0\n");
 	direction = cy->vec;
-	angle_x = atan2(direction.z, direction.y); // Rotate around X-axis
-    angle_z = atan2(direction.x, direction.y); // Rotate around Z-axis
-   	rotation_matrix = matrix_multiply(rotation_x(angle_x), rotation_z(angle_z), 4);
+   	rotation_matrix = align_vector_to_axis(direction, vector(0, 1, 0));
 	cy->transform = matrix_multiply(translation(cy->center.x,
 				cy->center.y, cy->center.z), matrix_multiply(rotation_matrix,
 			scaling(cy->radius, 1, cy->radius), 4), 4);
