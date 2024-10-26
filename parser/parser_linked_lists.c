@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 19:38:56 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/24 13:30:09 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/26 01:41:27 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,20 +54,11 @@ void	front_objects(t_object_ **lst, t_object_ *new)
 
 bool	validate_normalized_vectors(t_object_ *object)
 {
-	t_plane		*pl;
-	t_cylinder	*cy;
-
-	pl = NULL;
-	cy = NULL;
 	if (object->form == PLANE)
-		pl = object->object;
-	else if (object->form == CYLINDER || object->form == CONE)
-		cy = object->object;
-	if (pl)
-		if (!normalized_vector(pl->normal))
+		if (!normalized_vector(((t_plane *)object->object)->normal))
 			return (false);
-	if (cy)
-		if (!normalized_vector(cy->vec))
+	if (object->form == CYLINDER || object->form == CONE)
+		if (!normalized_vector(((t_cylinder *)object->object)->vec))
 			return (false);
 	return (true);
 }
@@ -79,19 +70,19 @@ void	append_objects(t_object_ **lst, t_object_ *new)
 	if (!lst || !new)
 		return ;
 	if (!*lst)
-	{
 		front_objects(lst, new);
-		return ;
-	}
-	ptr = *lst;
-	while (ptr)
+	else
 	{
-		if (!ptr->next)
+		ptr = *lst;
+		while (ptr)
 		{
-			ptr->next = new;
-			break ;
+			if (!ptr->next)
+			{
+				ptr->next = new;
+				break ;
+			}
+			ptr = ptr->next;
 		}
-		ptr = ptr->next;
 	}
 	if (!validate_normalized_vectors(new))
 		exitf("append_objects: non-unit vector\n");

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aboulakr <aboulakr@student.42.fr>          +#+  +:+       +#+         #
+#    By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/18 10:41:01 by yel-yaqi          #+#    #+#              #
-#    Updated: 2024/10/23 22:13:07 by aboulakr         ###   ########.fr        #
+#    Updated: 2024/10/26 01:27:55 by yel-yaqi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -70,7 +70,7 @@ test_fcfiles/%.o: test_fcfiles/%.c
 	cc -c $<
 
 $(TESTS): $(TEST_OFILES) $(MLX_LIB) $(OFILES)
-	cc -D TEST $(DEPS) $(MLX_LIB) $^ -o $@
+	cc -fsanitize=address -D TEST $(DEPS) $(MLX_LIB) $^ -o $@
 
 parser_rt: $(MLX_LIB) $(OFILES)
 	cc $(DEPS) $(MLX_LIB) $^ -o $@

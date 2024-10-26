@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 15:00:02 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/09/25 16:20:38 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/26 01:05:03 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 double	vector_magnitude(t_tuple t)
 {
+	t.w = VECTOR;
 	return (sqrt(pow(t.x, 2) + pow(t.y, 2) + pow(t.z, 2) + pow(t.w, 2)));
 }
 
