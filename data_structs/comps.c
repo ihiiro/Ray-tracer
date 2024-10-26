@@ -6,13 +6,14 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 00:38:01 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/25 23:35:24 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/26 16:07:25 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "data_structs.h"
 #include "data_funcs.h"
 #include "../maths/maths.h"
+#include <math.h>
 
 t_comps 	prepare_computations(t_xs_list *intersection, t_ray ray)
 {
@@ -41,6 +42,14 @@ t_comps 	prepare_computations(t_xs_list *intersection, t_ray ray)
 	return (comps);
 }
 
+t_tuple	checker_board(t_tuple p)
+{
+	if (equal(fmod(floor(p.x) + floor(p.y) + floor(p.z), 2), 0))
+		return (color(0, 0, 0));
+	else
+		return (color(1, 1, 1));
+}
+
 t_tuple	shade_hit(t_world w, t_comps comps)
 {
 	t_lighting 	l;
@@ -59,6 +68,7 @@ t_tuple	shade_hit(t_world w, t_comps comps)
 	else if (comps.object.form == CYLINDER || comps.object.form == CONE)
 		l.m = ((t_cylinder *)comps.object.object)->material;
 	l.point = comps.over_point;
+	l.m.color = checker_board(l.point);
 	l.eyev = comps.eyev;
 	l.normalv = comps.normalv;
 	final_color = color(0, 0, 0);
