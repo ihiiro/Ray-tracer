@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   plane.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aboulakr <aboulakr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 21:36:48 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/23 21:45:54 by aboulakr         ###   ########.fr       */
+/*   Updated: 2024/10/27 18:29:47 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ t_tuple		normal_at_cylinder(t_cylinder cy, t_tuple point)
 
 	object_point = multiply_matrix_by_tuple(invert_matrix(cy.transform, 4), point);
 	object_normal = vector(object_point.x, 0, object_point.z);
+	// object_normal = preset_sinewave(object_normal);
 	world_normal = multiply_matrix_by_tuple(matrix_transpose(invert_matrix(cy.transform, 4), 4), object_normal);
 	world_normal.w = VECTOR;
 	return (normalize_vec(world_normal));

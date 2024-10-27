@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 11:25:19 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/25 20:05:29 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/27 18:43:13 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,3 +151,11 @@ t_tuple   normal_at_cylinder(t_cylinder cy, t_tuple world_point);
 double	maximum_y(t_tuple center, double	heigh);
 double	minimum_y(t_tuple center, double	heigh);
 
+
+/* misc */
+t_tuple	checker_board(t_tuple p);
+
+
+/* bump-mapping presets (procedural) */
+t_tuple	preset_sinewave_groove(t_tuple normal);
+t_tuple	preset_sinewave(t_tuple normal);

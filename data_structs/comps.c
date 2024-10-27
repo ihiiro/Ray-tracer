@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 00:38:01 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/26 16:07:25 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/27 18:23:59 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ t_comps 	prepare_computations(t_xs_list *intersection, t_ray ray)
 	comps.object.form = intersection->object.form;
 	comps.point = position(ray, comps.t);
 	comps.eyev  = negate_tuple(ray.direction);
-	
 	if (intersection->object.form == SPHERE)
 		comps.normalv = normal_at(*(t_sphere *)comps.object.object, comps.point);
 	else if (intersection->object.form == PLANE)
@@ -68,7 +67,7 @@ t_tuple	shade_hit(t_world w, t_comps comps)
 	else if (comps.object.form == CYLINDER || comps.object.form == CONE)
 		l.m = ((t_cylinder *)comps.object.object)->material;
 	l.point = comps.over_point;
-	l.m.color = checker_board(l.point);
+	// l.m.color = checker_board(l.point);// disable effect for now
 	l.eyev = comps.eyev;
 	l.normalv = comps.normalv;
 	final_color = color(0, 0, 0);
