@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 10:47:12 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/26 14:02:44 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/27 20:30:45 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@
 #include "../MLX/MLX42.h"
 #include <limits.h>
 
-#define WIDTH 300
-#define HEIGHT 300
+#define WIDTH 1100
+#define HEIGHT 1100
 
 #define GREEN "\033[0;32m"
 

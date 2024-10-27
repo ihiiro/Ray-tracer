@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 16:30:17 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/27 19:35:53 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/27 20:10:59 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ t_tuple preset_sinewave_groove(t_tuple normal)
     double	frequency;
     double	wave;
 
-	wave_amplitude = 1;
-	frequency = 10;
+	wave_amplitude = .4;
+	frequency = 40;
 	wave = sin((normal.x + normal.y + normal.z) * frequency) * wave_amplitude;
     normal.x -= wave;
     normal.y -= wave;

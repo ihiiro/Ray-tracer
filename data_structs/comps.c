@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 00:38:01 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/27 18:23:59 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/27 20:22:44 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,8 @@ t_tuple	shade_hit(t_world w, t_comps comps)
 	else if (comps.object.form == CYLINDER || comps.object.form == CONE)
 		l.m = ((t_cylinder *)comps.object.object)->material;
 	l.point = comps.over_point;
-	// l.m.color = checker_board(l.point);// disable effect for now
+	if (comps.object.form == PLANE)
+		l.m.color = checker_board(l.point);// disable effect for now
 	l.eyev = comps.eyev;
 	l.normalv = comps.normalv;
 	final_color = color(0, 0, 0);
