@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 10:26:12 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/28 18:46:23 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/28 19:50:40 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	init_parse(t_parser *parser_)
 	parser_->objects_list = NULL;
 }
 
-t_world	*parse(const char *file)
+t_world	*parse(char *file)
 {
 	t_parser	parser_;
 
@@ -83,8 +83,8 @@ t_world	*parse(const char *file)
 	{
 		get_values(parser_.line, &parser_.lights_list,
 			&parser_.objects_list, &parser_.world);
-		parser_.line = get_next_line(parser_.fd);
 		free((char *)parser_.line);
+		parser_.line = get_next_line(parser_.fd);
 	}
 	if (!parser_.lights_list || !parser_.objects_list)
 		exitf("world: no objects and/or no lights\n");

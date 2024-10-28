@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 14:01:35 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/28 18:58:27 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/28 19:23:13 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,13 +72,21 @@ void	start_rt_engine(char *fn)
 	while (scene->objects_list)
 	{
 		tmp_objects = scene->objects_list->next;
+		free(scene->objects_list->object);
 		free(scene->objects_list);
 		scene->objects_list = tmp_objects;
 	}
 }
 
+void	f()
+{
+	system("leaks miniRT");
+}
+
 int	main(int argc, char **argv)
 {
+	atexit(f);
+
 	size_t	l;
 
 	l = strlen_(argv[1]);
