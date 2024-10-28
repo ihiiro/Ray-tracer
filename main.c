@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 14:01:35 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/28 17:14:49 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/28 18:58:27 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ void	start_rt_engine(char *fn)
 	mlx_image_t	*img;
 	t_canvas	image;
 	int			i;
+	t_light_	*tmp_lights;
+	t_object_	*tmp_objects;
 
 	scene = parse(fn);
 	camera(300, 300, &scene->camera);
@@ -53,6 +55,26 @@ void	start_rt_engine(char *fn)
 	while (++i < image.height)
 		free(image.pixels[i]);
 	free(image.pixels);
+
+	// free world
+	// camera transform
+	free(scene->camera.transform);
+
+	// lights list
+	while (scene->lights_list)
+	{
+		tmp_lights = scene->lights_list->next;
+		free(scene->lights_list);
+		scene->lights_list = tmp_lights;
+	}
+
+	// objects list
+	while (scene->objects_list)
+	{
+		tmp_objects = scene->objects_list->next;
+		free(scene->objects_list);
+		scene->objects_list = tmp_objects;
+	}
 }
 
 int	main(int argc, char **argv)

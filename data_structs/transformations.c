@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 18:45:46 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/09/21 21:36:15 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/28 18:33:27 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 #include "../maths/maths.h"
 #include <stdlib.h>
 #include <math.h>
-
 
 t_matrix	*identity()
 {

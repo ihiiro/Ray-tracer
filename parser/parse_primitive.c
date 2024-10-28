@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 11:50:07 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/28 14:29:34 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/28 18:43:43 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,8 @@ void	parse_cylinder(const char *line, t_object_ **objects_list)
 	t_tuple	    direction;
 	t_matrix	*rotation_matrix;
 	int			shape;
+	t_matrix	*translation_mt;
+	t_matrix	*scaling_mt;
 
 	if (line[1] == 'o')
 		shape = CONE;
@@ -147,9 +149,13 @@ void	parse_cylinder(const char *line, t_object_ **objects_list)
 		exitf("cy: height or radius <= 0\n");
 	direction = cy->vec;
    	rotation_matrix = align_vector_to_axis(direction, vector(0, 1, 0));
-	cy->transform = matrix_multiply(translation(cy->center.x,
-				cy->center.y, cy->center.z), matrix_multiply(rotation_matrix,
-			scaling(cy->radius, 1, cy->radius), 4), 4);
+	translation_mt = translation(cy->center.x, cy->center.y, cy->center.z);
+	scaling_mt = scaling(cy->radius, 1, cy->radius);
+	cy->transform = matrix_multiply(translation_mt, matrix_multiply(rotation_matrix,
+			scaling_mt, 4), 4);
+	free(translation_mt);
+	free(rotation_matrix);
+	free(scaling_mt);
 	cy->center = point(0, 0, 0);
 	parse_colors(&cy->material.color, line);
 	object->form = shape;

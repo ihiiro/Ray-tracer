@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 19:22:03 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/28 15:16:10 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/28 18:33:47 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ void	front_xs(t_xs_list **lst, t_xs_list *node0)
 {
 	if (!lst)
 		return ;
-
 	*lst = node0;
 }
 

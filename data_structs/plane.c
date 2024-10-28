@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 21:36:48 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/27 18:29:47 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/28 18:28:56 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "data_funcs.h"
 #include "../maths/maths.h"
 #include <math.h>
-#include <libc.h>
+#include <stdlib.h>
 
 t_xs	plane_intersect(t_plane *pl, t_ray ray)
 {
@@ -38,8 +38,6 @@ t_xs	plane_intersect(t_plane *pl, t_ray ray)
 		list.count = 0;
 	return (list);
 }
-
-#include <libc.h>
 
 t_xs	cylinder_intersect(t_cylinder *cy, t_ray ray)
 {
@@ -93,21 +91,25 @@ t_xs	cylinder_intersect(t_cylinder *cy, t_ray ray)
 	}
 	return (list);
 }
+
 t_tuple		normal_at_cylinder(t_cylinder cy, t_tuple point)
 {
 	t_tuple		object_point;
 	t_tuple		object_normal;
 	t_tuple		world_normal;
+	t_matrix	*inversion;
+	t_matrix	*inverse_transpose;
 
-	object_point = multiply_matrix_by_tuple(invert_matrix(cy.transform, 4), point);
+	inversion = invert_matrix(cy.transform, 4);
+	inverse_transpose = matrix_transpose(inversion, 4);
+	object_point = multiply_matrix_by_tuple(inversion, point);
+	free(inversion);
 	object_normal = vector(object_point.x, 0, object_point.z);
-	// object_normal = preset_sinewave(object_normal);
-	world_normal = multiply_matrix_by_tuple(matrix_transpose(invert_matrix(cy.transform, 4), 4), object_normal);
+	world_normal = multiply_matrix_by_tuple(inverse_transpose, object_normal);
+	free(inverse_transpose);
 	world_normal.w = VECTOR;
 	return (normalize_vec(world_normal));
 }
-
-/*detrmine the maximum and minimum y for a cylinder*/
 
 double	maximum_y(t_tuple center, double	heigh)
 {

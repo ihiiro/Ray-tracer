@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 19:30:58 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/28 14:26:43 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/28 18:48:59 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void	parse_sphere(const char *line, t_object_ **objects_list)
 {
 	t_sphere	*sp;
 	t_object_	*object;
+	t_matrix	*translation_mt;
+	t_matrix	*scaling_mt;
 
 	alloc_and_parse_pos(&sp, &object, &line);
 	while (*line == ' ')
@@ -25,8 +27,11 @@ void	parse_sphere(const char *line, t_object_ **objects_list)
 	sp->radius = atodbl(line) / 2.0;
 	if (sp->radius <= 0)
 		exitf("sphere parse error\n");
-	sp->transform = matrix_multiply(translation(sp->center.x, sp->center.y,
-				sp->center.z), scaling(sp->radius, sp->radius, sp->radius), 4);
+	translation_mt = translation(sp->center.x, sp->center.y, sp->center.z);
+	scaling_mt = scaling(sp->radius, sp->radius, sp->radius);
+	sp->transform = matrix_multiply(translation_mt, scaling_mt, 4);
+	free(translation_mt);
+	free(scaling_mt);
 	sp->center = point(0, 0, 0);
 	sp->radius = 1;
 	reach_for(&line, ' ', 0);

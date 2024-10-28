@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 18:52:35 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/21 19:29:21 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/28 18:30:24 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ t_xs	sphere_intersect(t_sphere *s, t_ray r)
 	xs.object1 = s;
 	xs.t0 = (-b - sqrt(discriminant)) / (2 * a);
 	xs.t1 = (-b + sqrt(discriminant)) / (2 * a);
-	
 	return (xs);
 }
 
