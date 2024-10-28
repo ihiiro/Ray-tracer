@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 17:18:50 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/28 15:15:41 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/28 18:06:10 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ t_matrix	*submatrix(t_matrix *matrix, int row, int column, int size)
 
 double	matrix_3_by_3_minor(t_matrix *matrix, int row, int column)
 {
-	t_matrix *submatrix_2_by_2;
+	t_matrix	*submatrix_2_by_2;
 	double		determinant;
 
 	submatrix_2_by_2 = submatrix(matrix, row, column, 3);

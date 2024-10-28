@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 11:47:16 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/28 16:47:17 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/28 18:01:07 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,6 @@ double	matrix_cofactor(t_matrix *matrix, int row, int column, size_t size)
 		minor = matrix_4_by_4_minor(matrix, row, column);
 	return (minor * pow(-1, row + column));
 }
-
-#include <libc.h>
 
 double	matrix_determinant(t_matrix *m, size_t size)
 {
@@ -54,7 +52,7 @@ t_matrix	*invert_matrix(t_matrix *m0, size_t size)
 	(i = -1, determinant = matrix_determinant(m0, size));
 	if (equal(determinant, 0))
 		return (m0);
-	mt = malloc(sizeof(t_tuple) * size); // F
+	mt = malloc(sizeof(t_tuple) * size);
 	(!mt) && (exitf("malloc\n"), 0);
 	while(++i < size)
 	{

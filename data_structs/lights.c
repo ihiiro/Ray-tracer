@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 16:51:33 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/28 17:42:26 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/28 17:53:06 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,8 @@ bool	is_shadowed(t_world *w, t_light_ *light, t_tuple point)
 	t_ray	ray;
 	t_xs_list	*intersections;
 	t_xs_list	*h;
+	bool		shadowed;
+	t_xs_list	*tmp;
 
 	v = sub_tuples(light->pos, point);
 	distance = vector_magnitude(v);
@@ -88,7 +90,14 @@ bool	is_shadowed(t_world *w, t_light_ *light, t_tuple point)
 	intersections = intersect_world(w, ray);
 	h =  hit(intersections);
 	if (h != NULL && h->t < distance)
-		return (true);
+		shadowed = true;
 	else
-		return (false);
+		shadowed = false;
+	while (intersections)
+	{
+		tmp = intersections->next;
+		free(intersections);
+		intersections = tmp;
+	}
+	return (shadowed);
 }
