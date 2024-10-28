@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 11:20:46 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/24 13:28:06 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/28 15:35:31 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,7 +157,6 @@ typedef struct s_lighting_components
 //
 # define MULTI  0
 # define SINGLE 1
-
 
 /* PARSER */
 typedef struct s_light_

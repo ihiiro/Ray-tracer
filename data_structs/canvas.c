@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 14:29:47 by aboulakr          #+#    #+#             */
-/*   Updated: 2024/10/04 21:31:10 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/28 15:15:05 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,20 +33,19 @@ t_canvas	canvas(int width, int height)
     t_canvas	c;
     int			x;
 	int			y;
-	int			surface_area;
 
     c.width = width;
     c.height = height;
     c.pixels = malloc(sizeof(t_pixel *) * height);
     if (!c.pixels)
-        exit(EXIT_FAILURE);
+        exitf("malloc\n");
 	y = 0;
 	while (y < height)
 	
 	{
 		c.pixels[y] = malloc(sizeof(t_pixel) * width);
         if (!c.pixels[y])
-            exit(EXIT_FAILURE);
+			exitf("malloc\n");
 		y++;
 	}
 	y = 0;

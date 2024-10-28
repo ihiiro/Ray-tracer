@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 19:22:03 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/24 13:31:50 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/28 15:16:10 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ void	swap(t_xs_list *a, t_xs_list *b)
 
 void	sort_xs_list(t_xs_list *xs_list, int count)
 {
-	double		t;
 	int			c;
 	t_xs_list	*head;
 

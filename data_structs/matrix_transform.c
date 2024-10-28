@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 17:18:50 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/09/25 11:33:47 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/28 15:15:41 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,11 @@ double	determinant_2x2_matrix(t_matrix *matrix)
 t_matrix	*submatrix(t_matrix *matrix, int row, int column, int size)
 {
 	t_matrix	*m;
-	size_t		i;
+	int			i;
 	size_t		j;
 
 	m = malloc(sizeof(t_matrix) * (size -1));
-	(!m || size == 2) && (exit(EXIT_FAILURE), 0);
+	(!m || size == 2) && (exitf("malloc\n"), 0);
 	(i = -1, j = -1);
 	while(++i < size)
 	{

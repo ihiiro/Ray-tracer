@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 10:26:12 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/26 00:44:02 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/28 14:34:30 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,7 @@ void	parse_colors(t_tuple *primitive_rgb, const char *line)
 		exitf("color parse error\n");
 }
 
-void	alloc_and_parse_pos(t_sphere **sp, t_object_ **object,
-t_world **world, const char **line)
+void	alloc_and_parse_pos(t_sphere **sp, t_object_ **object, const char **line)
 {
 	*sp = malloc(sizeof(t_sphere));
 	*object = malloc(sizeof(t_object_));
@@ -52,13 +51,13 @@ t_object_ **objects_list, t_world **world)
 	else if (line[0] == 'L')
 		parse_lights(line, lights_list);
 	else if (line[0] == 's' && line[1] == 'p')
-		parse_sphere(line, world, objects_list);
+		parse_sphere(line, objects_list);
 	else if (line[0] == 'p' && line[1] == 'l')
-		parse_plane(line, world, objects_list);
+		parse_plane(line, objects_list);
 	else if (line[0] == 'c' && line[1] == 'y')
-		parse_cylinder(line, world, objects_list);
+		parse_cylinder(line, objects_list);
 	else if (line[0] == 'c' && line[1] == 'o')
-		parse_cylinder(line, world, objects_list);
+		parse_cylinder(line, objects_list);
 }
 
 void	init_parse(t_parser *parser_)
@@ -78,7 +77,7 @@ t_world	*parse(const char *file)
 	init_parse(&parser_);
 	parser_.fd = open(file, O_RDONLY);
 	if (parser_.fd < 0)
-		exit(EXIT_FAILURE);
+		exitf("file invalid\n");
 	parser_.line = get_next_line(parser_.fd);
 	while (parser_.line)
 	{

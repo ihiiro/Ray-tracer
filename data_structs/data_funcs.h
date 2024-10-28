@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 11:25:19 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/27 18:43:13 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/28 14:29:56 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,10 +104,10 @@ void	parse_ambient(const char *line, t_world **world);
 void	parse_camera(const char *line, t_world **world);
 void	parse_lights(const char *line, t_light_ **lights_list);
 void	clean_w(t_world *world);
-void	parse_sphere(const char *line, t_world **world, t_object_ **objects_list);
-void	parse_plane(const char *line, t_world **world, t_object_ **objects_list);
-void	parse_cylinder(const char *line, t_world **world, t_object_ **objects_list);
-void	alloc_and_parse_pos(t_sphere **sp, t_object_ **object, t_world **world, const char **line);
+void	parse_sphere(const char *line, t_object_ **objects_list);
+void	parse_plane(const char *line, t_object_ **objects_list);
+void	parse_cylinder(const char *line, t_object_ **objects_list);
+void	alloc_and_parse_pos(t_sphere **sp, t_object_ **object, const char **line);
 bool	valid_color(t_tuple color);
 void	exitf(const char *msg);
 void	append_objects(t_object_ **lst, t_object_ *new);
@@ -158,4 +158,3 @@ t_tuple	checker_board(t_tuple p);
 
 /* bump-mapping presets (procedural) */
 t_tuple	preset_sinewave_groove(t_tuple normal);
-t_tuple	preset_sinewave(t_tuple normal);

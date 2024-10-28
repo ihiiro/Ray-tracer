@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   objects.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aboulakr <aboulakr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 20:01:21 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/23 15:47:08 by aboulakr         ###   ########.fr       */
+/*   Updated: 2024/10/28 15:15:52 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	set_transform(t_sphere *s, t_matrix *m)
 
 t_sphere	sphere(int id)
 {
+	(void)id;
 	t_sphere	s;
 	s.center = point(0, 0, 0);
 	s.radius = 1;

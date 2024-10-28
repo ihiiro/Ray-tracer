@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 11:50:07 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/26 01:43:00 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/28 14:29:34 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ t_matrix    *align_vector_to_axis(t_tuple vec, t_tuple target_axis)
     return rotation_axis_angle(axis, angle);
 }
 
-void	init_parse_plane(t_plane **pl, t_object_ **object, t_world *world)
+void	init_parse_plane(t_plane **pl, t_object_ **object)
 {
 	*pl = malloc(sizeof(t_plane));
 	*object = malloc(sizeof(t_object_));
@@ -73,13 +73,12 @@ void	parse_pip(t_plane *pl, const char **line)
 	pl->pip.z = atodbl(*line);
 }
 
-void	parse_plane(const char *line, t_world **world,
-t_object_ **objects_list)
+void	parse_plane(const char *line, t_object_ **objects_list)
 {
 	t_plane		*pl;
 	t_object_	*object;
 
-	init_parse_plane(&pl, &object, *world);
+	init_parse_plane(&pl, &object);
 	validate_line((char *)line);
 	reach_for(&line, ' ', 0);
 	parse_pip(pl, &line);
@@ -100,7 +99,7 @@ t_object_ **objects_list)
 	append_objects(objects_list, object);
 }
 
-void	parse_cylinder_center_and_vector(t_cylinder **cy, t_world **world,
+void	parse_cylinder_center_and_vector(t_cylinder **cy,
 const char **line, t_object_ **object)
 {
 	*cy = malloc(sizeof(t_cylinder));
@@ -123,8 +122,7 @@ const char **line, t_object_ **object)
 	(*cy)->vec.w = VECTOR;
 }
 
-void	parse_cylinder(const char *line, t_world **world,
-t_object_ **objects_list)
+void	parse_cylinder(const char *line, t_object_ **objects_list)
 {
 	t_cylinder	*cy;
 	t_object_	*object;
@@ -136,7 +134,7 @@ t_object_ **objects_list)
 		shape = CONE;
 	else
 		shape = CYLINDER;
-	parse_cylinder_center_and_vector(&cy, world, &line, &object);
+	parse_cylinder_center_and_vector(&cy, &line, &object);
 	while (*line == ' ')
 		line++;
 	cy->radius = atodbl(line) / 2;

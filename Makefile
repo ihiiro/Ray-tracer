@@ -6,13 +6,17 @@
 #    By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/18 10:41:01 by yel-yaqi          #+#    #+#              #
-#    Updated: 2024/10/26 01:27:55 by yel-yaqi         ###   ########.fr        #
+#    Updated: 2024/10/28 15:38:09 by yel-yaqi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-# NAME = miniRT
+NAME = miniRT
 
-# CFLAGS = DONT FORGET
+CFLAGS = -Wall -Wextra -Werror
+
+FREQ = 0
+
+AMP = 0
 
 DEPS = -framework Cocoa -framework OpenGL -framework IOKit -Iinclude -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/"
 
@@ -56,26 +60,28 @@ CFILES = data_structs/points_vectors.c \
 		data_structs/world.c \
 		data_structs/comps.c \
 		data_structs/camera.c \
-		data_structs/plane.c
+		data_structs/plane.c \
+		main.c
 		
 
 OFILES = $(CFILES:.c=.o)
 
-
+maths/%.o: maths/%.c
+	cc $(CFLAGS)  -c $< -o $@
 
 data_structs/%.o: data_structs/%.c
-	cc -c $< -o $@
+	cc $(CFLAGS) -DAMP=$(AMP) -DFREQ=$(FREQ) -c $< -o $@
 
-test_fcfiles/%.o: test_fcfiles/%.c
-	cc -c $<
+$(NAME): $(OFILES) $(MLX_LIB) Makefile
+	cc  $(DEPS) $(MLX_LIB) $(OFILES) -o $@
 
 $(TESTS): $(TEST_OFILES) $(MLX_LIB) $(OFILES)
-	cc -fsanitize=address -D TEST $(DEPS) $(MLX_LIB) $^ -o $@
+	cc $(DEPS) $(MLX_LIB) $^ -o $@
 
 parser_rt: $(MLX_LIB) $(OFILES)
 	cc $(DEPS) $(MLX_LIB) $^ -o $@
 
-all: $(TESTS)
+all: $(NAME)
 
 clean:
 	rm -f $(TEST_OFILES)
@@ -84,5 +90,6 @@ clean:
 fclean: clean
 	rm -f $(TESTS)
 	rm -f parser_rt
+	rm -f $(NAME)
 
 re: fclean all

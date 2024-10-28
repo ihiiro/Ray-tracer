@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 00:38:01 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/27 20:22:44 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/28 15:16:21 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,16 +45,12 @@ t_tuple	checker_board(t_tuple p)
 {
 	if (equal(fmod(floor(p.x) + floor(p.y) + floor(p.z), 2), 0))
 		return (color(0, 0, 0));
-	else
-		return (color(1, 1, 1));
+	return (color(1, 1, 1));
 }
 
 t_tuple	shade_hit(t_world w, t_comps comps)
 {
 	t_lighting 	l;
-	t_sphere	*sp;
-	t_plane		*pl;
-	t_cylinder	*cy;
 	t_light_	*lights;
 	t_tuple		final_color;
 
@@ -68,7 +64,7 @@ t_tuple	shade_hit(t_world w, t_comps comps)
 		l.m = ((t_cylinder *)comps.object.object)->material;
 	l.point = comps.over_point;
 	if (comps.object.form == PLANE)
-		l.m.color = checker_board(l.point);// disable effect for now
+		l.m.color = checker_board(l.point);
 	l.eyev = comps.eyev;
 	l.normalv = comps.normalv;
 	final_color = color(0, 0, 0);

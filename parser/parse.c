@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 19:30:58 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/25 23:36:17 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/28 14:26:43 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,12 @@
 #include "../data_structs/data_funcs.h"
 #include <stdlib.h>
 
-void	parse_sphere(const char *line, t_world **world,
-t_object_ **objects_list)
+void	parse_sphere(const char *line, t_object_ **objects_list)
 {
 	t_sphere	*sp;
 	t_object_	*object;
 
-	alloc_and_parse_pos(&sp, &object, world, &line);
+	alloc_and_parse_pos(&sp, &object, &line);
 	while (*line == ' ')
 		line++;
 	sp->radius = atodbl(line) / 2.0;
