@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 19:06:28 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/26 15:47:41 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/28 17:17:08 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 #include "data_funcs.h"
 #include "../maths/maths.h"
 #include <math.h>
-
-#include <libc.h>
+#include <stdlib.h>
 
 t_matrix	*view_transform(t_tuple from, t_tuple to, t_tuple up)
 {
@@ -24,6 +23,8 @@ t_matrix	*view_transform(t_tuple from, t_tuple to, t_tuple up)
 	t_tuple		left;
 	t_tuple		true_up;
 	t_matrix	*orientation;
+	t_matrix	*orient_translate_product;
+	t_matrix	*translation_matrix;
 
 	if (to.w == POINT)
 		forward = normalize_vec(sub_tuples(to, from));
@@ -39,8 +40,9 @@ t_matrix	*view_transform(t_tuple from, t_tuple to, t_tuple up)
 	return_tuple(true_up.x, true_up.y, true_up.z, 0),
 	return_tuple(-forward.x, -forward.y, -forward.z, 0),
 	return_tuple(0, 0, 0, 1));
-	return (matrix_multiply(orientation, translation(-from.x, -from.y,
-	-from.z), 4));
+	translation_matrix = translation(-from.x, -from.y, -from.z);
+	orient_translate_product = matrix_multiply(orientation, translation_matrix, 4);
+	return (free(orientation), free(translation_matrix), orient_translate_product);
 }
 
 void	camera(double hsize, double vsize, t_camera_ *c)
@@ -50,7 +52,7 @@ void	camera(double hsize, double vsize, t_camera_ *c)
 
 	c->hsize = hsize;
 	c->vsize = vsize;
-	c->transform = identity();
+	c->transform = NULL;
 	if (equal(c->vec.y, 1) || equal(c->vec.y, -1))
 		half_view = tan(radians(c->fov * (NUDGE - .002) / 2.0));
 	else
@@ -72,16 +74,18 @@ void	camera(double hsize, double vsize, t_camera_ *c)
 t_ray	ray_for_pixel(t_camera_ *cam, double px, double py)
 {
 	t_camray	camray;
+	t_matrix	*inversion;
 
+	inversion = invert_matrix(cam->transform, 4);
 	camray.xoffset = cam->pixel_size * (px + .5);
 	camray.yoffset = cam->pixel_size * (py + .5);
 	camray.world_x = cam->half_width - camray.xoffset;
 	camray.world_y = cam->half_height - camray.yoffset;
-	camray.pixel = multiply_matrix_by_tuple(invert_matrix(cam->transform, 4),
+	camray.pixel = multiply_matrix_by_tuple(inversion,
 	point(camray.world_x, camray.world_y, -1));
-	camray.origin = multiply_matrix_by_tuple(invert_matrix(cam->transform, 4), point(0, 0, 0));
+	camray.origin = multiply_matrix_by_tuple(inversion, point(0, 0, 0));
 	camray.direction = normalize_vec(sub_tuples(camray.pixel, camray.origin));
-	return (return_ray(camray.origin, camray.direction));
+	return (free(inversion), return_ray(camray.origin, camray.direction));
 }
 
 void	render(t_canvas *canvas, t_camera_ *cam, t_world *world)

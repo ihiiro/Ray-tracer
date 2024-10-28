@@ -6,7 +6,7 @@
 #    By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/18 10:41:01 by yel-yaqi          #+#    #+#              #
-#    Updated: 2024/10/28 15:38:09 by yel-yaqi         ###   ########.fr        #
+#    Updated: 2024/10/28 17:42:40 by yel-yaqi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,12 @@ CFLAGS = -Wall -Wextra -Werror
 FREQ = 0
 
 AMP = 0
+
+CHECKER = 0
+
+DIFFUSE = .9
+
+SPECULAR = .9
 
 DEPS = -framework Cocoa -framework OpenGL -framework IOKit -Iinclude -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/"
 
@@ -70,7 +76,7 @@ maths/%.o: maths/%.c
 	cc $(CFLAGS)  -c $< -o $@
 
 data_structs/%.o: data_structs/%.c
-	cc $(CFLAGS) -DAMP=$(AMP) -DFREQ=$(FREQ) -c $< -o $@
+	cc $(CFLAGS) -DAMP=$(AMP) -DFREQ=$(FREQ) -DCHECKER=$(CHECKER) -DDIFFUSE=$(DIFFUSE) -DSPECULAR=$(SPECULAR) -c $< -o $@
 
 $(NAME): $(OFILES) $(MLX_LIB) Makefile
 	cc  $(DEPS) $(MLX_LIB) $(OFILES) -o $@

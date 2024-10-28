@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 00:38:01 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/28 15:16:21 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/28 17:37:25 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "data_funcs.h"
 #include "../maths/maths.h"
 #include <math.h>
+#include <stdlib.h>
 
 t_comps 	prepare_computations(t_xs_list *intersection, t_ray ray)
 {
@@ -63,7 +64,7 @@ t_tuple	shade_hit(t_world w, t_comps comps)
 	else if (comps.object.form == CYLINDER || comps.object.form == CONE)
 		l.m = ((t_cylinder *)comps.object.object)->material;
 	l.point = comps.over_point;
-	if (comps.object.form == PLANE)
+	if (comps.object.form == PLANE && CHECKER != 0)
 		l.m.color = checker_board(l.point);
 	l.eyev = comps.eyev;
 	l.normalv = comps.normalv;
@@ -87,6 +88,7 @@ t_tuple	color_at(t_world *w, t_ray r)
 	t_xs_list	*xs_hit;
 	t_comps		comps;
 	t_tuple		final_color;
+	t_xs_list	*tmp;
 
 	final_color = color(0, 0, 0);
 	xs_list = intersect_world(w, r);
@@ -96,5 +98,11 @@ t_tuple	color_at(t_world *w, t_ray r)
 	if (!xs_hit)
 		return (color(0, 0, 0));
 	comps = prepare_computations(xs_hit, r);
+	while (xs_list)
+	{
+		tmp = xs_list->next;
+		free(xs_list);
+		xs_list = tmp;
+	}
 	return (shade_hit(*w, comps));
 }

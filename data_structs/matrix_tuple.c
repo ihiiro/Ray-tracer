@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 16:54:46 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/04 18:08:33 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/28 17:00:44 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,6 @@ t_tuple multiply_matrix_by_tuple(t_matrix *m, t_tuple t)
 	result_tuple.y = vec_dot(m[1], t);
 	result_tuple.z = vec_dot(m[2], t);
 	result_tuple.w = vec_dot(m[3], t);
-
+	// free(m);
 	return (result_tuple);
 }

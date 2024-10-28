@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 16:30:17 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/28 15:01:59 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/28 16:59:27 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,17 @@ t_tuple preset_sinewave_groove(t_tuple normal)
 
 t_tuple	normal_at(t_sphere s, t_tuple world_point)
 {
-	t_tuple	object_point;
-	t_tuple	object_normal;
-	t_tuple	world_normal;
+	t_tuple		object_point;
+	t_tuple		object_normal;
+	t_tuple		world_normal;
+	t_matrix	*inversion;
 
-	object_point = multiply_matrix_by_tuple(invert_matrix(s.transform, 4), world_point);
+	inversion = invert_matrix(s.transform, 4);
+	object_point = multiply_matrix_by_tuple(inversion, world_point);
 	object_normal = vector(object_point.x, object_point.y, object_point.z);
 	object_normal = preset_sinewave_groove(object_normal); // sine wave preset
-	world_normal = multiply_matrix_by_tuple(matrix_transpose(invert_matrix(s.transform, 4), 4), object_normal);
+	world_normal = multiply_matrix_by_tuple(matrix_transpose(inversion, 4), object_normal);
 	world_normal.w = VECTOR;
+	free(inversion);
 	return (normalize_vec(world_normal));
 }

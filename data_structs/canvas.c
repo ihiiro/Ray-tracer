@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 14:29:47 by aboulakr          #+#    #+#             */
-/*   Updated: 2024/10/28 15:15:05 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/28 17:19:49 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 #include "../MLX/MLX42.h"
 #include <stdlib.h>
 #include <stdio.h>
-
 
 int32_t ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a)
 {
@@ -41,7 +40,6 @@ t_canvas	canvas(int width, int height)
         exitf("malloc\n");
 	y = 0;
 	while (y < height)
-	
 	{
 		c.pixels[y] = malloc(sizeof(t_pixel) * width);
         if (!c.pixels[y])

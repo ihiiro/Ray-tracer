@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 16:51:33 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/26 15:41:42 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/28 17:42:26 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ t_material	material(void)
 
 	m.color = color(1, 1, 1);
 	m.ambient = 0.1;
-	m.diffuse = 0.9;
-	m.specular = 0.9;
+	m.diffuse = DIFFUSE;
+	m.specular = SPECULAR;
 	m.shininess = 200.0;
 	return (m);
 }

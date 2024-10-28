@@ -6,13 +6,15 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 14:01:35 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/28 14:57:14 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/28 17:14:49 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "data_structs/data_funcs.h"
 #include "data_structs/data_structs.h"
 #include <stdlib.h>
+
+#include <libc.h>
 
 size_t	strlen_(const char *str)
 {
@@ -32,6 +34,7 @@ void	start_rt_engine(char *fn)
 	mlx_t		*mlx;
 	mlx_image_t	*img;
 	t_canvas	image;
+	int			i;
 
 	scene = parse(fn);
 	camera(300, 300, &scene->camera);
@@ -44,6 +47,12 @@ void	start_rt_engine(char *fn)
 	create_canvas(&image, img, mlx);
 	mlx_image_to_window(mlx, img, 0, 0);
 	mlx_loop(mlx);
+
+	// free canvas
+	i = -1;
+	while (++i < image.height)
+		free(image.pixels[i]);
+	free(image.pixels);
 }
 
 int	main(int argc, char **argv)
