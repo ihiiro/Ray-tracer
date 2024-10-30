@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 12:35:58 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/20 11:29:18 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/30 12:26:40 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,5 @@ double	vec_dot(t_tuple a, t_tuple b);
 t_tuple	vec_cross(t_tuple a, t_tuple b);
 
 /* CONSTANTS */
-# define EPSILON .00001
+# define EPSILON .0001
 # define NUDGE   .01

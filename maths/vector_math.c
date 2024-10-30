@@ -6,12 +6,15 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 15:00:02 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/26 01:05:03 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/30 12:26:04 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../data_structs/data_funcs.h"
 #include <math.h>
+
+
+#include <libc.h>
 
 double	vector_magnitude(t_tuple t)
 {

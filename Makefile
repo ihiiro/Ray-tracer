@@ -6,7 +6,7 @@
 #    By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/18 10:41:01 by yel-yaqi          #+#    #+#              #
-#    Updated: 2024/10/28 17:42:40 by yel-yaqi         ###   ########.fr        #
+#    Updated: 2024/10/30 10:35:31 by yel-yaqi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -73,16 +73,16 @@ CFILES = data_structs/points_vectors.c \
 OFILES = $(CFILES:.c=.o)
 
 maths/%.o: maths/%.c
-	cc $(CFLAGS)  -c $< -o $@
+	cc -g $(CFLAGS)  -c $< -o $@
 
 data_structs/%.o: data_structs/%.c
-	cc $(CFLAGS) -DAMP=$(AMP) -DFREQ=$(FREQ) -DCHECKER=$(CHECKER) -DDIFFUSE=$(DIFFUSE) -DSPECULAR=$(SPECULAR) -c $< -o $@
+	cc -g $(CFLAGS) -DAMP=$(AMP) -DFREQ=$(FREQ) -DCHECKER=$(CHECKER) -DDIFFUSE=$(DIFFUSE) -DSPECULAR=$(SPECULAR) -c $< -o $@
 
 $(NAME): $(OFILES) $(MLX_LIB) Makefile
-	cc  $(DEPS) $(MLX_LIB) $(OFILES) -o $@
+	cc $(DEPS) $(MLX_LIB) $(OFILES) -o $@
 
-$(TESTS): $(TEST_OFILES) $(MLX_LIB) $(OFILES)
-	cc $(DEPS) $(MLX_LIB) $^ -o $@
+# $(TESTS): $(TEST_OFILES) $(MLX_LIB) $(OFILES)
+# 	cc -g $(DEPS) $(MLX_LIB) $^ -o $@
 
 parser_rt: $(MLX_LIB) $(OFILES)
 	cc $(DEPS) $(MLX_LIB) $^ -o $@

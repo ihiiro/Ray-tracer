@@ -6,12 +6,13 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 19:30:58 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/28 18:48:59 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/30 12:36:33 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../data_structs/data_structs.h"
 #include "../data_structs/data_funcs.h"
+#include "../maths/maths.h"
 #include <stdlib.h>
 
 void	parse_sphere(const char *line, t_object_ **objects_list)
@@ -76,6 +77,8 @@ void	parse_light_pos(const char **line, t_light_ **light)
 	reach_for(line, ' ', 0);
 }
 
+#include <libc.h>
+
 void	parse_camera(const char *line, t_world **world)
 {
 	static int	c;
@@ -97,10 +100,10 @@ void	parse_camera(const char *line, t_world **world)
 	(*world)->camera.vec.y = atodbl(line);
 	reach_for(&line, ',', 1);
 	(*world)->camera.vec.z = atodbl(line);
+	(*world)->camera.vec = normalize_vec((*world)->camera.vec);
 	reach_for(&line, ' ', 0);
 	(*world)->camera.fov = atodbl(line);
-	if ((*world)->camera.fov < 0 || (*world)->camera.fov > 180
-		|| !normalized_vector((*world)->camera.vec))
+	if ((*world)->camera.fov < 0 || (*world)->camera.fov > 180)
 		exitf("camera parse error\n");
 }
 

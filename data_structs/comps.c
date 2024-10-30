@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 00:38:01 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/28 17:37:25 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/30 11:00:20 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,17 +92,19 @@ t_tuple	color_at(t_world *w, t_ray r)
 
 	final_color = color(0, 0, 0);
 	xs_list = intersect_world(w, r);
-	if (!xs_list)
-		return (color(0, 0, 0));
 	xs_hit = hit(xs_list);
-	if (!xs_hit)
-		return (color(0, 0, 0));
-	comps = prepare_computations(xs_hit, r);
+	if (xs_hit)
+	{
+		comps = prepare_computations(xs_hit, r);
+		final_color = shade_hit(*w, comps);
+	}
+	else
+		final_color = color(0, 0, 0);
 	while (xs_list)
 	{
 		tmp = xs_list->next;
 		free(xs_list);
 		xs_list = tmp;
 	}
-	return (shade_hit(*w, comps));
+	return (final_color);
 }

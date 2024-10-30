@@ -6,13 +6,15 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 19:36:54 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/25 23:30:20 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/30 12:37:29 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../data_structs/data_structs.h"
 #include "../data_structs/data_funcs.h"
 #include "../maths/maths.h"
+
+#include <libc.h>
 
 void	reach_for(const char **line, char end, int skip)
 {
@@ -31,10 +33,10 @@ bool	valid_color(t_tuple color)
 	return (true);
 }
 
-bool	normalized_vector(t_tuple v)
-{
-	return (equal(vector_magnitude(v), 1));
-}
+// bool	normalized_vector(t_tuple v)
+// {
+// 	return (equal(vector_magnitude(v), 1));
+// }
 
 void	clean_w(t_world *world)
 {

@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 18:52:35 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/28 18:30:24 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/30 10:55:02 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ t_xs_list	*hit(t_xs_list *xs_list)
 			return (xs_list);
 		xs_list = xs_list->next;
 	}
-	return (xs_list);
+	return (NULL);
 }
 
 

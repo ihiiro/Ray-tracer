@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 19:38:56 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/26 01:41:27 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/30 12:37:21 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,16 +52,16 @@ void	front_objects(t_object_ **lst, t_object_ *new)
 	*lst = new;
 }
 
-bool	validate_normalized_vectors(t_object_ *object)
-{
-	if (object->form == PLANE)
-		if (!normalized_vector(((t_plane *)object->object)->normal))
-			return (false);
-	if (object->form == CYLINDER || object->form == CONE)
-		if (!normalized_vector(((t_cylinder *)object->object)->vec))
-			return (false);
-	return (true);
-}
+// bool	validate_normalized_vectors(t_object_ *object)
+// {
+// 	if (object->form == PLANE)
+// 		if (!normalized_vector(((t_plane *)object->object)->normal))
+// 			return (false);
+// 	if (object->form == CYLINDER || object->form == CONE)
+// 		if (!normalized_vector(((t_cylinder *)object->object)->vec))
+// 			return (false);
+// 	return (true);
+// }
 
 void	append_objects(t_object_ **lst, t_object_ *new)
 {
@@ -84,6 +84,6 @@ void	append_objects(t_object_ **lst, t_object_ *new)
 			ptr = ptr->next;
 		}
 	}
-	if (!validate_normalized_vectors(new))
-		exitf("append_objects: non-unit vector\n");
+	// if (!validate_normalized_vectors(new))
+	// 	exitf("append_objects: non-unit vector\n");
 }

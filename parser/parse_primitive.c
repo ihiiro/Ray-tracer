@@ -6,7 +6,7 @@
 /*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 11:50:07 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/28 18:43:43 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/10/30 12:34:56 by yel-yaqi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ void	parse_plane(const char *line, t_object_ **objects_list)
 	reach_for(&line, ',', 1);
 	pl->normal.z = atodbl(line);
 	pl->normal.w = VECTOR;
+	pl->normal = normalize_vec(pl->normal);
 	reach_for(&line, ' ', 0);
 	pl->transform = translation(pl->pip.x, pl->pip.y, pl->pip.z);
 	pl->pip = point(0, 0, 0);
@@ -120,6 +121,7 @@ const char **line, t_object_ **object)
 	(*cy)->vec.z = atodbl(*line);
 	reach_for(line, ' ', 0);
 	(*cy)->vec.w = VECTOR;
+	(*cy)->vec = normalize_vec((*cy)->vec);
 }
 
 void	parse_cylinder(const char *line, t_object_ **objects_list)
@@ -131,6 +133,7 @@ void	parse_cylinder(const char *line, t_object_ **objects_list)
 	int			shape;
 	t_matrix	*translation_mt;
 	t_matrix	*scaling_mt;
+	t_matrix	*rotate_scale_product;
 
 	if (line[1] == 'o')
 		shape = CONE;
@@ -151,11 +154,12 @@ void	parse_cylinder(const char *line, t_object_ **objects_list)
    	rotation_matrix = align_vector_to_axis(direction, vector(0, 1, 0));
 	translation_mt = translation(cy->center.x, cy->center.y, cy->center.z);
 	scaling_mt = scaling(cy->radius, 1, cy->radius);
-	cy->transform = matrix_multiply(translation_mt, matrix_multiply(rotation_matrix,
-			scaling_mt, 4), 4);
+	rotate_scale_product = matrix_multiply(rotation_matrix, scaling_mt, 4);
+	cy->transform = matrix_multiply(translation_mt, rotate_scale_product, 4);
 	free(translation_mt);
 	free(rotation_matrix);
 	free(scaling_mt);
+	free(rotate_scale_product);
 	cy->center = point(0, 0, 0);
 	parse_colors(&cy->material.color, line);
 	object->form = shape;
