@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aboulakr <aboulakr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 19:30:58 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/30 12:36:33 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/11/15 18:20:45 by aboulakr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,6 @@ void	parse_light_pos(const char **line, t_light_ **light)
 	(*light)->pos.z = atodbl(*line);
 	reach_for(line, ' ', 0);
 }
-
-#include <libc.h>
 
 void	parse_camera(const char *line, t_world **world)
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   world.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aboulakr <aboulakr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 19:22:03 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/28 18:33:47 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/11/15 18:17:56 by aboulakr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,19 +30,11 @@ void	append_xs(t_xs_list **lst, t_xs xs)
 	t_xs_list	*node1;
 
 	node0 = malloc(sizeof(t_xs_list));
-	node0->object.object = xs.object0;
-	node0->object.form = xs.form;
-	node0->t = xs.t0;
-	node0->next = NULL;
-	if (!equal(xs.t0, xs.t1))
-	{
-		node1 = malloc(sizeof(t_xs_list));
-		node1->object.object = xs.object1;
-		node1->t = xs.t1;
-		node1->object.form = xs.form;
-		node1->next = NULL;
-		node0->next = node1;
-	}
+	(1) && (node0->object.object = xs.object0, node0->object.form
+		= xs.form, node0->t = xs.t0, node0->next = NULL);
+	(!equal(xs.t0, xs.t1)) && (node1 = malloc(sizeof(t_xs_list)),
+		node1->object.object = xs.object1, node1->t = xs.t1,
+		node1->object.form = xs.form, node1->next = NULL, node0->next = node1);
 	if (!*lst)
 	{
 		front_xs(lst, node0);
@@ -101,38 +93,24 @@ t_xs_list	*intersect_world(t_world *world, t_ray ray)
 	t_xs_list		*xs_list;
 	int				count;
 
-	iter = world->objects_list;
-	xs_list = NULL;
-	count = 0;
+	(1) && (iter = world->objects_list, xs_list = NULL, count = 0);
 	while (iter)
 	{
-		if (iter->form == SPHERE)
-		{
-			obj_xs = sphere_intersect(iter->object, ray);
-			obj_xs.form = SPHERE;
-		}
-		else if (iter->form == PLANE)
-		{
-			obj_xs = plane_intersect(iter->object, ray);
-			obj_xs.form = PLANE;
-		}
+		(iter->form == SPHERE) && (obj_xs = sphere_intersect(iter->object,
+				ray), obj_xs.form = SPHERE);
+		if (iter->form == PLANE)
+			(1) && (obj_xs = plane_intersect(iter->object, ray),
+			obj_xs.form = PLANE);
 		else if (iter->form == CYLINDER || iter->form == CONE)
-		{
-			obj_xs = cylinder_intersect(iter->object, ray);
-			obj_xs.form = iter->form;
-		}
+			(1) && (obj_xs = cylinder_intersect(iter->object, ray, iter->form),
+			obj_xs.form = iter->form);
 		if (obj_xs.count == 2 && obj_xs.t0 == obj_xs.t1)
-				count++;
+			count++;
 		else if (obj_xs.count == 2 && obj_xs.t0 != obj_xs.t1)
 			count += 2;
-		if (obj_xs.count == 2)
-			append_xs(&xs_list, obj_xs);
+		(obj_xs.count == 2) && (append_xs(&xs_list, obj_xs), 0);
 		iter = iter->next;
 	}
-	if (xs_list)
-	{
-		sort_xs_list(xs_list, count);
-		xs_list->count = count;
-	}
+	(xs_list) && (sort_xs_list(xs_list, count), xs_list->count = count);
 	return (xs_list);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aboulakr <aboulakr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 19:36:54 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/30 12:37:29 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/11/15 18:22:00 by aboulakr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,8 @@ void	clean_w(t_world *world)
 	t_light_	*iter;
 	t_object_	*objects;
 
-	world->ambient_color.w = VECTOR;
-	world->camera.pos.w = POINT;
-	world->camera.vec.w = VECTOR;
-	iter = world->lights_list;
+	(1) && (world->ambient_color.w = VECTOR, world->camera.pos.w
+	= POINT, world->camera.vec.w = VECTOR, iter = world->lights_list);
 	while (iter)
 	{
 		iter->color.w = VECTOR;
@@ -57,11 +55,14 @@ void	clean_w(t_world *world)
 	while (objects)
 	{
 		if (objects->form == CYLINDER)
-			((t_cylinder *)objects->object)->material.ambient = world->ambient_intensity;
+			((t_cylinder *)objects->object)->material.ambient
+				= world->ambient_intensity;
 		else if (objects->form == SPHERE)
-			((t_sphere *)objects->object)->material.ambient = world->ambient_intensity;
+			((t_sphere *)objects->object)->material.ambient
+				= world->ambient_intensity;
 		else if (objects->form == PLANE)
-			((t_plane *)objects->object)->material.ambient = world->ambient_intensity;
+			((t_plane *)objects->object)->material.ambient
+				= world->ambient_intensity;
 		objects = objects->next;
 	}
 }

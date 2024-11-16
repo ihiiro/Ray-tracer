@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_primitive.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aboulakr <aboulakr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 11:50:07 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/30 12:34:56 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/11/16 15:43:20 by aboulakr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,47 +15,6 @@
 #include "../maths/maths.h"
 #include <stdlib.h>
 #include <math.h>
-
-t_matrix *rotation_axis_angle(t_tuple axis, double angle) 
-{
-    double magnitude = vector_magnitude(axis);
-    t_tuple normalized_axis = return_tuple(axis.x / magnitude, axis.y / magnitude, axis.z / magnitude, axis.w);
-    double x = normalized_axis.x;
-    double y = normalized_axis.y;
-    double z = normalized_axis.z;
-    double cos_theta = cos(angle);
-    double sin_theta = sin(angle);
-    double one_minus_cos = 1 - cos_theta;
-    t_tuple row1 = return_tuple(
-        cos_theta + x * x * one_minus_cos,
-        x * y * one_minus_cos - z * sin_theta,
-        x * z * one_minus_cos + y * sin_theta,
-        0
-    );
-    t_tuple row2 = return_tuple(
-        y * x * one_minus_cos + z * sin_theta,
-        cos_theta + y * y * one_minus_cos,
-        y * z * one_minus_cos - x * sin_theta,
-        0
-    );
-    t_tuple row3 = return_tuple(
-        z * x * one_minus_cos - y * sin_theta,
-        z * y * one_minus_cos + x * sin_theta,
-        cos_theta + z * z * one_minus_cos,
-        0
-    );
-    t_tuple row4 = return_tuple(0, 0, 0, 1);
-    return return_4_by_4_matrix(row1, row2, row3, row4);
-}
-
-t_matrix    *align_vector_to_axis(t_tuple vec, t_tuple target_axis)
-{
-    t_tuple axis = vec_cross(target_axis, vec);
-    double angle = acos(vec_dot(target_axis, vec));
-    if (vector_magnitude(axis) == 0)
-        return identity();
-    return rotation_axis_angle(axis, angle);
-}
 
 void	init_parse_plane(t_plane **pl, t_object_ **object)
 {
@@ -128,42 +87,24 @@ void	parse_cylinder(const char *line, t_object_ **objects_list)
 {
 	t_cylinder	*cy;
 	t_object_	*object;
-	t_tuple	    direction;
+	t_tuple		direction;
 	t_matrix	*rotation_matrix;
 	int			shape;
-	t_matrix	*translation_mt;
-	t_matrix	*scaling_mt;
-	t_matrix	*rotate_scale_product;
 
-	if (line[1] == 'o')
-		shape = CONE;
-	else
-		shape = CYLINDER;
+	(line[1] == 'o') && (shape = CONE);
+	(line[1] != 'o') && (shape = CYLINDER);
 	parse_cylinder_center_and_vector(&cy, &line, &object);
 	while (*line == ' ')
 		line++;
-	cy->radius = atodbl(line) / 2;
-	reach_for(&line, ' ', 0);
+	(1) && (cy->radius = atodbl(line) / 2, reach_for(&line, ' ', 0), 0);
 	while (*line == ' ')
 		line++;
-	cy->height = atodbl(line);
-	reach_for(&line, ' ', 0);
-	if (cy->height <= 0 || cy->radius <= 0)
-		exitf("cy: height or radius <= 0\n");
-	direction = cy->vec;
-   	rotation_matrix = align_vector_to_axis(direction, vector(0, 1, 0));
-	translation_mt = translation(cy->center.x, cy->center.y, cy->center.z);
-	scaling_mt = scaling(cy->radius, 1, cy->radius);
-	rotate_scale_product = matrix_multiply(rotation_matrix, scaling_mt, 4);
-	cy->transform = matrix_multiply(translation_mt, rotate_scale_product, 4);
-	free(translation_mt);
-	free(rotation_matrix);
-	free(scaling_mt);
-	free(rotate_scale_product);
-	cy->center = point(0, 0, 0);
-	parse_colors(&cy->material.color, line);
-	object->form = shape;
-	object->object = cy;
-	object->next = NULL;
-	append_objects(objects_list, object);
+	(1) && (cy->height = atodbl(line), reach_for(&line, ' ', 0), 0);
+	(cy->height <= 0 || cy->radius <= 0) && (exitf("cy:H or R <= 0\n"), 0);
+	(1) && (direction = cy->vec, rotation_matrix = align_vector_to_axis(
+	direction, vector(0, 1, 0)), 0);
+	set_trans(shape, cy, rotation_matrix);
+	(1) && (cy->center = point(0, 0, 0), parse_colors(&cy->material.color,
+	line), object->form = shape, object->object = cy, object->next = NULL,
+	append_objects(objects_list, object), 0);
 }

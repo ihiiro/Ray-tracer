@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   transformations.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aboulakr <aboulakr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 18:45:46 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/28 18:33:27 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/11/15 16:17:18 by aboulakr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,48 +16,47 @@
 #include <stdlib.h>
 #include <math.h>
 
-t_matrix	*identity()
-{
-	return (translation(0, 0, 0));
-}
 t_matrix	*translation(double x, double y, double z)
 {
-	return (return_4_by_4_matrix(
-		return_tuple(1, 0, 0, x),
-		return_tuple(0, 1, 0, y),
-		return_tuple(0, 0, 1, z),
-		return_tuple(0, 0, 0, 1)));
+	return (get_4_by_4_matrix(
+			get_tuple(1, 0, 0, x),
+			get_tuple(0, 1, 0, y),
+			get_tuple(0, 0, 1, z),
+			get_tuple(0, 0, 0, 1)));
 }
+
 t_matrix	*scaling(double x, double y, double z)
 {
-	return (return_4_by_4_matrix(
-		return_tuple(x, 0, 0, 0),
-		return_tuple(0, y, 0, 0),
-		return_tuple(0, 0, z, 0),
-		return_tuple(0, 0, 0, 1)));
+	return (get_4_by_4_matrix(
+			get_tuple(x, 0, 0, 0),
+			get_tuple(0, y, 0, 0),
+			get_tuple(0, 0, z, 0),
+			get_tuple(0, 0, 0, 1)));
 }
+
 t_matrix	*rotation_x(double r)
 {
-	return (return_4_by_4_matrix(
-		return_tuple(1, 0, 0, 0),
-		return_tuple(0, cos(r), -sin(r), 0),
-		return_tuple(0, sin(r), cos(r), 0),
-		return_tuple(0, 0, 0, 1)));
+	return (get_4_by_4_matrix(
+			get_tuple(1, 0, 0, 0),
+			get_tuple(0, cos(r), -sin(r), 0),
+			get_tuple(0, sin(r), cos(r), 0),
+			get_tuple(0, 0, 0, 1)));
 }
 
 t_matrix	*rotation_y(double r)
 {
-	return (return_4_by_4_matrix(
-		return_tuple(cos(r), 0, sin(r), 0),
-		return_tuple(0, 1, 0, 0),
-		return_tuple(-sin(r), 0, cos(r), 0),
-		return_tuple(0, 0, 0, 1)));
+	return (get_4_by_4_matrix(
+			get_tuple(cos(r), 0, sin(r), 0),
+			get_tuple(0, 1, 0, 0),
+			get_tuple(-sin(r), 0, cos(r), 0),
+			get_tuple(0, 0, 0, 1)));
 }
+
 t_matrix	*rotation_z(double r)
 {
-	return (return_4_by_4_matrix(
-		return_tuple(cos(r), -sin(r), 0, 0),
-		return_tuple(sin(r), cos(r), 0, 0),
-		return_tuple(0, 0, 1, 0),
-		return_tuple(0, 0, 0, 1)));
+	return (get_4_by_4_matrix(
+			get_tuple(cos(r), -sin(r), 0, 0),
+			get_tuple(sin(r), cos(r), 0, 0),
+			get_tuple(0, 0, 1, 0),
+			get_tuple(0, 0, 0, 1)));
 }

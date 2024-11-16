@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_linked_lists.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aboulakr <aboulakr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 19:38:56 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/30 12:37:21 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/11/15 18:20:57 by aboulakr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,6 @@ void	append_objects(t_object_ **lst, t_object_ *new)
 			ptr = ptr->next;
 		}
 	}
+}
 	// if (!validate_normalized_vectors(new))
 	// 	exitf("append_objects: non-unit vector\n");
-}

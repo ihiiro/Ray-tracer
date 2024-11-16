@@ -3,17 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   vector_math.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aboulakr <aboulakr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 15:00:02 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/30 12:26:04 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/11/15 16:19:17 by aboulakr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../data_structs/data_funcs.h"
 #include <math.h>
-
-
 #include <libc.h>
 
 double	vector_magnitude(t_tuple t)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   camera.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aboulakr <aboulakr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 19:06:28 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/10/28 17:17:08 by yel-yaqi         ###   ########.fr       */
+/*   Updated: 2024/11/16 12:38:24 by aboulakr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,31 +18,31 @@
 
 t_matrix	*view_transform(t_tuple from, t_tuple to, t_tuple up)
 {
-	t_tuple		forward;
-	t_tuple		upn;
-	t_tuple		left;
+	t_cam		cam;
 	t_tuple		true_up;
 	t_matrix	*orientation;
 	t_matrix	*orient_translate_product;
 	t_matrix	*translation_matrix;
 
 	if (to.w == POINT)
-		forward = normalize_vec(sub_tuples(to, from));
+		cam.forward = normalize_vec(sub_tuples(to, from));
 	else
-		forward = to;
-	if (equal(forward.y, 1) || equal(forward.y, -1))
-		forward = normalize_vec(vector(0, forward.y, NUDGE));
-	upn = normalize_vec(up);
-	left = vec_cross(forward, upn);
-	true_up = vec_cross(left, forward);
-	orientation = return_4_by_4_matrix(
-	return_tuple(left.x, left.y, left.z, 0),
-	return_tuple(true_up.x, true_up.y, true_up.z, 0),
-	return_tuple(-forward.x, -forward.y, -forward.z, 0),
-	return_tuple(0, 0, 0, 1));
+		cam.forward = to;
+	if (equal(cam.forward.y, 1) || equal(cam.forward.y, -1))
+		cam.forward = normalize_vec(vector(0, cam.forward.y, NUDGE));
+	cam.upn = normalize_vec(up);
+	cam.left = vec_cross(cam.forward, cam.upn);
+	true_up = vec_cross(cam.left, cam.forward);
+	orientation = get_4_by_4_matrix(
+			get_tuple(cam.left.x, cam.left.y, cam.left.z, 0),
+			get_tuple(true_up.x, true_up.y, true_up.z, 0),
+			get_tuple(-cam.forward.x, -cam.forward.y, -cam.forward.z, 0),
+			get_tuple(0, 0, 0, 1));
 	translation_matrix = translation(-from.x, -from.y, -from.z);
-	orient_translate_product = matrix_multiply(orientation, translation_matrix, 4);
-	return (free(orientation), free(translation_matrix), orient_translate_product);
+	orient_translate_product = matrix_multiply(orientation,
+			translation_matrix, 4);
+	return (free(orientation), free(translation_matrix),
+		orient_translate_product);
 }
 
 void	camera(double hsize, double vsize, t_camera_ *c)
@@ -82,10 +82,10 @@ t_ray	ray_for_pixel(t_camera_ *cam, double px, double py)
 	camray.world_x = cam->half_width - camray.xoffset;
 	camray.world_y = cam->half_height - camray.yoffset;
 	camray.pixel = multiply_matrix_by_tuple(inversion,
-	point(camray.world_x, camray.world_y, -1));
+			point(camray.world_x, camray.world_y, -1));
 	camray.origin = multiply_matrix_by_tuple(inversion, point(0, 0, 0));
 	camray.direction = normalize_vec(sub_tuples(camray.pixel, camray.origin));
-	return (free(inversion), return_ray(camray.origin, camray.direction));
+	return (free(inversion), get_ray(camray.origin, camray.direction));
 }
 
 void	render(t_canvas *canvas, t_camera_ *cam, t_world *world)
@@ -102,7 +102,7 @@ void	render(t_canvas *canvas, t_camera_ *cam, t_world *world)
 		while (x < cam->hsize)
 		{
 			ray = ray_for_pixel(cam, x, y);
-			rgb = multiply_color_by_scalar(color_at(world, ray), 255);
+			rgb = col_x_sc(color_at(world, ray), 255);
 			write_pixel(canvas, x, y, rgb);
 			x++;
 		}

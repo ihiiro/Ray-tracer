@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yel-yaqi <yel-yaqi@student.42.fr>          +#+  +:+       +#+         #
+#    By: aboulakr <aboulakr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/18 10:41:01 by yel-yaqi          #+#    #+#              #
-#    Updated: 2024/10/30 10:35:31 by yel-yaqi         ###   ########.fr        #
+#    Updated: 2024/11/12 19:10:55 by aboulakr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -67,6 +67,7 @@ CFILES = data_structs/points_vectors.c \
 		data_structs/comps.c \
 		data_structs/camera.c \
 		data_structs/plane.c \
+		data_structs/cylinder_cone.c \
 		main.c
 		
 
