@@ -6,7 +6,7 @@
 /*   By: aboulakr <aboulakr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 16:30:17 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/11/16 15:43:26 by aboulakr         ###   ########.fr       */
+/*   Updated: 2024/11/18 21:00:53 by aboulakr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,24 @@ t_tuple	normal_at(t_sphere s, t_tuple world_point)
 
 void	set_trans(int shape, t_cylinder *cy, t_matrix *rotation_matrix)
 {
-	(shape == CONE) && (cy->transform = matrix_multiply(translation(
-	cy->center.x, cy->center.y, cy->center.z), matrix_multiply(
-	rotation_matrix, scaling(2 * cy->radius / cy->height, 1, 2
-	* cy->radius / cy->height), 4), 4));
-	(shape == CYLINDER) && (cy->transform = matrix_multiply(translation(
-	cy->center.x, cy->center.y, cy->center.z), matrix_multiply(rotation_matrix,
-	scaling(cy->radius, 1, cy->radius), 4), 4), free(rotation_matrix), 0);
+	t_matrix	*scale;
+	t_matrix	*translate;
+	t_matrix	*rot_scale;
+
+	translate = translation(cy->center.x, cy->center.y, cy->center.z);
+	scale = scaling(2 * cy->radius / cy->height, 1,
+			2 * cy->radius / cy->height);
+	rot_scale = matrix_multiply(rotation_matrix, scale, 4);
+	(shape == CONE) && (cy->transform = matrix_multiply(translate,
+	rot_scale, 4));
+	free(scale);
+	free(rot_scale);
+	scale = scaling(cy->radius, 1, cy->radius);
+	rot_scale = matrix_multiply(rotation_matrix, scale, 4);
+	(shape == CYLINDER) && (cy->transform = matrix_multiply(translate,
+	rot_scale, 4), 0);
+	free(scale);
+	free(rot_scale);
+	free(translate);
+	free(rotation_matrix);
 }

@@ -6,7 +6,7 @@
 /*   By: aboulakr <aboulakr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 19:07:37 by aboulakr          #+#    #+#             */
-/*   Updated: 2024/11/15 14:37:03 by aboulakr         ###   ########.fr       */
+/*   Updated: 2024/11/18 19:36:17 by aboulakr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,12 +102,18 @@ t_tuple	normal_at_cylinder(t_cylinder cy, t_tuple point)
 	t_tuple		object_point;
 	t_tuple		object_normal;
 	t_tuple		world_normal;
+	t_matrix	*tmp;
+	t_matrix	*tmp1;
 
-	object_point = multiply_matrix_by_tuple(invert_matrix(cy.transform, 4),
-			point);
+	tmp = invert_matrix(cy.transform, 4);
+	object_point = multiply_matrix_by_tuple(tmp, point);
+	free(tmp);
 	object_normal = vector(object_point.x, 0, object_point.z);
-	world_normal = multiply_matrix_by_tuple(matrix_transpose(invert_matrix(
-					cy.transform, 4), 4), object_normal);
+	tmp1 = invert_matrix(cy.transform, 4);
+	tmp = matrix_transpose(tmp1, 4);
+	world_normal = multiply_matrix_by_tuple(tmp, object_normal);
+	free(tmp);
+	free(tmp1);
 	world_normal.w = VECTOR;
 	return (normalize_vec(world_normal));
 }
