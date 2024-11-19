@@ -6,7 +6,7 @@
 /*   By: aboulakr <aboulakr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 11:25:19 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/11/16 15:42:44 by aboulakr         ###   ########.fr       */
+/*   Updated: 2024/11/19 11:11:56 by aboulakr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 #include "data_structs.h"
 #include <stdbool.h>
-#include "../MLX/MLX42.h"
+#include "/Users/aboulakr/Desktop/MLX42.h"
 #include <libc.h>
 
 /* CANVAS */

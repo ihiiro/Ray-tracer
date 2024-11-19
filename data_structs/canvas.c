@@ -6,13 +6,13 @@
 /*   By: aboulakr <aboulakr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 14:29:47 by aboulakr          #+#    #+#             */
-/*   Updated: 2024/11/15 14:35:12 by aboulakr         ###   ########.fr       */
+/*   Updated: 2024/11/19 11:11:37 by aboulakr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "data_structs.h"
 #include "data_funcs.h"
-#include "../MLX/MLX42.h"
+#include "/Users/aboulakr/Desktop/MLX42.h"
 #include <stdlib.h>
 #include <stdio.h>
 

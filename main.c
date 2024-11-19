@@ -6,7 +6,7 @@
 /*   By: aboulakr <aboulakr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 14:01:35 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/11/18 22:24:25 by aboulakr         ###   ########.fr       */
+/*   Updated: 2024/11/19 11:13:51 by aboulakr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,11 @@ void	start_rt_engine(char *fn)
 	t_light_	*tmp_lights;
 	t_object_	*tmp_objects;
 
-	(1) && (mlx.i = -1, scene = parse(fn), camera(300, 300,
+	(1) && (mlx.i = -1, scene = parse(fn), camera(600, 600,
 	&scene->camera), scene->camera.transform = view_transform(scene->camera.pos,
 	scene->camera.vec, vector(0, 1, 0)));
-	(1) && (mlx.mlx = mlx_init(300, 300, "scene", false), mlx.img =
-	mlx_new_image(mlx.mlx, 300, 300), image = canvas(scene->camera.hsize,
+	(1) && (mlx.mlx = mlx_init(600, 600, "scene", false), mlx.img =
+	mlx_new_image(mlx.mlx, 600, 600), image = canvas(scene->camera.hsize,
 	scene->camera.vsize), render(&image, &scene->camera, scene),
 	create_canvas(&image, mlx.img, mlx.mlx), mlx_image_to_window(mlx.mlx, mlx.
 	img, 0, 0), mlx_key_hook(mlx.mlx, exit_hook, &mlx), mlx_close_hook(mlx.mlx,

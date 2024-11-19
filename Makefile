@@ -6,7 +6,7 @@
 #    By: aboulakr <aboulakr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/18 10:41:01 by yel-yaqi          #+#    #+#              #
-#    Updated: 2024/11/12 19:10:55 by aboulakr         ###   ########.fr        #
+#    Updated: 2024/11/19 11:11:22 by aboulakr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ SPECULAR = .9
 
 DEPS = -framework Cocoa -framework OpenGL -framework IOKit -Iinclude -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/"
 
-MLX_HEADER = MLX/MLX42.h
+MLX_HEADER = /Users/aboulakr/Desktop/MLX42.h
 
 MLX_LIB = MLX/libmlx42.a
 

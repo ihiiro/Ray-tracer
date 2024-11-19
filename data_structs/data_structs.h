@@ -6,14 +6,14 @@
 /*   By: aboulakr <aboulakr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 11:20:46 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/11/16 15:00:32 by aboulakr         ###   ########.fr       */
+/*   Updated: 2024/11/19 11:12:03 by aboulakr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 #include <stdbool.h>
 #include <stddef.h>
-#include "../MLX/MLX42.h"
+#include "/Users/aboulakr/Desktop/MLX42.h"
 
 typedef struct s_disc
 {
