@@ -6,7 +6,7 @@
 #    By: aboulakr <aboulakr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/18 10:41:01 by yel-yaqi          #+#    #+#              #
-#    Updated: 2024/11/19 11:11:22 by aboulakr         ###   ########.fr        #
+#    Updated: 2024/11/19 12:59:19 by aboulakr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -80,7 +80,7 @@ data_structs/%.o: data_structs/%.c
 	cc -g $(CFLAGS) -DAMP=$(AMP) -DFREQ=$(FREQ) -DCHECKER=$(CHECKER) -DDIFFUSE=$(DIFFUSE) -DSPECULAR=$(SPECULAR) -c $< -o $@
 
 $(NAME): $(OFILES) $(MLX_LIB) Makefile
-	cc $(DEPS) $(MLX_LIB) $(OFILES) -o $@
+	cc $(DEPS) $(MLX_LIB) -fsanitize=address $(OFILES) -o $@
 
 # $(TESTS): $(TEST_OFILES) $(MLX_LIB) $(OFILES)
 # 	cc -g $(DEPS) $(MLX_LIB) $^ -o $@

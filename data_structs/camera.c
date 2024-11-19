@@ -6,7 +6,7 @@
 /*   By: aboulakr <aboulakr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 19:06:28 by yel-yaqi          #+#    #+#             */
-/*   Updated: 2024/11/16 12:38:24 by aboulakr         ###   ########.fr       */
+/*   Updated: 2024/11/19 13:47:36 by aboulakr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,9 @@ t_ray	ray_for_pixel(t_camera_ *cam, double px, double py)
 			point(camray.world_x, camray.world_y, -1));
 	camray.origin = multiply_matrix_by_tuple(inversion, point(0, 0, 0));
 	camray.direction = normalize_vec(sub_tuples(camray.pixel, camray.origin));
-	return (free(inversion), get_ray(camray.origin, camray.direction));
+	if (inversion != cam->transform)
+		free(inversion);
+	return (get_ray(camray.origin, camray.direction));
 }
 
 void	render(t_canvas *canvas, t_camera_ *cam, t_world *world)
